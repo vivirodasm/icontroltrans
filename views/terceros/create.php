@@ -16,10 +16,15 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?= $this->render('_form', [
-        'model' => $model,
-		'empresa'=> $empresa,
-		'naturalezTercero' => $naturalezTercero,
-		'paises' => $paises,
+		'model' 			=> $model,
+		'empresa'			=> $empresa,
+		'naturalezTercero' 	=> $naturalezTercero,
+		'paises'			=> $paises,
+		'sociedades'		=> $sociedades,
+		'identidades' 		=> $identidades,
+		'estado'			=> $estado,
+		'tipoTercero'		=> $tipoTercero,
+		'cedulaUsuario'		=> $cedulaUsuario,
     ]) ?>
 
 </div>

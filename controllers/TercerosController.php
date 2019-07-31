@@ -12,6 +12,9 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 
 use app\models\Tbpaises;
+use app\models\Tbsociedades;
+use app\models\Tbidentidades;
+use app\models\Tbpoblaciones;
 
 /**
  * TercerosController implements the CRUD actions for Terceros model.
@@ -82,13 +85,30 @@ class TercerosController extends Controller
 		$paises = Tbpaises::find()->all();
 		$paises = ArrayHelper::map( $paises, 'idpaises', 'nombrePais' );
 		
+		$sociedades = Tbsociedades::find()->all();
+		$sociedades = ArrayHelper::map( $sociedades, 'idSociedad', 'nombreSociedad' );
+		
+		$identidades = Tbidentidades::find()->all();
+		$identidades = ArrayHelper::map( $identidades, 'idIdentidad', 'nombreIdentidad' );
+		
 		$naturalezTercero = ["N" => "PERSONA NATURAL", "J"=>"PERSONA JURIDICA"];
 		
+		$estado = ["ACTIVO" => "ACTIVO", "INACTIVO"=>"INACTIVO"];
+		
+		$cedulaUsuario = 1053779647;
+		$tipoTercero = ["CLIENTE"=>"CLIENTE","CONDUCTOR"=>"CONDUCTOR","PROPIETARIO"=>"PROPIETARIO","EMPLEADO"=>"EMPLEADO","PROVEEDOR"=>"PROVEEDOR","PRESTADOR SERVICIO"=>"PRESTADOR SERVICIO"];
+		
+		
         return $this->render('create', [
-            'model' => $model,
-			'empresa'=> $empresa,
-			'naturalezTercero' => $naturalezTercero,
-			'paises' => $paises,
+            'model' 			=> $model,
+			'empresa'			=> $empresa,
+			'naturalezTercero' 	=> $naturalezTercero,
+			'paises'			=> $paises,
+			'sociedades'		=> $sociedades,
+			'identidades' 		=> $identidades,
+			'estado'			=> $estado,
+			'tipoTercero'		=> $tipoTercero,
+			'cedulaUsuario'		=> $cedulaUsuario,
         ]);
     }
 
@@ -111,6 +131,26 @@ class TercerosController extends Controller
             'model' => $model,
         ]);
     }
+	
+	
+	public function actionCiudades($idPais)
+	{
+		
+		if (is_numeric($idPais))
+		{
+			$datosCiudades = Tbpoblaciones::find()->all();
+			$datosCiudades = ArrayHelper::toArray($datosCiudades);
+			
+			foreach ($datosCiudades as $ciudad)
+			{
+				$ciudades[$ciudad['idCenPob']] =  $ciudad['CentroPoblado'] . "-" . $ciudad['Municipio'] . "-" . $ciudad['Departamento'];
+			}
+			
+			return json_encode($ciudades);
+		}
+	
+		
+	}
 
     /**
      * Deletes an existing Terceros model.
