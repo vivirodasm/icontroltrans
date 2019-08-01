@@ -11,7 +11,7 @@ use nex\chosen\Chosen;
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/terceros.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
-<div class="terceros-form">
+<div class="terceros-form border border-primary rounded-lg">
 
     <?php $form = ActiveForm::begin(); ?>
 
