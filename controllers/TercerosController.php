@@ -99,7 +99,7 @@ class TercerosController extends Controller
 		$tipoTercero = ["CLIENTE"=>"CLIENTE","CONDUCTOR"=>"CONDUCTOR","PROPIETARIO"=>"PROPIETARIO","EMPLEADO"=>"EMPLEADO","PROVEEDOR"=>"PROVEEDOR","PRESTADOR SERVICIO"=>"PRESTADOR SERVICIO"];
 		
 		
-        return $this->render('create', [
+        return $this->renderAjax('create', [
             'model' 			=> $model,
 			'empresa'			=> $empresa,
 			'naturalezTercero' 	=> $naturalezTercero,

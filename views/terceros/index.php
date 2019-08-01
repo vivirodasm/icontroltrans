@@ -2,7 +2,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-
+use app\models\Terceros;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TercerosBuscar */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	<!-- Tab panes -->
 	<div class="tab-content">
 	  <div class="tab-pane container active" id="tercero">
-			<?= Yii::$app->view->renderFile('@app/views/terceros/create.php'); ?>
+			<?= $this->context->actionCreate();   ?>
 	  </div>
 	  <div class="tab-pane container fade" id="sucursal">...</div>
 	</div>
