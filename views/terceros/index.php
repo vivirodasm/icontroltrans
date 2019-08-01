@@ -12,56 +12,24 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="terceros-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
 
-    <p>
-        <?= Html::a('Create Terceros', ['create'], ['class' => 'btn btn-success']) ?>
-    </p>
+		<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+	  <li class="nav-item">
+		<a class="nav-link active" data-toggle="tab" href="#tercero">Información del tercero</a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" data-toggle="tab" href="#sucursal">Sucursales</a>
+	  </li>
+	</ul>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
-
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
-
-            'idtercero',
-            'dv_tercero',
-            'IdEmpresa',
-            'idIdentidad',
-            'idSociedad',
-            //'naturalez_tercero',
-            //'nombre1_tercero',
-            //'nombre2_tercero',
-            //'apellido1_tercero',
-            //'apellido2_tercero',
-            //'nombrecompleto',
-            //'nombreComercial',
-            //'direccion_tercero',
-            //'tel_tercero',
-            //'movil_tercero',
-            //'idCenPob',
-            //'idpaises',
-            //'contacto_tercero',
-            //'ced_Contacto',
-            //'dir_contacto',
-            //'tel_contacto',
-            //'mail_tercero',
-            //'autData',
-            //'tipo_tercero',
-            //'obs_tercero',
-            //'estado',
-            //'rutaRut',
-            //'rutaCedula',
-            //'Aud_Usuario',
-            //'Aud_Fecha',
-            //'Aud_UsuarioEdit',
-            //'Aud_FechaEdit',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
+	<!-- Tab panes -->
+	<div class="tab-content">
+	  <div class="tab-pane container active" id="tercero">
+			<?= Yii::$app->view->renderFile('@app/views/terceros/create.php'); ?>
+	  </div>
+	  <div class="tab-pane container fade" id="sucursal">...</div>
+	</div>
 
 
 </div>
