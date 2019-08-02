@@ -73,8 +73,12 @@ class TercerosController extends Controller
     {
         $model = new Terceros();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->idtercero]);
+        if ($model->load(Yii::$app->request->post()) && $model->save()) 
+		{
+			 // $model = new Callback();
+			echo "<script>  window.location.assign('http://localhost/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
+            // return $this->redirect(['index', 'id' => $model->idtercero]);
+            // return $this->redirect(['view', 'id' => $model->idtercero]);
         }
 
 		
@@ -99,7 +103,7 @@ class TercerosController extends Controller
 		$tipoTercero = ["CLIENTE"=>"CLIENTE","CONDUCTOR"=>"CONDUCTOR","PROPIETARIO"=>"PROPIETARIO","EMPLEADO"=>"EMPLEADO","PROVEEDOR"=>"PROVEEDOR","PRESTADOR SERVICIO"=>"PRESTADOR SERVICIO"];
 		
 		
-        return $this->renderAjax('create', [
+        return $this->renderPartial('create', [
             'model' 			=> $model,
 			'empresa'			=> $empresa,
 			'naturalezTercero' 	=> $naturalezTercero,

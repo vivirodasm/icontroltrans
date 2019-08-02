@@ -8,7 +8,6 @@ use nex\chosen\Chosen;
 /* @var $form yii\widgets\ActiveForm */
 
 
-$this->registerJsFile(Yii::$app->request->baseUrl.'/js/terceros.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 ?>
 
 <div class="terceros-form border border-primary rounded-lg">
@@ -32,13 +31,13 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/terceros.js',['depends' =
 
   <div class="row">
 	  <div class="col-md-4">
-		<?= $form->field($model, 'idIdentidad')->DropDownList($identidades,['maxlength' => true]) ?>
+		<?= $form->field($model, 'idIdentidad')->DropDownList($identidades,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 	  </div>
 	  <div class="col-md-4">
-		<?= $form->field($model, 'idSociedad')->DropDownList($sociedades,['maxlength' => true]) ?>
+		<?= $form->field($model, 'idSociedad')->DropDownList($sociedades,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 	  </div>
 	  <div class="col-md-4">
-		<?= $form->field($model, 'naturalez_tercero')->DropDownList($naturalezTercero,['maxlength' => true]) ?>
+		<?= $form->field($model, 'naturalez_tercero')->DropDownList($naturalezTercero,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 	  </div>
 	</div>
 	
@@ -139,7 +138,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/terceros.js',['depends' =
 		</div>
 
 		<div class="col-md-3">
-			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true]) ?>
+			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 		</div>
 		
 		<div class="col-md-2">

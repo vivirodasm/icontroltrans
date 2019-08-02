@@ -2,13 +2,27 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
-use app\models\Terceros;
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\TercerosBuscar */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = 'Terceros';
 $this->params['breadcrumbs'][] = $this->title;
+$this->registerJsFile(Yii::$app->request->baseUrl.'/js/terceros.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+
+if( @$_GET['guardado'])
+{
+	
+	$this->registerJs( "
+	  swal.fire({
+			text: 'Registro guardado',
+			type: 'success',
+			confirmButtonText: 'Salir',
+		});
+	
+		
+	");
+}
 ?>
 <div class="terceros-index">
 
