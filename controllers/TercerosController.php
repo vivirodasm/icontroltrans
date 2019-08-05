@@ -97,7 +97,7 @@ class TercerosController extends Controller
 		
 		$naturalezTercero = ["N" => "PERSONA NATURAL", "J"=>"PERSONA JURIDICA"];
 		
-		$estado = ["ACTIVO" => "ACTIVO", "INACTIVO"=>"INACTIVO"];
+		$estado = ["ACTIVO" => "ACTIVO"];
 		
 		$cedulaUsuario = 1053779647;
 		$tipoTercero = ["CLIENTE"=>"CLIENTE","CONDUCTOR"=>"CONDUCTOR","PROPIETARIO"=>"PROPIETARIO","EMPLEADO"=>"EMPLEADO","PROVEEDOR"=>"PROVEEDOR","PRESTADOR SERVICIO"=>"PRESTADOR SERVICIO"];

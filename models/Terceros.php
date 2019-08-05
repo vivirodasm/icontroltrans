@@ -80,7 +80,7 @@ class Terceros extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idtercero', 'IdEmpresa', 'naturalez_tercero', 'nombrecompleto', 'idCenPob', 'idpaises', 'tipo_tercero', 'estado', 'Aud_Usuario', 'Aud_Fecha','idSociedad'], 'required'],
+            [['idtercero', 'IdEmpresa', 'naturalez_tercero', 'idCenPob', 'idpaises', 'tipo_tercero', 'estado', 'Aud_Usuario', 'Aud_Fecha','idSociedad','dir_contacto','tel_contacto','mail_tercero','autData'],'required'],
             [['IdEmpresa', 'idCenPob', 'autData', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
             [['Aud_Fecha', 'Aud_FechaEdit'], 'safe'],
             [['idtercero', 'idSociedad'], 'string', 'max' => 15],

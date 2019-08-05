@@ -138,7 +138,7 @@ use nex\chosen\Chosen;
 		</div>
 
 		<div class="col-md-3">
-			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
+			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true]) ?>
 		</div>
 		
 		<div class="col-md-2">
