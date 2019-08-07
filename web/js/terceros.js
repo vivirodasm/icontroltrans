@@ -1,4 +1,6 @@
-$( document ).ready(function() {
+$( document ).ready(function() 
+{
+	
    $(".row:eq(2)").hide();
    $(".row:eq(3)").hide();
 	
@@ -17,6 +19,9 @@ $( document ).ready(function() {
 						
 					$("#terceros-idcenpob").append(opcionesCiudad);
 					$("#terceros-idcenpob").trigger("chosen:updated");
+					
+					$("#tbtercerossucursal-ciudadsucursalter").append(opcionesCiudad);
+					$("#tbtercerossucursal-ciudadsucursalter").trigger("chosen:updated");
 					
 					$("#terceros-idcenpob").val(1765); 
 					$("#terceros-idcenpob").trigger("chosen:updated");	
@@ -73,6 +78,8 @@ $("#terceros-nombre1_tercero, #terceros-nombre2_tercero ,#terceros-apellido1_ter
 	
 	$("#terceros-nombrecompleto").val(nombre1 +" "+nombre2+" "+apellido1 +" "+apellido2);
 });
+
+
 
 
 

@@ -15,6 +15,7 @@ use app\models\Tbpaises;
 use app\models\Tbsociedades;
 use app\models\Tbidentidades;
 use app\models\Tbpoblaciones;
+use app\models\Tbtercerossucursal;
 
 /**
  * TercerosController implements the CRUD actions for Terceros model.
@@ -113,6 +114,28 @@ class TercerosController extends Controller
 			'estado'			=> $estado,
 			'tipoTercero'		=> $tipoTercero,
 			'cedulaUsuario'		=> $cedulaUsuario,
+        ]);
+    }
+
+	public function actionCreateSucursal()
+    {
+        $model = new Tbtercerossucursal();
+		
+		
+		
+		$Idtercero = Terceros::find()->all();		
+		$Idtercero = ArrayHelper::map( $Idtercero, 'idtercero', 'nombrecompleto' );
+		
+        if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            // return $this->redirect(['view', 'id' => $model->idterceroSucursal]);
+			echo "<script>  window.location.assign('http://localhost/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
+        }
+		
+		
+		
+        return $this->renderPartial('../tbtercerossucursal/create', [
+            'model' => $model,
+			'Idtercero' => $Idtercero,
         ]);
     }
 
