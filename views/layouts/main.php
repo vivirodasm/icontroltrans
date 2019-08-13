@@ -43,7 +43,7 @@ AppAsset::register($this);
             ['label' => 'Contratos', 'url' => ['/tbcontratos/create']], 
 			['label' => 'Extracto Contratos', 'url' => ['/site/contact']],
             Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
+                 ['label' => 'Login', 'url' => ['/tbempresas/create']]
             ) : (
                 '<li>'
                 . Html::beginForm(['/site/logout'], 'post')
