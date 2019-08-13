@@ -124,6 +124,32 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 					])?>
 
     <?= $form->field($model, 'aliasContrato')->textInput(['maxlength' => true]) ?>
+	
+	<div class="tabs-index">
+
+
+		<!-- Nav tabs -->
+	<ul class="nav nav-tabs">
+	  <li class="nav-item active">
+		<a class="nav-link active" data-toggle="tab" href="#detalle">Detalle del contrato</a>
+	  </li>
+	  <li class="nav-item">
+		<a class="nav-link" data-toggle="tab" href="#vehiculos">Vehiculos del contrato</a>
+	  </li>
+	</ul>
+
+	<!-- Tab panes -->
+	<div class="tab-content">
+	  <div class="tab-pane container active" id="detalle">
+			
+	  </div>
+	  <div class="tab-pane container fade" id="vehiculos">
+	 
+	  </div>
+	</div>
+
+
+</div>
 
     <?= $form->field($model, 'notasContrato')->textInput(['maxlength' => true]) ?>
 
