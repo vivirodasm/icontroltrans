@@ -26,7 +26,27 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 							],
                             'placeholder' => 'Seleccione un tercero',
 					])?>
+	
+	<label>Nro Contrato</label>
+	<?= Html::input('text', 'numContrato', '',['class'=>'form-control','disabled'=>true,]) ?>
+	
+	<?= Html::input('text', 'anioACtual', '',['class'=>'form-control','disabled'=>true,]) ?>
+	
+	<?= Html::input('text', 'concatenado', '',['class'=>'form-control','disabled'=>true,]) ?>
+	
+	<label>Identificacion</label>
+	<?= Html::input('text', 'Identificacion', '',['class'=>'form-control','disabled'=>true,]) ?>
+	<?= Html::input('text', 'digitoVerificacion', '',['class'=>'form-control','disabled'=>true,]) ?>
+	
+	
+	<label>Contratante</label>
+	<?= Html::input('text', 'Contratante', '',['class'=>'form-control','disabled'=>true,]) ?>
+	<?= Html::input('text', 'ciudad', '',['class'=>'form-control','disabled'=>true,]) ?>
+	<?= Html::input('text', 'telefono', '',['class'=>'form-control','disabled'=>true,]) ?>
+	
+	
 	<hr>
+	
 	<?= $form->field($model, "sucursalActiva")->widget(
 						Chosen::className(), [
 							'items' => [],
