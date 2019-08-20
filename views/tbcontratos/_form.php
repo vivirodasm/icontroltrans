@@ -26,7 +26,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 							],
                             'placeholder' => 'Seleccione un tercero',
 					])?>
-	
+	<hr>
 	<?= $form->field($model, "sucursalActiva")->widget(
 						Chosen::className(), [
 							'items' => [],
