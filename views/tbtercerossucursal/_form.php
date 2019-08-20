@@ -12,7 +12,9 @@ use nex\chosen\Chosen;
 
     <?php $form = ActiveForm::begin(); ?>
 		
-		<?= $form->field($model, "idtercero")->widget(
+		
+		<div class="row">
+		  <div class="col-md-4"><?= $form->field($model, "idtercero")->widget(
 				Chosen::className(), [
 					'items' => $Idtercero,
 					'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
@@ -21,22 +23,24 @@ use nex\chosen\Chosen;
 						'search_contains' => true,
 						'single_backstroke_delete' => false,
 					],
-					'placeholder' => 'Seleccione algunos grupos',
-		])?>
+					'placeholder' => 'Seleccione el tercero',
+		])?></div>
+		  <div class="col-md-4"></div>
+		  <div class="col-md-4"></div>
+		</div>
+		<hr>
+		
+		<div class="row">
+		  <div class="col-md-4"> <?= $form->field($model, 'nombreSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-4"><?= $form->field($model, 'direccionSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-4"><?= $form->field($model, 'telSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		</div>
 
-
-    <?= $form->field($model, 'nombreSucursalTer')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'direccionSucursalTer')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'telSucursalTer')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'movilSucursalTer')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'contactoSucursalTer')->textInput(['maxlength' => true]) ?>
-
-	
-	<?= $form->field($model, "ciudadSucursalTer")->widget(
+   
+		<div class="row">
+		  <div class="col-md-4"><?= $form->field($model, 'movilSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-4"><?= $form->field($model, 'contactoSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-4"><?= $form->field($model, "ciudadSucursalTer")->widget(
 			Chosen::className(), [
 				'items' => [],
 				'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
@@ -46,10 +50,9 @@ use nex\chosen\Chosen;
 					'single_backstroke_delete' => false,
 				],
 				'placeholder' => 'Seleccione una ciudad',
-		])?>
-	
-	
-	
+		])?></div>
+		</div>
+    	
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
