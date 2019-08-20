@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 
+
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbempresas */
 
@@ -20,5 +21,21 @@ $this->params['breadcrumbs'][] = $this->title;
 </div>
 
 <div id="login">
+<?php  
+if (@$validarEmpresa == 2)
+	echo $this->context->actionLogin();
+elseif (@$validarEmpresa == 1) {
+	$this->registerJs( "
+	  swal.fire({
+			title: 'Empresa no encontrada',
+			type: 'error',
+			confirmButtonText: 'Salir',
+		});
+	
+	");
+}
+
+?>
+   
 
 </div>

@@ -9,6 +9,7 @@ use app\controllers\TbempresasControllerBuscar;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\LoginForm;
 
 /**
  * TbempresasController implements the CRUD actions for Tbempresas model.
@@ -69,12 +70,55 @@ class TbempresasController extends Controller
 		
         $model = new Tbempresas();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->nit]);
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) {
+        if ($model->load(Yii::$app->request->post())) {
+            
+			
+			$model = new Tbempresas();
+		
+			$nit = $_POST['Tbempresas']['nit'];
+			$conexion = Yii::$app->db1;
+			
+			$consulta = "SELECT * FROM tbempresas";
+			$consulta .= " WHERE nit ='" .$nit."' AND estado = 1";
+			
+			$resultado = $conexion->createCommand($consulta)->queryAll();
+		
+		
+		
+			if (empty($resultado))
+			{
+				return $this->render('create', [
+					 'model' => $model,
+					 'validarEmpresa' => 1,
+					   
+				]);
+				
+			}
+			else{
+				// print_r($resultado);
+				$nit=$resultado[0]['nit'];
+				// print_r($nit);
+				$nombre=$resultado[0]['nombre'];
+				$dsn=$resultado[0]['dsn'];
+				$usuario=$resultado[0]['usuario'];
+				$password=$resultado[0]['password'];
+				$charset=$resultado[0]['charset'];
+				
+				return $this->render('create', [
+					 'model' => $model,
+					 'validarEmpresa' => 2,
+					   
+				]);
+			}
+			
+			
+			// return $this->redirect(['view', 'id' => $model->nit]);
         }
 
         return $this->render('create', [
             'model' => $model,
+			'validarEmpresa' => 0,
         ]);
     }
 
@@ -142,6 +186,9 @@ class TbempresasController extends Controller
         // if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // return $this->redirect(['view', 'id' => $model->nit]);
         // }
+		
+		$model = new Tbempresas();
+		
 		$nit = $_POST['Tbempresas']['nit'];
 		$conexion = Yii::$app->db1;
 		
@@ -150,19 +197,44 @@ class TbempresasController extends Controller
 		
 		$resultado = $conexion->createCommand($consulta)->queryAll();
 		
-		// print_r($resultado);
-		$nit=$resultado[0]['nit'];
-		// print_r($nit);
-		$nombre=$resultado[0]['nombre'];
-		$dsn=$resultado[0]['dsn'];
-		$usuario=$resultado[0]['usuario'];
-		$password=$resultado[0]['password'];
-		$charset=$resultado[0]['charset'];
 		
 		
-
-        // return $this->render('../site/login', [
-            // // 'model' => $model,
-        // ]);
+		// if (empty($resultado))
+		// {
+			// return $this->renderAjax('create', [
+				 // 'model' => $model,
+				 // 'validarEmpresa' => false,
+				   
+			// ]);
+			
+		// }
+		// else{
+			// // print_r($resultado);
+			// $nit=$resultado[0]['nit'];
+			// // print_r($nit);
+			// $nombre=$resultado[0]['nombre'];
+			// $dsn=$resultado[0]['dsn'];
+			// $usuario=$resultado[0]['usuario'];
+			// $password=$resultado[0]['password'];
+			// $charset=$resultado[0]['charset'];
+			
+			// return $this->renderAjax('create', [
+				 // 'model' => $model,
+				 // 'validarEmpresa' => true,
+				   
+			// ]);
+		// }
     }
+	
+	public function actionLogin()
+	{
+		$modelLogin = new LoginForm();
+		return $this->renderPartial('../site/login', [
+             'model' => $modelLogin,
+        ]);
+		
+	}
+	
+	
+	
 }

@@ -18,7 +18,7 @@ use yii\bootstrap\ActiveForm;
             'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
             'labelOptions' => ['class' => 'col-lg-1 control-label'],
         ],
-		 'action' =>['tbempresas/autenticar-empresa','nit'=>$model->nit]
+		 'action' =>['tbempresas/create','nit'=>$model->nit]
     ]); ?>
 
     <?= $form->field($model, 'nit')->textInput() ?>
