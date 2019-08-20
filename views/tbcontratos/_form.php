@@ -167,7 +167,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 			
 	  </div>
 	  <div class="tab-pane container fade" id="vehiculos">
-	 
+		 <?= $this->context->actionVehiculos();   ?>
 	  </div>
 	</div>
 

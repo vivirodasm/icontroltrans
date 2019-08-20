@@ -11,6 +11,7 @@ use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use app\models\Terceros;
 use app\models\tbtercerossucursal;
+use app\models\Vehiculos;
 
 
 /**
@@ -129,6 +130,20 @@ class TbcontratosController extends Controller
 		$sucursales =  ArrayHelper::map($sucursales,'idterceroSucursal','nombreSucursalTer');
 		
 		return json_encode($sucursales);
+	}
+	
+	
+	public function actionVehiculos()
+	{
+		$model = new Vehiculos();
+
+		if ($model->load(Yii::$app->request->post()) && $model->save()) {
+			return $this->redirect(['view', 'id' => $model->placa]);
+		}
+
+		return $this->renderAjax('../vehiculos/create', [
+			'model' => $model,
+		]);
 	}
 
     /**
