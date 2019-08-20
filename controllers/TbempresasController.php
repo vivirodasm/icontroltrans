@@ -96,14 +96,20 @@ class TbempresasController extends Controller
 				
 			}
 			else{
+				
+				session_destroy(); 	
+		session_start();	
 				// print_r($resultado);
-				$nit=$resultado[0]['nit'];
+				$_SESSION["nit"]=$resultado[0]['nit'];
 				// print_r($nit);
-				$nombre=$resultado[0]['nombre'];
-				$dsn=$resultado[0]['dsn'];
-				$usuario=$resultado[0]['usuario'];
-				$password=$resultado[0]['password'];
-				$charset=$resultado[0]['charset'];
+				$_SESSION["nombre"]=$resultado[0]['nombre'];
+				$_SESSION["dsn"]=$resultado[0]['dsn'];
+				$_SESSION["usuario"]=$resultado[0]['usuario'];
+				$_SESSION["password"]=$resultado[0]['password'];
+				$_SESSION["charset"]=$resultado[0]['charset'];
+				
+				// print_r($_SESSION); die();
+				// require('../config/db.php');
 				
 				return $this->render('create', [
 					 'model' => $model,

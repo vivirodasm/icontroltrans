@@ -9,11 +9,12 @@ return [
     'password' => '',
     'charset' => 'utf8',
 	
+	
 	// 'class' => 'yii\db\Connection',
-    // 'dsn' => 'mysql:host=localhost;dbname=yii2basic',
-    // 'username' => 'root',
-    // 'password' => '',
-    // 'charset' => 'utf8',
+    // 'dsn' => $_SESSION["dsn"],
+    // 'username' => $_SESSION["usuario"],
+    // 'password' => $_SESSION["password"],
+    // 'charset' => $_SESSION["charset"],
 	
 	
 
