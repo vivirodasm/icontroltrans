@@ -54,62 +54,15 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
                             'placeholder' => 'Seleccione un tipo de contrato',
 					])?>
 
-   <?= $form->field($model, 'fechaInicio')->widget(
-			DatePicker::className(), [
-			'template' 		=> '{addon}{input}',
-			'language' 		=> 'es',
-			'clientOptions' => [
-				'autoclose' 	=> true,
-				'format' 		=> 'yyyy-mm-dd'
-			],
-		]);  
-	?>
-	
-	<?= $form->field($model, 'fechaFin')->widget(
-				DatePicker::className(), [
-				'template' 		=> '{addon}{input}',
-				'language' 		=> 'es',
-				'clientOptions' => [
-					'autoclose' 	=> true,
-					'format' 		=> 'yyyy-mm-dd'
-				],
-			]);  
-		?>
-
+  
 <label>Días</label>
 <?= Html::input('text','dias','', $options=["disabled"=>true,"id"=>"dias"]) ?>
 
-	<?= $form->field($model, "ciudadOrigen")->widget(
-		Chosen::className(), [
-			'items' => [],
-			'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
-			'multiple' => false,
-			'clientOptions' => [
-				'search_contains' => true,
-				'single_backstroke_delete' => false,
-			],
-			'placeholder' => 'Seleccione algunos grupos',
-	])?>
-
-	<?= $form->field($model, "ciudadDestino")->widget(
-		Chosen::className(), [
-			'items' => [],
-			'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
-			'multiple' => false,
-			'clientOptions' => [
-				'search_contains' => true,
-				'single_backstroke_delete' => false,
-			],
-			'placeholder' => 'Seleccione algunos grupos',
-	])?>
 	
-    <?= $form->field($model, 'objetCont')->textarea(['rows' => 6]) ?>
+	
+    
 
-    <?= $form->field($model, 'cantVeh')->textInput(["type"=>"number"]) ?>
-
-    <?= $form->field($model, 'nroPsj')->textInput(["type"=>"number"]) ?>
-
-    <?= $form->field($model, 'vlrContrato')->textInput(["type"=>"number"]) ?>
+   
 	
 	<?= $form->field($model, "estado")->widget(
 						Chosen::className(), [
@@ -132,6 +85,11 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 	<ul class="nav nav-tabs">
 	  <li class="nav-item active">
 		<a class="nav-link active" data-toggle="tab" href="#detalle">Detalle del contrato</a>
+	  
+	   
+
+	  
+	  
 	  </li>
 	  <li class="nav-item">
 		<a class="nav-link" data-toggle="tab" href="#vehiculos">Vehiculos del contrato</a>
@@ -142,6 +100,71 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 	<div class="tab-content">
 	  <div class="tab-pane container active" id="detalle">
 			
+			<?= $form->field($model, 'fechaInicio')->widget(
+			DatePicker::className(), [
+			'template' 		=> '{addon}{input}',
+			'language' 		=> 'es',
+			'clientOptions' => [
+				'autoclose' 	=> true,
+				'format' 		=> 'yyyy-mm-dd'
+			],
+		]);  
+	?>
+	
+	<?= $form->field($model, 'fechaFin')->widget(
+				DatePicker::className(), [
+				'template' 		=> '{addon}{input}',
+				'language' 		=> 'es',
+				'clientOptions' => [
+					'autoclose' 	=> true,
+					'format' 		=> 'yyyy-mm-dd'
+				],
+			]);  
+		?>
+		
+	<?= $form->field($model, "ciudadOrigen")->widget(
+		Chosen::className(), [
+			'items' => [],
+			'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+			'multiple' => false,
+			'clientOptions' => [
+				'search_contains' => true,
+				'single_backstroke_delete' => false,
+			],
+			'placeholder' => 'Seleccione algunos grupos',
+	])?>
+
+	<?= $form->field($model, "ciudadDestino")->widget(
+		Chosen::className(), [
+			'items' => [],
+			'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+			'multiple' => false,
+			'clientOptions' => [
+				'search_contains' => true,
+				'single_backstroke_delete' => false,
+			],
+			'placeholder' => 'Seleccione algunos grupos',
+	])?>	
+		
+		<?= $form->field($model, 'cantVeh')->textInput(["type"=>"number"]) ?>
+
+		<?= $form->field($model, 'nroPsj')->textInput(["type"=>"number"]) ?>
+
+		<?= $form->field($model, 'vlrContrato')->textInput(["type"=>"number"]) ?>		
+		
+		<?= $form->field($model, 'objetCont')->textarea(['rows' => 6]) ?>
+			
+		<?= $form->field($model, 'notasContrato')->textInput(['maxlength' => true]) ?>
+
+		<?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?>
+
+		<?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?>
+
+		<?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?>
+
+		<?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?>
+	
+			
 	  </div>
 	  <div class="tab-pane container fade" id="vehiculos">
 	 
@@ -151,16 +174,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 
 </div>
 
-    <?= $form->field($model, 'notasContrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?>
-
-    <?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?>
-
+    
     <?= $form->field($model, 'Aud_Usuario')->textInput() ?>
 
     <?= $form->field($model, 'Aud_Fecha')->textInput() ?>
