@@ -30,7 +30,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 	<label>Nro Contrato</label>
 	<?= Html::input('text', 'numContrato', '',['class'=>'form-control','disabled'=>true,]) ?>
 	
-	<?= Html::input('text', 'anioACtual', '',['class'=>'form-control','disabled'=>true,]) ?>
+	<?= Html::input('text', 'anioActual', '',['class'=>'form-control','disabled'=>true,]) ?>
 	
 	<?= Html::input('text', 'concatenado', '',['class'=>'form-control','disabled'=>true,]) ?>
 	
