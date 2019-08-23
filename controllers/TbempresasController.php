@@ -77,7 +77,7 @@ class TbempresasController extends Controller
 			$model = new Tbempresas();
 		
 			$nit = $_POST['Tbempresas']['nit'];
-			$conexion = Yii::$app->db1;
+			$conexion = Yii::$app->db;
 			
 			$consulta = "SELECT * FROM tbempresas";
 			$consulta .= " WHERE nit ='" .$nit."' AND estado = 1";
@@ -100,6 +100,9 @@ class TbempresasController extends Controller
 				session_destroy(); 	
 		session_start();	
 				// print_r($resultado);
+				
+				$session = Yii::$app->session;
+				
 				$_SESSION["nit"]=$resultado[0]['nit'];
 				// print_r($nit);
 				$_SESSION["nombre"]=$resultado[0]['nombre'];
@@ -108,9 +111,22 @@ class TbempresasController extends Controller
 				$_SESSION["password"]=$resultado[0]['password'];
 				$_SESSION["charset"]=$resultado[0]['charset'];
 				
-				// print_r($_SESSION); die();
-				// require('../config/db.php');
+				$nombre = $_SESSION["nombre"];
+				$dns = $_SESSION["dsn"];
+				$usuario = $_SESSION["usuario"];
+				$password = $_SESSION["password"];
+				$charset = $_SESSION["charset"];
 				
+				exec ("echo ^<?php return [ 'class' =^> 'yii\db\Connection', 'dsn' =^> '$dns', 'username' =^> '$usuario',     'password' =^> '$password',  'charset' =^> '$charset', ]^; >../config/db1.php");
+				
+				// print_r($_SESSION); die();
+				require('../config/db1.php');
+				 $conexion1 = Yii::$app->db1;
+				 
+				 // $config = require '../config/db.php';
+				// (new yii\web\Application($config))->run();
+				 // $config = Yii::$app->db;
+				 
 				return $this->render('create', [
 					 'model' => $model,
 					 'validarEmpresa' => 2,

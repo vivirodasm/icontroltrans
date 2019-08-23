@@ -36,6 +36,11 @@ class TercerosController extends Controller
             ],
         ];
     }
+	
+	public static function getDb()
+	{
+		return Yii::$app->db1;
+	}
 
     /**
      * Lists all Terceros models.
@@ -43,6 +48,7 @@ class TercerosController extends Controller
      */
     public function actionIndex()
     {
+		$conexion = Yii::$app->db1;
         $searchModel = new TercerosBuscar();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
@@ -73,7 +79,7 @@ class TercerosController extends Controller
     public function actionCreate()
     {
         $model = new Terceros();
-
+		$conexion = $this->getDb();
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{
 			 // $model = new Callback();

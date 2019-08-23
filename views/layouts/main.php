@@ -38,10 +38,10 @@ AppAsset::register($this);
     echo Nav::widget([
         'options' => ['class' => 'navbar-nav navbar-right'],
         'items' => [
-            ['label' => 'Inicio', 'url' => ['/site/index']],
-            ['label' => 'Terceros', 'url' => ['/terceros/index']],
-            ['label' => 'Contratos', 'url' => ['/tbcontratos/create']], 
-			['label' => 'Extracto Contratos', 'url' => ['/site/contact']],
+            ['label' => 'Inicio', 'url' => ['/site/index'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Terceros', 'url' => ['/terceros/index'], 'visible' => Yii::$app->user->isGuest],
+            ['label' => 'Contratos', 'url' => ['/tbcontratos/create'], 'visible' => Yii::$app->user->isGuest], 
+			['label' => 'Extracto Contratos', 'url' => ['/site/contact'], 'visible' => Yii::$app->user->isGuest],
             Yii::$app->user->isGuest ? (
                  ['label' => 'Login', 'url' => ['/tbempresas/create']]
             ) : (
