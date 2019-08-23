@@ -76,7 +76,7 @@ class Terceros extends \yii\db\ActiveRecord
 	
 	public static function getDb()
 	{
-		return Yii::$app->db1;
+		return Yii::$app->get('db1');
 	}
 
     /**

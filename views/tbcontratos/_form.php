@@ -1,3 +1,4 @@
+
 <?php
 
 use yii\helpers\Html;
@@ -9,8 +10,38 @@ use dosamigos\datepicker\DatePicker;
 /* @var $model app\models\Tbcontratos */
 /* @var $form yii\widgets\ActiveForm */
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' => [\yii\web\JqueryAsset::className()]]);
-?>
 
+$this->registerJs( "
+
+	$( document ).ready(function() 
+	{
+		$('#tbcontratos_idtercero_chosen').on( 'keydown', function(event) {
+				if(event.which == 13)
+				{
+					var info ='';
+					filtro = $('#tbcontratos_idtercero_chosen').children('div').children().children().val();
+					$.get( 'index.php?r=tbcontratos/info-tercero&filtro='+filtro,
+					function( data )
+					{
+						$.each(data, function( index, datos) 
+							{	
+								info = info + '<option value='+index+'>'+datos+'</option>';
+								
+							});
+						$('#tbcontratos-idtercero').append(info);
+						$('#tbcontratos-idtercero').trigger('chosen:updated');
+						
+						
+					},'json'
+						);
+					
+				}
+		});
+	});
+		
+");
+	
+?>
 <div class="tbcontratos-form">
 
     <?php $form = ActiveForm::begin(); ?>
@@ -18,14 +49,16 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 	<div class="row">
 	  <div class="col-md-4"><?= $form->field($model, "idtercero")->widget(
 						Chosen::className(), [
-							'items' => $Idtercero,
-							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'items' => [],
+							'disableSearch' => 0, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [
 								'search_contains' => true,
 								'single_backstroke_delete' => false,
+								
 							],
                             'placeholder' => 'Seleccione un tercero',
+							'noResultsText' => "Enter para buscar",
 					])?></div>
 	  <div class="col-md-4"></div>
 	  <div class="col-md-4"></div>
@@ -171,11 +204,11 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 					],
 					'placeholder' => 'Seleccione la ciudad destino',
 			])?></div>
-			  <div class="col-md-4"><label>Valor en letras</label><?= Html::input('text', 'ciudad', '',['class'=>'form-control','disabled'=>true,]) ?></div>
+			  <div class="col-md-4"><label>Valor en letras</label><?= Html::input('text', 'valorLetras', '',['class'=>'form-control','disabled'=>true,]) ?></div>
 			</div>
 				
 			<div class="row">
-			  <div class="col-md-8"><?= $form->field($model, 'objetCont')->textarea(['rows' => 6]) ?></div>
+			  <div class="col-md-8"><?= $form->field($model, 'objetCont')->textarea(['rows' => 6,"value"=> "Transporte de un grupo especifico de usuarios o personas"]) ?></div>
 			  <div class="col-md-2"></div>
 			  <div class="col-md-2"></div>
 			</div>
@@ -197,7 +230,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' 
 					
 	  </div>
 	  <div class="tab-pane container fade" id="vehiculos">
-		 <?= $this->context->actionVehiculos();   ?>
+		 <?= $this->context->actionVehiculos($form);   ?>
 	  </div>
 	</div>
 

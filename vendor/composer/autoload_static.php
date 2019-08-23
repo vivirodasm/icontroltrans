@@ -41,6 +41,11 @@ class ComposerStaticInit3e4a3a0d09a1ecb589c8cbf15811b457
         array (
             'nex\\chosen\\' => 11,
         ),
+        'k' => 
+        array (
+            'kartik\\time\\' => 12,
+            'kartik\\base\\' => 12,
+        ),
         'd' => 
         array (
             'dosamigos\\datepicker\\' => 21,
@@ -144,6 +149,14 @@ class ComposerStaticInit3e4a3a0d09a1ecb589c8cbf15811b457
         'nex\\chosen\\' => 
         array (
             0 => __DIR__ . '/..' . '/nex/yii2-chosen',
+        ),
+        'kartik\\time\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-widget-timepicker/src',
+        ),
+        'kartik\\base\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/kartik-v/yii2-krajee-base/src',
         ),
         'dosamigos\\datepicker\\' => 
         array (

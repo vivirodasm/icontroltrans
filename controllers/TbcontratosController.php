@@ -10,8 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\ArrayHelper;
 use app\models\Terceros;
-use app\models\tbtercerossucursal;
-use app\models\Vehiculos;
+use app\models\Tbtercerossucursal;
+use app\models\Tbdetacontratosveh;
 
 
 /**
@@ -92,15 +92,19 @@ class TbcontratosController extends Controller
             return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
 
-		$Idtercero = Terceros::find()->all();		
-		$Idtercero = ArrayHelper::map( $Idtercero, 'idtercero', 'nombrecompleto' );
+		
+		
         return $this->render('create', [
             'model' => $model,
-			'Idtercero' => $Idtercero,
 			'estado' => $this->estado,
 			'tipoContrato' => $this->tipoContrato,
         ]);
     }
+
+	
+
+	
+
 
     /**
      * Updates an existing Tbcontratos model.
@@ -133,17 +137,41 @@ class TbcontratosController extends Controller
 	}
 	
 	
-	public function actionVehiculos()
+	public function actionVehiculos($form)
 	{
-		$model = new Vehiculos();
+		$model = new Tbdetacontratosveh();
 
 		if ($model->load(Yii::$app->request->post()) && $model->save()) {
 			return $this->redirect(['view', 'id' => $model->placa]);
 		}
 
-		return $this->renderAjax('../vehiculos/create', [
+		return $this->renderPartial('../tbdetacontratosveh/create', [
 			'model' => $model,
+			'form'  => $form,
 		]);
+	}
+
+
+	public function actionTercero($idtercero)
+	{
+		$tercero = Terceros::find()->AndWhere("idtercero = $idtercero")->all();
+		$tercero = ArrayHelper::toArray($tercero, 'idtercero');
+		return json_encode($tercero[0]);
+	}
+
+
+	public function actionInfoTercero($filtro)
+	{
+		
+		$tercero = Terceros::find()
+		->andWhere(['or',
+			['like', 'idtercero', '%'. $filtro . '%', false],
+			['like', 'nombrecompleto', '%'. $filtro . '%', false]
+			])
+		->all();	
+		$tercero = ArrayHelper::map( $tercero, 'idtercero', 'nombrecompleto' );	
+		
+		return json_encode($tercero);	
 	}
 
     /**

@@ -1,5 +1,6 @@
 $( document ).ready(function() 
 {
+			
 	
 		$("label[for = 'tbcontratos-sucursalactiva']").parent().hide();
 		var opcionesCiudad = "";
@@ -21,6 +22,47 @@ $( document ).ready(function()
 				},"json"
 			);
 			
+			
+		
+
+			
+});
+
+
+
+
+// se llenan los datos relacionados con el tercero 
+$('#tbcontratos-idtercero').change(function()
+{
+	alert();
+	var d = new Date();
+	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+	
+	idtercero = $(this).val();
+	
+	
+	$( "input[name='anioActual']" ).val(strDate);
+	
+	$.get( "index.php?r=tbcontratos/tercero&idtercero="+idtercero,
+				function( data )
+				{
+					
+					// datos tercero
+					$( "input[name='Identificacion']" ).val(data.idtercero);
+					$( "input[name='digitoVerificacion']" ).val(data.dv_tercero);
+					$( "input[name='Contratante']" ).val(data.nombrecompleto);
+					$( "input[name='ciudad']" ).val();//pendeinte
+					$( "input[name='telefono']" ).val(data.tel_tercero);
+					
+					// datos contacto
+					$( "#tbcontratos-resp_contrato" ).val(data.contacto_tercero);
+					$( "#tbcontratos-cedresp_contrato" ).val(data.ced_Contacto);
+					$( "#tbcontratos-dirresp_contrato" ).val(data.dir_contacto);
+					$( "#tbcontratos-telresp_contrato" ).val(data.tel_contacto);
+					
+					
+				},"json"
+			);
 });
 
 
@@ -111,7 +153,7 @@ $("#tbcontratos-vlrcontrato").change(function()
 	  centSingular: 'CENTAVO'
 	});
 
-	$("#tbcontratos-objetcont").val(letras + "M/CTE");
+	$("input[name='valorLetras']").val(letras + "M/CTE");
 	
 		
 });
