@@ -25,17 +25,6 @@ class TbcontratosBuscar extends Tbcontratos
 	
 	/**
      * {@inheritdoc}
-	 * Conexion a la base de datos correspondiente
-     */
-	public static function getDb() 
-	{
-		
-			return Yii::$app->get($_SESSION['db']);
-		
-	}
-
-    /**
-     * {@inheritdoc}
      */
     public function scenarios()
     {
