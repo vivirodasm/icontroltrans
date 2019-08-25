@@ -44,6 +44,7 @@ $config = [
         ],
          'db' => $db,
 		'db1' => require(__DIR__ . '/db1.php'),
+		'db2' => require(__DIR__ . '/db2.php'),
         /*
         'urlManager' => [
             'enablePrettyUrl' => true,
