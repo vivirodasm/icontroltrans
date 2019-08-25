@@ -56,8 +56,10 @@ class Tbcontratos extends \yii\db\ActiveRecord
 	
 	public static function getDb() 
 	{
-		
+		if ($_SESSION['nit'] == "123456")
+		{
 			return Yii::$app->get('db1');
+		}
 	}
 
     /**
