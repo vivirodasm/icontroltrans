@@ -21,6 +21,11 @@ class Tbpaises extends \yii\db\ActiveRecord
     {
         return 'tbpaises';
     }
+	
+	public static function getDb() 
+	{
+		return Yii::$app->get('db1');
+	}
 
     /**
      * {@inheritdoc}

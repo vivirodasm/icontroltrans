@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbdetacontratosveh */
 
-$this->title = 'Create Tbdetacontratosveh';
+$this->title = '';
 $this->params['breadcrumbs'][] = ['label' => 'Tbdetacontratosvehs', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
@@ -16,6 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
     <?= $this->render('_form', [
         'model' => $model,
 		'form'  => $form,
+		'placa' => $placa,
     ]) ?>
 
 </div>

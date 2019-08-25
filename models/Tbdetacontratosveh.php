@@ -30,7 +30,11 @@ class Tbdetacontratosveh extends \yii\db\ActiveRecord
     {
         return 'tbdetacontratosveh';
     }
-
+	
+	public static function getDb() 
+	{
+		return Yii::$app->get('db1');
+	}
     /**
      * {@inheritdoc}
      */
@@ -55,7 +59,7 @@ class Tbdetacontratosveh extends \yii\db\ActiveRecord
         return [
             'idContratoVeh' => 'Id Contrato Veh',
             'idContrato' => 'Id Contrato',
-            'anioContrato' => 'Anio Contrato',
+            'anioContrato' => 'Año Contrato',
             'placa' => 'Placa',
             'horaIniMan' => 'Hora Ini Man',
             'horaFinMan' => 'Hora Fin Man',

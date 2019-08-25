@@ -69,13 +69,16 @@ class Terceros extends \yii\db\ActiveRecord
     /**
      * {@inheritdoc}
      */
+	
     public static function tableName()
     {
         return 'terceros';
     }
 	
-	public static function getDb()
+	
+	public static function getDb() 
 	{
+		
 		return Yii::$app->get('db1');
 	}
 

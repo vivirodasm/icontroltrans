@@ -53,6 +53,12 @@ class Tbcontratos extends \yii\db\ActiveRecord
     {
         return 'tbcontratos';
     }
+	
+	public static function getDb() 
+	{
+		
+			return Yii::$app->get('db1');
+	}
 
     /**
      * {@inheritdoc}

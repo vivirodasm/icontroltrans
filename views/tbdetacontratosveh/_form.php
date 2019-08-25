@@ -12,30 +12,44 @@ use kartik\time\TimePicker;
 
     <?php // $form = ActiveForm::begin(); ?>
 
-    <?= $form->field($model, 'idContrato')->textInput() ?>
+    <?php // $form->field($model, 'idContrato')->textInput() ?>
 
-    <?= $form->field($model, 'anioContrato')->textInput() ?>
+	<div  class="row formVehiculos">
+		<div class="col-md-2">
+			<?= $form->field($model, 'anioContrato[]')->textInput() ?>
+		</div>
+		
+		<div class="col-md-2">
+			<?= $form->field($model, 'placa[]')->DropDownList($placa,['maxlength' => true, 'prompt'=>'Seleccione...']) ?>
+		</div>
+		
+		
+		<div class="col-md-2">
+			<?php 
+			echo $form->field($model, 'horaIniMan[]')->widget(TimePicker::classname(), [
+				'options' => 
+				[
+					'readOnly' => true,
+					'showMeridian'=>false,
+					'value'=>'12:00 AM'
+				]]);?>
+		</div>
 
-    <?= $form->field($model, 'placa')->textInput(['maxlength' => true]) ?>
+
+		<div class="col-md-2">
+			<?php 
+			echo $form->field($model, 'horaFinMan[]')->widget(TimePicker::classname(), [
+				'options' => 
+				[
+					'readOnly' => true,
+					'showMeridian'=>false,
+					'value'=>'12:00 AM'
+				]]);?>
+		</div>
+	</div>
 	
-	<?php 
-	echo $form->field($model, 'horaIniMan')->widget(TimePicker::classname(), [
-		'options' => 
-		[
-			'readOnly' => true,
-			'showMeridian'=>false,
-		]]);?>
-	
-
-<?php 
-	echo $form->field($model, 'horaFinMan')->widget(TimePicker::classname(), [
-		'options' => 
-		[
-			'readOnly' => true,
-			'showMeridian'=>false,
-		]]);?>
-
-
+	<div id="VehiculosContrato">
+	</div>
     <div class="form-group">
         <?php //= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
     </div>

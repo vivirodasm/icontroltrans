@@ -12,6 +12,7 @@ use yii\helpers\ArrayHelper;
 use app\models\Terceros;
 use app\models\Tbtercerossucursal;
 use app\models\Tbdetacontratosveh;
+use app\models\Vehiculos;
 
 
 /**
@@ -93,7 +94,6 @@ class TbcontratosController extends Controller
         }
 
 		
-		
         return $this->render('create', [
             'model' => $model,
 			'estado' => $this->estado,
@@ -102,10 +102,6 @@ class TbcontratosController extends Controller
     }
 
 	
-
-	
-
-
     /**
      * Updates an existing Tbcontratos model.
      * If update is successful, the browser will be redirected to the 'view' page.
@@ -145,9 +141,13 @@ class TbcontratosController extends Controller
 			return $this->redirect(['view', 'id' => $model->placa]);
 		}
 
+		$placa = Vehiculos::find()->all();
+		$placa = ArrayHelper::map($placa,"placa","placa");
+		
 		return $this->renderPartial('../tbdetacontratosveh/create', [
 			'model' => $model,
 			'form'  => $form,
+			'placa' => $placa,
 		]);
 	}
 

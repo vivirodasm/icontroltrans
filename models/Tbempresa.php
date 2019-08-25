@@ -72,6 +72,11 @@ class Tbempresa extends \yii\db\ActiveRecord
     {
         return 'tbempresa';
     }
+	
+	public static function getDb() 
+	{
+		return Yii::$app->get('db1');
+	}
 
     /**
      * {@inheritdoc}

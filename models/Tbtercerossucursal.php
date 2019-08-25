@@ -29,6 +29,11 @@ class Tbtercerossucursal extends \yii\db\ActiveRecord
         return 'tbtercerossucursal';
     }
 
+	public static function getDb() 
+	{
+		return Yii::$app->get('db1');
+	}
+
     /**
      * {@inheritdoc}
      */

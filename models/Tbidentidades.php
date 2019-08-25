@@ -22,7 +22,12 @@ class Tbidentidades extends \yii\db\ActiveRecord
     {
         return 'tbidentidades';
     }
-
+	
+	public static function getDb() 
+	{
+		return Yii::$app->get('db1');
+	}
+	
     /**
      * {@inheritdoc}
      */

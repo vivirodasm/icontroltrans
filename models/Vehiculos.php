@@ -116,6 +116,11 @@ class Vehiculos extends \yii\db\ActiveRecord
     {
         return 'vehiculos';
     }
+	
+	public static function getDb() 
+	{
+		return Yii::$app->get('db1');
+	}
 
     /**
      * {@inheritdoc}

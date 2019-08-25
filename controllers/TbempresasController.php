@@ -117,7 +117,7 @@ class TbempresasController extends Controller
 				$password = $_SESSION["password"];
 				$charset = $_SESSION["charset"];
 				
-				exec ("echo ^<?php return [ 'class' =^> 'yii\db\Connection', 'dsn' =^> '$dns', 'username' =^> '$usuario',     'password' =^> '$password',  'charset' =^> '$charset', ]^; >../config/db1.php");
+				// exec ("echo ^<?php return [ 'class' =^> 'yii\db\Connection', 'dsn' =^> '$dns', 'username' =^> '$usuario',     'password' =^> '$password',  'charset' =^> '$charset', ]^; >../config/db1.php");
 				
 				// print_r($_SESSION); die();
 				require('../config/db1.php');
