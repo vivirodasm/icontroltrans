@@ -104,28 +104,17 @@ class TbempresasController extends Controller
 				$session = Yii::$app->session;
 				
 				$_SESSION["nit"]=$resultado[0]['nit'];
-				// print_r($nit);
-				$_SESSION["nombre"]=$resultado[0]['nombre'];
-				$_SESSION["dsn"]=$resultado[0]['dsn'];
-				$_SESSION["usuario"]=$resultado[0]['usuario'];
-				$_SESSION["password"]=$resultado[0]['password'];
-				$_SESSION["charset"]=$resultado[0]['charset'];
 				
-				$nombre = $_SESSION["nombre"];
-				$dns = $_SESSION["dsn"];
-				$usuario = $_SESSION["usuario"];
-				$password = $_SESSION["password"];
-				$charset = $_SESSION["charset"];
+				$_SESSION["nombre"]=$resultado[0]['nombre'];
+				// $_SESSION["dsn"]=$resultado[0]['dsn'];
+				// $_SESSION["usuario"]=$resultado[0]['usuario'];
+				// $_SESSION["password"]=$resultado[0]['password'];
+				// $_SESSION["charset"]=$resultado[0]['charset'];
+				$_SESSION["db"]=$resultado[0]['db'];
+				
 				
 				// exec ("echo ^<?php return [ 'class' =^> 'yii\db\Connection', 'dsn' =^> '$dns', 'username' =^> '$usuario',     'password' =^> '$password',  'charset' =^> '$charset', ]^; >../config/db1.php");
 				
-				// print_r($_SESSION); die();
-				require('../config/db1.php');
-				 $conexion1 = Yii::$app->db1;
-				 
-				 // $config = require '../config/db.php';
-				// (new yii\web\Application($config))->run();
-				 // $config = Yii::$app->db;
 				 
 				return $this->render('create', [
 					 'model' => $model,
@@ -134,8 +123,6 @@ class TbempresasController extends Controller
 				]);
 			}
 			
-			
-			// return $this->redirect(['view', 'id' => $model->nit]);
         }
 
         return $this->render('create', [

@@ -66,6 +66,17 @@ class Tbusuarios extends \yii\db\ActiveRecord
         return 'tbusuarios';
     }
 
+	/**
+     * {@inheritdoc}
+	 * Conexion a la base de datos correspondiente
+     */
+	public static function getDb() 
+	{
+		
+			return Yii::$app->get($_SESSION['db']);
+		
+	}
+	
     /**
      * {@inheritdoc}
      */

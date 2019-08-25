@@ -22,9 +22,15 @@ class Tbpaises extends \yii\db\ActiveRecord
         return 'tbpaises';
     }
 	
+	/**
+     * {@inheritdoc}
+	 * Conexion a la base de datos correspondiente
+     */
 	public static function getDb() 
 	{
-		return Yii::$app->get('db1');
+		
+			return Yii::$app->get($_SESSION['db']);
+		
 	}
 
     /**

@@ -21,6 +21,17 @@ class VehiculosBuscar extends Vehiculos
             [['modelo', 'vehEmpresa', 'vehBloqueado', 'capacPjs', 'carct_TV', 'carct_sonido', 'carct_banio', 'carct_sillaReclin', 'carct_aireAcond', 'carct_microf', 'carct_GPS', 'carct_Calefac', 'carct_portaEquip', 'carct_cinturSeg', 'carct_salidEmerg', 'carct_martillFrag', 'carct_luzIntNeon', 'carct_luzIndSilla', 'carct_cortinas', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
         ];
     }
+	
+	/**
+     * {@inheritdoc}
+	 * Conexion a la base de datos correspondiente
+     */
+	public static function getDb() 
+	{
+		
+			return Yii::$app->get($_SESSION['db']);
+		
+	}
 
     /**
      * {@inheritdoc}
