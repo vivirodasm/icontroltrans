@@ -96,6 +96,20 @@ use nex\chosen\Chosen;
 							],
 					])?>
 	  </div>
+	  
+	    <div class="col-md-6">
+	  <?= Chosen::widget([
+			'name' => 'departamentos',
+			'items' => $departamentos,
+			'allowDeselect' => false,
+			'disableSearch' => false, // Search input will be disabled
+			'clientOptions' => [
+				'search_contains' => true,
+				'max_selected_options' => 1,
+			],
+			'placeholder' => 'Seleccione un Departamento',
+		]);?>
+				</div>
 	  <div class="col-md-6">
 	  <?= $form->field($model, "idCenPob")->widget(
 					Chosen::className(), [

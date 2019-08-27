@@ -71,7 +71,7 @@ class Tbcontratos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'idtercero', 'fechaInicio', 'fechaFin', 'ciudadOrigen', 'ciudadDestino', 'objetCont', 'nroPsj', 'Aud_Usuario', 'Aud_Fecha'], 'required'],
+            [[ 'idtercero', 'fechaInicio', 'fechaFin', 'ciudadOrigen', 'ciudadDestino', 'objetCont', 'nroPsj', 'Aud_Usuario', 'Aud_Fecha','vlrContrato'], 'required'],
             [['idContrato', 'anioContrato', 'sucursalActiva', 'cantVeh', 'nroPsj', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
             [['fechaInicio', 'fechaFin', 'Aud_Fecha', 'Aud_FechaEdit'], 'safe'],
             [['objetCont'], 'string'],
@@ -119,7 +119,7 @@ class Tbcontratos extends \yii\db\ActiveRecord
             'resp_Contrato' => 'Responsable',
             'cedResp_Contrato' => 'Cedula',
             'dirResp_Contrato' => 'Dirección',
-            'telResp_Contrato' => 'Telfono ',
+            'telResp_Contrato' => 'Telefono ',
             'Aud_Usuario' => 'Aud Usuario',
             'Aud_Fecha' => 'Aud Fecha',
             'Aud_UsuarioEdit' => 'Aud Usuario Edit',

@@ -4,35 +4,9 @@ $( document ).ready(function()
    $(".row:eq(2)").hide();
    $(".row:eq(3)").hide();
 	
-	$("#terceros-idpaises").change(function() 
-	{
-		var opcionesCiudad = "";
-		idPais = $("#terceros-idpaises").val();
-		$.get( "index.php?r=terceros/ciudades&idPais="+idPais,
-				function( data )
-				{
-					$.each(data, function( index, datos) 
-						{	
-							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
-							// console.log( index + ": " + datos );
-						});
-						
-					$("#terceros-idcenpob").append(opcionesCiudad);
-					$("#terceros-idcenpob").trigger("chosen:updated");
-					
-					$("#tbtercerossucursal-ciudadsucursalter").append(opcionesCiudad);
-					$("#tbtercerossucursal-ciudadsucursalter").trigger("chosen:updated");
-					
-					$("#terceros-idcenpob").val(1765); 
-					$("#terceros-idcenpob").trigger("chosen:updated");	
-				},"json"
-			);
-			
-	});
 		
 	$("#terceros-idpaises").val(169);
-	$("#terceros-idpaises").trigger("change");
-
+	
 	/************************************************************************************************
 	 * Aquí valido los campos que son obligatorios
 	 * Para obligar a que sean obligatorios al array messages se le debe agregar el error
@@ -67,6 +41,37 @@ $( document ).ready(function()
 		}
 	});
 });
+
+
+$("[name='departamentos']").change(function() 
+{
+	departamento = $(this).val();
+	
+	var opcionesCiudad = "";
+		idPais = $("#terceros-idpaises").val();
+		$.get( "index.php?r=terceros/ciudades&idPais="+idPais+"&departamento="+departamento,
+				function( data )
+				{
+					$.each(data, function( index, datos) 
+						{	
+							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
+						});
+						
+					tercerosIdcenpob = $("#terceros-idcenpob");
+					
+					tercerosIdcenpob.html("");	
+					tercerosIdcenpob.trigger("chosen:updated");	
+					
+					tercerosIdcenpob.append(opcionesCiudad);
+					tercerosIdcenpob.trigger("chosen:updated");
+					
+						
+				},"json"
+			);
+	
+	
+});
+
 
 
 $("#terceros-nombre1_tercero, #terceros-nombre2_tercero ,#terceros-apellido1_tercero, #terceros-apellido2_tercero").blur(function() 

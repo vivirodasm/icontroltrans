@@ -40,6 +40,21 @@ use nex\chosen\Chosen;
 		<div class="row">
 		  <div class="col-md-4"><?= $form->field($model, 'movilSucursalTer')->textInput(['maxlength' => true]) ?></div>
 		  <div class="col-md-4"><?= $form->field($model, 'contactoSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  
+		    <div class="col-md-6">
+	  <?= Chosen::widget([
+			'name' => 'departamentoSucursal',
+			'items' => $departamento,
+			'allowDeselect' => false,
+			'disableSearch' => false, // Search input will be disabled
+			'clientOptions' => [
+				'search_contains' => true,
+				'max_selected_options' => 1,
+			],
+			'placeholder' => 'Seleccione un Departamento',
+		]);?>
+				</div>
+		  
 		  <div class="col-md-4"><?= $form->field($model, "ciudadSucursalTer")->widget(
 			Chosen::className(), [
 				'items' => [],

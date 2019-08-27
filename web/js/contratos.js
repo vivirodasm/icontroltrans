@@ -1,40 +1,92 @@
 $( document ).ready(function() 
 {
-			
 	
-		$("label[for = 'tbcontratos-sucursalactiva']").parent().hide();
-		var opcionesCiudad = "";
+	$("label[for = 'tbcontratos-sucursalactiva']").parent().hide();
+});
+
+
+//llenar las ciudadades de orien segun el departamento seleccionado
+$("[name='departamentoCiudadOrigen']").change(function() 
+{
+	departamento = $(this).val();
+	
+	var opcionesCiudad = "";
 		idPais = 169;
-		$.get( "index.php?r=terceros/ciudades&idPais="+idPais,
+		$.get( "index.php?r=terceros/ciudades&idPais="+idPais+"&departamento="+departamento,
 				function( data )
 				{
 					$.each(data, function( index, datos) 
 						{	
 							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
-							
 						});
 						
-					$("#tbcontratos-ciudadorigen").append(opcionesCiudad);
-					$("#tbcontratos-ciudaddestino").append(opcionesCiudad);
-					$("#tbcontratos-ciudadorigen").trigger("chosen:updated");
-					$("#tbcontratos-ciudaddestino").trigger("chosen:updated");
+					chosen = $("#tbcontratos-ciudadorigen");
+					
+					chosen.html("");	
+					chosen.trigger("chosen:updated");	
+					
+					chosen.append(opcionesCiudad);
+					chosen.trigger("chosen:updated");
+					
+						
+				},"json"
+			);
+	
+	
+});
+
+$("[name='departamentoCiudadDestino']").change(function() 
+{
+	departamento = $(this).val();
+	
+	var opcionesCiudad = "";
+		idPais = 169;
+		$.get( "index.php?r=terceros/ciudades&idPais="+idPais+"&departamento="+departamento,
+				function( data )
+				{
+					$.each(data, function( index, datos) 
+						{	
+							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
+						});
+						
+					chosen = $("#tbcontratos-ciudaddestino");
+					
+					chosen.html("");	
+					chosen.trigger("chosen:updated");	
+					
+					chosen.append(opcionesCiudad);
+					chosen.trigger("chosen:updated");
 					
 				},"json"
 			);
-			
-			
-		
-
-			
+	
+	
 });
 
 
 
-
+//se muestra el formulario x veces "Vehiculos del contrato" de acuerdo a la cantidad e vehiculos en "detalles del contrato"
+$("#tbcontratos-cantveh").change(function()
+{
+	
+	cantidadVhehiculos = $(this).val();
+	
+	var i;
+	for (i = 1; i <= 10; i++) 
+	{ 
+		$("#contratosVeh_"+i).hide();
+	}
+	
+	var j;
+	for (j = 1; j <= cantidadVhehiculos; j++) 
+	{ 
+		$("#contratosVeh_"+j).show();
+	}
+	
+});
 // se llenan los datos relacionados con el tercero 
 $('#tbcontratos-idtercero').change(function()
 {
-	alert();
 	var d = new Date();
 	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
 	
@@ -51,14 +103,25 @@ $('#tbcontratos-idtercero').change(function()
 					$( "input[name='Identificacion']" ).val(data.idtercero);
 					$( "input[name='digitoVerificacion']" ).val(data.dv_tercero);
 					$( "input[name='Contratante']" ).val(data.nombrecompleto);
-					$( "input[name='ciudad']" ).val();//pendeinte
+					$( "input[name='ciudad']" ).val();//pendiente
 					$( "input[name='telefono']" ).val(data.tel_tercero);
 					
 					// datos contacto
-					$( "#tbcontratos-resp_contrato" ).val(data.contacto_tercero);
-					$( "#tbcontratos-cedresp_contrato" ).val(data.ced_Contacto);
-					$( "#tbcontratos-dirresp_contrato" ).val(data.dir_contacto);
-					$( "#tbcontratos-telresp_contrato" ).val(data.tel_contacto);
+					if(data.naturalez_tercero =="J")
+					{
+						$( "#tbcontratos-resp_contrato" ).val(data.contacto_tercero);
+						$( "#tbcontratos-cedresp_contrato" ).val(data.ced_Contacto);
+						$( "#tbcontratos-dirresp_contrato" ).val(data.dir_contacto);
+						$( "#tbcontratos-telresp_contrato" ).val(data.tel_contacto);
+					}
+					else
+					{
+						$( "#tbcontratos-resp_contrato" ).val(data.nombrecompleto);
+						// $( "#tbcontratos-cedresp_contrato" ).val(data.ced_Contacto);
+						$( "#tbcontratos-dirresp_contrato" ).val(data.direccion_tercero);
+						$( "#tbcontratos-telresp_contrato" ).val(data.movil_tercero);
+					}
+					
 					
 					
 				},"json"

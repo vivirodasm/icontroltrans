@@ -1,25 +1,44 @@
 $( document ).ready(function() 
 {
 	
-		// var opcionesCiudad = "";
-		// idPais = 169;
-		// $.get( "index.php?r=terceros/ciudades&idPais="+idPais,
-				// function( data )
-				// {
-					// $.each(data, function( index, datos) 
-						// {	
-							// opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
-							
-						// });
-						
-					// $("#tbtercerossucursal-ciudadsucursalter").append(opcionesCiudad);
-					// $("#tbtercerossucursal-ciudadsucursalter").trigger("chosen:updated");
-					
-				// },"json"
-			// );
-			
-});
+ 
 		
+	// $("#terceros-idpaises").val(169);
+	
+	
+});
+
+
+$("[name='departamentoSucursal']").change(function() 
+{
+	departamento = $(this).val();
+	
+	var opcionesCiudad = "";
+		idPais = 169;
+		$.get( "index.php?r=terceros/ciudades&idPais="+idPais+"&departamento="+departamento,
+				function( data )
+				{
+					$.each(data, function( index, datos) 
+						{	
+							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
+						});
+						
+					tbtercerossucursal = $("#tbtercerossucursal-ciudadsucursalter");
+					
+					tbtercerossucursal.html("");	
+					tbtercerossucursal.trigger("chosen:updated");	
+					
+					tbtercerossucursal.append(opcionesCiudad);
+					tbtercerossucursal.trigger("chosen:updated");
+					
+						
+				},"json"
+			);
+	
+	
+});
+
+
 
 
 
