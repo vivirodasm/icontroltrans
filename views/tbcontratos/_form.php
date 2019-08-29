@@ -49,13 +49,12 @@ $this->registerJs( "
 	<div class="row">
 	  <div class="col-md-4"><?= $form->field($model, "idtercero")->widget(
 						Chosen::className(), [
-							'items' => [],
+							'items' => ["item1"=>""],
 							'disableSearch' => 0, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [
 								'search_contains' => true,
 								'single_backstroke_delete' => false,
-								
 							],
                             'placeholder' => 'Seleccione un tercero',
 							'noResultsText' => "Enter para buscar",
@@ -204,7 +203,7 @@ $this->registerJs( "
 			
 			  <div class="col-md-4"><?= $form->field($model, "ciudadOrigen")->widget(
 				Chosen::className(), [
-					'items' => [],
+					'items' => ["item1"=>""],
 					'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 					'multiple' => false,
 					'clientOptions' => [
@@ -230,7 +229,7 @@ $this->registerJs( "
 			
 			  <div class="col-md-4"><?= $form->field($model, "ciudadDestino")->widget(
 				Chosen::className(), [
-					'items' => [],
+					'items' => ["item1"=>""],
 					'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 					'multiple' => false,
 					'clientOptions' => [
@@ -266,12 +265,15 @@ $this->registerJs( "
 	  </div>
 	  <div class="tab-pane container fade" id="vehiculos">
 		
-		<?php 
-			for($i=1;$i<=10;$i++)
-				echo  $this->context->actionVehiculos($form,$i);   
-		?>
+				
+			<?php 
+				for($i=1;$i<=10;$i++)
+				echo  $this->context->actionVehiculos($form,$i); 
+			
+			?>   
+			
 		
-	
+		</script>
 	  </div>
 	</div>
 
@@ -279,13 +281,13 @@ $this->registerJs( "
 </div>
 
     
-    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>'usuario'])->label(false) ?>
+    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>1])->label(false) ?>
 
     <?= $form->field($model, 'Aud_Fecha')->hiddenInput(["value"=> date("Y-m-d H:i:s")])->label(false) ?>
 
-    <!--<?= $form->field($model, 'Aud_UsuarioEdit')->textInput() ?>
+    <?= $form->field($model, 'Aud_UsuarioEdit')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'Aud_FechaEdit')->textInput() ?>-->
+    <?= $form->field($model, 'Aud_FechaEdit')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

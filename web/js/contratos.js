@@ -1,7 +1,25 @@
 $( document ).ready(function() 
 {
-	
 	$("label[for = 'tbcontratos-sucursalactiva']").parent().hide();
+
+
+$(".btn.btn-success").click(function()
+{
+	
+	cantVehiculos = $("#tbcontratos-cantveh").val();
+	
+	if (cantVehiculos > 0 )
+	{
+		
+		var i;
+		for (i = cantVehiculos*1+1; i<=10; i++)
+		{
+			$("#contratosVeh_"+i).remove();
+		}
+	}
+	
+	});
+
 });
 
 
@@ -117,7 +135,7 @@ $('#tbcontratos-idtercero').change(function()
 					else
 					{
 						$( "#tbcontratos-resp_contrato" ).val(data.nombrecompleto);
-						// $( "#tbcontratos-cedresp_contrato" ).val(data.ced_Contacto);
+						$( "#tbcontratos-cedresp_contrato" ).val(data.idtercero);
 						$( "#tbcontratos-dirresp_contrato" ).val(data.direccion_tercero);
 						$( "#tbcontratos-telresp_contrato" ).val(data.movil_tercero);
 					}

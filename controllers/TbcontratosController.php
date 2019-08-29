@@ -93,8 +93,12 @@ class TbcontratosController extends Controller
 		$departamento = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();
 		$departamento = ArrayHelper::map($departamento,"Departamento","Departamento");
 	
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) 
+        if ($model->load(Yii::$app->request->post())) 
+		{
+			echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
+			die;
+            // return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
 
 		
@@ -170,10 +174,11 @@ class TbcontratosController extends Controller
 	{
 		
 		$tercero = Terceros::find()
-		->andWhere(['or',
+		->andWhere(
+		['or',
 			['like', 'idtercero', '%'. $filtro . '%', false],
 			['like', 'nombrecompleto', '%'. $filtro . '%', false]
-			])
+		])
 		->all();	
 		$tercero = ArrayHelper::map( $tercero, 'idtercero', 'nombrecompleto' );	
 		
