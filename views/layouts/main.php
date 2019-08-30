@@ -35,27 +35,32 @@ AppAsset::register($this);
             'class' => 'navbar-inverse navbar-fixed-top',
         ],
     ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Inicio', 'url' => ['/site/index'], 'visible' => Yii::$app->user->isGuest],
-            ['label' => 'Terceros', 'url' => ['/terceros/index'], 'visible' => Yii::$app->user->isGuest],
-            ['label' => 'Contratos', 'url' => ['/tbcontratos/create'], 'visible' => Yii::$app->user->isGuest], 
-			['label' => 'Extracto Contratos', 'url' => ['/site/contact'], 'visible' => Yii::$app->user->isGuest],
-            Yii::$app->user->isGuest ? (
-                 ['label' => 'Login', 'url' => ['/tbempresas/create']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
+			
+	if (!isset($_SESSION["usuario"]) )
+	{
+			echo Nav::widget([
+			'options' => ['class' => 'navbar-nav navbar-right'],
+			'items' => [
+					 ['label' => 'Login', 'url' => ['/tbempresas/create']]
+			],
+		]);
+	}
+	else
+	{
+			echo Nav::widget([
+			'options' => ['class' => 'navbar-nav navbar-right'],
+			'items' => [
+				['label' => 'Validar Vehiculo', 'url' => ['/site/index']],
+				['label' => 'Terceros', 'url' => ['/terceros/index']],
+				['label' => 'Contratos', 'url' => ['/tbcontratos/create']], 
+				['label' => 'Extracto Contratos', 'url' => ['/site/contact']],
+				['label' => 'Salir', 'url' => ['/login/logout']],
+				
+				
+			],
+		]);
+	}
+    
     NavBar::end();
     ?>
 

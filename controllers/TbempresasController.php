@@ -9,7 +9,7 @@ use app\controllers\TbempresasControllerBuscar;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
+use app\models\Login;
 
 /**
  * TbempresasController implements the CRUD actions for Tbempresas model.
@@ -98,8 +98,7 @@ class TbempresasController extends Controller
 			else{
 				
 				session_destroy(); 	
-		session_start();	
-				// print_r($resultado);
+				session_start();	
 				
 				$session = Yii::$app->session;
 				
@@ -112,10 +111,6 @@ class TbempresasController extends Controller
 				// $_SESSION["charset"]=$resultado[0]['charset'];
 				$_SESSION["db"]=$resultado[0]['db'];
 				
-				
-				// exec ("echo ^<?php return [ 'class' =^> 'yii\db\Connection', 'dsn' =^> '$dns', 'username' =^> '$usuario',     'password' =^> '$password',  'charset' =^> '$charset', ]^; >../config/db1.php");
-				
-				 
 				return $this->render('create', [
 					 'model' => $model,
 					 'validarEmpresa' => 2,
@@ -237,8 +232,8 @@ class TbempresasController extends Controller
 	
 	public function actionLogin()
 	{
-		$modelLogin = new LoginForm();
-		return $this->renderPartial('../site/login', [
+		$modelLogin = new Login();
+		return $this->renderPartial('../login/login', [
              'model' => $modelLogin,
         ]);
 		

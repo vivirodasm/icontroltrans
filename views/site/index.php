@@ -4,6 +4,19 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 
 $this->title = 'Icontroltrans';
+
+if (isset($_SESSION["usuario"])) {
+	$this->registerJs( "
+	  swal.fire({
+		  title: 'Importante',
+		  text: 'Verifique el estado del vehículo',
+		  type: 'warning',
+		  
+		});
+	
+	");
+}
+
 ?>
 <div class="site-index">
 

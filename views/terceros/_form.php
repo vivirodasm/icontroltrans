@@ -6,7 +6,7 @@ use nex\chosen\Chosen;
 /* @var $this yii\web\View */
 /* @var $model app\models\Terceros */
 /* @var $form yii\widgets\ActiveForm */
-
+print_r("usu".$_SESSION["usuario"]);
 
 ?>
 
