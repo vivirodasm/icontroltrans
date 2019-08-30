@@ -36,11 +36,15 @@ class VehiculosController extends Controller
     public function actionIndex()
     {
         $searchModel = new VehiculosBuscar();
+		$model = new Vehiculos();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+		
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model' => $model,
+            
+			
         ]);
     }
 
@@ -123,5 +127,30 @@ class VehiculosController extends Controller
         }
 
         throw new NotFoundHttpException('The requested page does not exist.');
+    }
+	
+	    /**
+     * Lists all Vehiculos models.
+     * @return mixed
+     */
+    public function actionVehiculo()
+    {
+        
+		$placa = @$_POST['Vehiculos']['placa'];
+		// print_r($_POST);
+		// die;
+		$searchModel = new VehiculosBuscar();
+		$model = new Vehiculos();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+		$dataProvider->query->andWhere( "placa='$placa'" );
+		
+		
+
+        return $this->render('vehiculo', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+            'model' => $model,
+			
+        ]);
     }
 }

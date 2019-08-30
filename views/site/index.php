@@ -11,8 +11,17 @@ if (isset($_SESSION["usuario"])) {
 		  title: 'Importante',
 		  text: 'Verifique el estado del vehículo',
 		  type: 'warning',
+		  confirmButtonText: 'Validar!',
+		  cancelButtonText: 'Cancelar',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33'
 		  
-		});
+		}).then((result) => {
+  if (result.value) {
+    window.location=\"index.php?r=vehiculos%2Fvehiculo\";
+  }
+})
 	
 	");
 }

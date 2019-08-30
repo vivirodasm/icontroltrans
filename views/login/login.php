@@ -24,18 +24,23 @@ $this->params['breadcrumbs'][] = $this->title;
         ],
 		'action' =>['login/login']
     ]); ?>
+	
+		<div class="row">
+		  <div class="col-md-2"></div>
+		  <div class="col-md-8"> 
+				<?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
 
-        <?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
+				<?= $form->field($model, 'password')->passwordInput()->label('Contraseña') ?>
 
-        <?= $form->field($model, 'password')->passwordInput()->label('Contraseña') ?>
+				<div class="form-group">
+					<div class="col-lg-offset-1 col-lg-11">
+						<?= Html::submitButton('Ingresar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
+					</div>
+				</div></div>
+		  <div class="col-md-2"></div>
+		</div>
 
-        
-
-        <div class="form-group">
-            <div class="col-lg-offset-1 col-lg-11">
-                <?= Html::submitButton('Ingresar', ['class' => 'btn btn-primary', 'name' => 'login-button']) ?>
-            </div>
-        </div>
+       
 
     <?php ActiveForm::end(); ?>
 

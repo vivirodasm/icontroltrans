@@ -20,14 +20,20 @@ use yii\bootstrap\ActiveForm;
         ],
 		 'action' =>['tbempresas/create','nit'=>$model->nit]
     ]); ?>
-
-    <?= $form->field($model, 'nit')->textInput() ?>
+	
+	<div class="row">
+	  <div class="col-md-2"></div>
+	  <div class="col-md-8"><?= $form->field($model, 'nit')->textInput() ?>
+		  <div class="form-group">
+			<?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
+		  </div></div>
+	  <div class="col-md-2"></div>
+	</div>
+    
 
  
 
-    <div class="form-group">
-        <?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
-    </div>
+    
 
     <?php ActiveForm::end(); ?>
 

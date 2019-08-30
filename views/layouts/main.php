@@ -50,7 +50,7 @@ AppAsset::register($this);
 			echo Nav::widget([
 			'options' => ['class' => 'navbar-nav navbar-right'],
 			'items' => [
-				['label' => 'Validar Vehiculo', 'url' => ['/site/index']],
+				['label' => 'Validar Vehiculo', 'url' => ['/vehiculos/vehiculo']],
 				['label' => 'Terceros', 'url' => ['/terceros/index']],
 				['label' => 'Contratos', 'url' => ['/tbcontratos/create']], 
 				['label' => 'Extracto Contratos', 'url' => ['/site/contact']],
