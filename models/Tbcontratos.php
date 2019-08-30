@@ -71,11 +71,12 @@ class Tbcontratos extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [[ 'idtercero', 'fechaInicio', 'fechaFin', 'ciudadOrigen', 'ciudadDestino', 'objetCont', 'nroPsj', 'Aud_Usuario', 'Aud_Fecha'], 'required'],
-            [['idContrato', 'anioContrato', 'sucursalActiva', 'cantVeh', 'nroPsj', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
+            [[ 'idtercero', 'fechaInicio', 'fechaFin', 'ciudadOrigen', 'ciudadDestino', 'objetCont', 'nroPsj', 'Aud_Usuario', 'Aud_Fecha','vlrContrato','cantVeh','tipoContrato'], 'required'],
+            [['idContrato', 'anioContrato', 'sucursalActiva', 'nroPsj', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
             [['fechaInicio', 'fechaFin', 'Aud_Fecha', 'Aud_FechaEdit'], 'safe'],
             [['objetCont'], 'string'],
-            [['vlrContrato'], 'number'],
+            [['vlrContrato'], 'integer','min'=>1],
+            [['cantVeh'], 'number','min'=>1],
             [['nroContrato'], 'string', 'max' => 9],
             [['idtercero'], 'string', 'max' => 15],
             [['sucursalTercero', 'ciudadOrigen', 'ciudadDestino', 'resp_Contrato'], 'string', 'max' => 80],
@@ -119,7 +120,7 @@ class Tbcontratos extends \yii\db\ActiveRecord
             'resp_Contrato' => 'Responsable',
             'cedResp_Contrato' => 'Cedula',
             'dirResp_Contrato' => 'Dirección',
-            'telResp_Contrato' => 'Telfono ',
+            'telResp_Contrato' => 'Telefono ',
             'Aud_Usuario' => 'Aud Usuario',
             'Aud_Fecha' => 'Aud Fecha',
             'Aud_UsuarioEdit' => 'Aud Usuario Edit',
@@ -190,4 +191,7 @@ class Tbcontratos extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Tbextractos::className(), ['nroContrato' => 'idContrato', 'anioContrato' => 'anioContrato']);
     }
+	
+	
+	
 }

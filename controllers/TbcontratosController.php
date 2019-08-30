@@ -13,7 +13,7 @@ use app\models\Terceros;
 use app\models\Tbtercerossucursal;
 use app\models\Tbdetacontratosveh;
 use app\models\Vehiculos;
-
+use app\models\Tbpoblaciones;
 
 /**
  * TbcontratosController implements the CRUD actions for Tbcontratos model.
@@ -89,8 +89,16 @@ class TbcontratosController extends Controller
     {
         $model = new Tbcontratos();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
+		
+		$departamento = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();
+		$departamento = ArrayHelper::map($departamento,"Departamento","Departamento");
+	
+        // if ($model->load(Yii::$app->request->post()) && $model->save()) 
+        if ($model->load(Yii::$app->request->post())) 
+		{
+			echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
+			die;
+            // return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
 
 		
@@ -98,6 +106,7 @@ class TbcontratosController extends Controller
             'model' => $model,
 			'estado' => $this->estado,
 			'tipoContrato' => $this->tipoContrato,
+			'departamento' => $departamento,
         ]);
     }
 
@@ -133,7 +142,7 @@ class TbcontratosController extends Controller
 	}
 	
 	
-	public function actionVehiculos($form)
+	public function actionVehiculos($form,$num)
 	{
 		$model = new Tbdetacontratosveh();
 
@@ -148,6 +157,7 @@ class TbcontratosController extends Controller
 			'model' => $model,
 			'form'  => $form,
 			'placa' => $placa,
+			'num'=> $num,
 		]);
 	}
 
@@ -164,10 +174,11 @@ class TbcontratosController extends Controller
 	{
 		
 		$tercero = Terceros::find()
-		->andWhere(['or',
+		->andWhere(
+		['or',
 			['like', 'idtercero', '%'. $filtro . '%', false],
 			['like', 'nombrecompleto', '%'. $filtro . '%', false]
-			])
+		])
 		->all();	
 		$tercero = ArrayHelper::map( $tercero, 'idtercero', 'nombrecompleto' );	
 		

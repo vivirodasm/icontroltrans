@@ -49,13 +49,12 @@ $this->registerJs( "
 	<div class="row">
 	  <div class="col-md-4"><?= $form->field($model, "idtercero")->widget(
 						Chosen::className(), [
-							'items' => [],
+							'items' => ["item1"=>""],
 							'disableSearch' => 0, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [
 								'search_contains' => true,
 								'single_backstroke_delete' => false,
-								
 							],
                             'placeholder' => 'Seleccione un tercero',
 							'noResultsText' => "Enter para buscar",
@@ -102,22 +101,28 @@ $this->registerJs( "
 	
 	
 	<div class="row">
-	  <div class="col-md-4"><?= $form->field($model, "tipoContrato")->widget(
+	  <div class="col-md-4"><?=$form->field($model, "tipoContrato")->widget(
 						Chosen::className(), [
 							'items' => $tipoContrato,
 							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [
-								'search_contains' => true,
+								'search_contains' => false,
 								'single_backstroke_delete' => false,
 							],
                             'placeholder' => 'Seleccione un tipo de contrato',
 					])?></div>
-	  <div class="col-md-4"><?= $form->field($model, "estado")->widget(
+	  <div class="col-md-4">
+	  
+	  <?php 
+		
+		$model->estado = "ACTIVO";
+	  echo $form->field($model, "estado")->widget(
 						Chosen::className(), [
 							'items' => $estado,
 							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
+							'value' => 'ACTIVO',
 							'clientOptions' => [
 								'search_contains' => true,
 								'single_backstroke_delete' => false,
@@ -174,7 +179,7 @@ $this->registerJs( "
 				?></div>
 					  <div class="col-md-2"><label>Días</label>
 				<?= Html::input('text','dias','', $options=["disabled"=>true,"id"=>"dias"]) ?></div>
-					<div class="col-md-2"><?= $form->field($model, 'cantVeh')->textInput(["type"=>"number"]) ?></div>
+					<div class="col-md-2"><?= $form->field($model, 'cantVeh')->textInput(["type"=>"number","min"=>0,"max"=>10,"value"=>0]) ?></div>
 					<div class="col-md-2"><?= $form->field($model, 'nroPsj')->textInput(["type"=>"number"]) ?></div>
 					<div class="col-md-2"><?= $form->field($model, 'vlrContrato')->textInput(["type"=>"number"]) ?>	</div>
 						
@@ -182,9 +187,23 @@ $this->registerJs( "
 				
 			
 			<div class="row">
+			<label> Departamento origen</label>
+			<?= Chosen::widget([
+			'name' => 'departamentoCiudadOrigen',
+			'items' => $departamento,
+			'allowDeselect' => false,
+			'disableSearch' => false, // Search input will be disabled
+			'clientOptions' => [
+				'search_contains' => true,
+				'max_selected_options' => 1,
+			],
+			'placeholder' => 'Seleccione un Departamento',
+		]);?>
+			
+			
 			  <div class="col-md-4"><?= $form->field($model, "ciudadOrigen")->widget(
 				Chosen::className(), [
-					'items' => [],
+					'items' => ["item1"=>""],
 					'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 					'multiple' => false,
 					'clientOptions' => [
@@ -193,9 +212,24 @@ $this->registerJs( "
 					],
 					'placeholder' => 'Seleccione la ciudad origen',
 			])?></div>
+			
+			<label> Departamento Destino</label>
+			<?= Chosen::widget([
+			'name' => 'departamentoCiudadDestino',
+			'items' => $departamento,
+			'allowDeselect' => false,
+			'disableSearch' => false, // Search input will be disabled
+			'clientOptions' => [
+				'search_contains' => true,
+				'max_selected_options' => 1,
+			],
+			'placeholder' => 'Seleccione un Departamento',
+		]);?>
+			
+			
 			  <div class="col-md-4"><?= $form->field($model, "ciudadDestino")->widget(
 				Chosen::className(), [
-					'items' => [],
+					'items' => ["item1"=>""],
 					'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 					'multiple' => false,
 					'clientOptions' => [
@@ -220,17 +254,26 @@ $this->registerJs( "
 			</div>	
 			
 			<div class="row">
-			  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?></div>
-			  <div class="col-md-3"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
-			  <div class="col-md-3"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?></div>
-			  <div class="col-md-3"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true,'disabled'=>true]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number",'disabled'=>true]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true,'disabled'=>true]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number",'disabled'=>true]) ?></div>
 			</div>	
 
 				
 					
 	  </div>
 	  <div class="tab-pane container fade" id="vehiculos">
-		 <?= $this->context->actionVehiculos($form);   ?>
+		
+				
+			<?php 
+				for($i=1;$i<=10;$i++)
+				echo  $this->context->actionVehiculos($form,$i); 
+			
+			?>   
+			
+		
+		</script>
 	  </div>
 	</div>
 
@@ -238,13 +281,13 @@ $this->registerJs( "
 </div>
 
     
-    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>''])->label(false) ?>
+    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>1])->label(false) ?>
 
     <?= $form->field($model, 'Aud_Fecha')->hiddenInput(["value"=> date("Y-m-d H:i:s")])->label(false) ?>
 
-    <!--<?= $form->field($model, 'Aud_UsuarioEdit')->textInput() ?>
+    <?= $form->field($model, 'Aud_UsuarioEdit')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'Aud_FechaEdit')->textInput() ?>-->
+    <?= $form->field($model, 'Aud_FechaEdit')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>

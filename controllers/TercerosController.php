@@ -110,6 +110,11 @@ class TercerosController extends Controller
 		$tipoTercero = ["CLIENTE"=>"CLIENTE","CONDUCTOR"=>"CONDUCTOR","PROPIETARIO"=>"PROPIETARIO","EMPLEADO"=>"EMPLEADO","PROVEEDOR"=>"PROVEEDOR","PRESTADOR SERVICIO"=>"PRESTADOR SERVICIO"];
 		
 		
+		
+		
+		$departamentos = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();
+		$departamentos = ArrayHelper::map($departamentos,"Departamento","Departamento");
+		
         return $this->renderPartial('create', [
             'model' 			=> $model,
 			'empresa'			=> $empresa,
@@ -120,6 +125,7 @@ class TercerosController extends Controller
 			'estado'			=> $estado,
 			'tipoTercero'		=> $tipoTercero,
 			'cedulaUsuario'		=> $cedulaUsuario,
+			'departamentos'		=> $departamentos,
         ]);
     }
 
@@ -137,11 +143,13 @@ class TercerosController extends Controller
 			echo "<script>  window.location.assign('http://localhost/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
         }
 		
-		
+		$departamento = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();
+		$departamento = ArrayHelper::map($departamento,"Departamento","Departamento");
 		
         return $this->renderPartial('../tbtercerossucursal/create', [
             'model' => $model,
 			'Idtercero' => $Idtercero,
+			'departamento' => $departamento
         ]);
     }
 
@@ -166,12 +174,12 @@ class TercerosController extends Controller
     }
 	
 	
-	public function actionCiudades($idPais)
+	public function actionCiudades($idPais,$departamento)
 	{
 		
 		if (is_numeric($idPais))
 		{
-			$datosCiudades = Tbpoblaciones::find()->all();
+			$datosCiudades = Tbpoblaciones::find()->andWhere("Departamento = '$departamento'")->all();
 			$datosCiudades = ArrayHelper::toArray($datosCiudades);
 			
 			foreach ($datosCiudades as $ciudad)
@@ -181,9 +189,8 @@ class TercerosController extends Controller
 			
 			return json_encode($ciudades);
 		}
-	
-		
 	}
+	
 
     /**
      * Deletes an existing Terceros model.

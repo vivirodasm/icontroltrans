@@ -8,25 +8,27 @@ use kartik\time\TimePicker;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 
-<div class="tbdetacontratosveh-form">
+<div class="tbdetacontratosveh-form" >
 
     <?php // $form = ActiveForm::begin(); ?>
 
     <?php // $form->field($model, 'idContrato')->textInput() ?>
 
-	<div  class="row formVehiculos">
+	<div class="row" id="contratosVeh_<?php echo $num; ?>" style="display: none">
 		<div class="col-md-2">
-			<?= $form->field($model, 'anioContrato[]')->textInput() ?>
+		<!-- <?php // $form->field($model, "[$num]idContrato")->hiddenInput()->label(false) ?> -->
+			<?= $form->field($model, "[$num]anioContrato")->textInput(["value"=>date("Y")]) ?>
+			
 		</div>
 		
 		<div class="col-md-2">
-			<?= $form->field($model, 'placa[]')->DropDownList($placa,['maxlength' => true, 'prompt'=>'Seleccione...']) ?>
+			<?= $form->field($model, "[$num]placa")->DropDownList($placa,['maxlength' => true, 'prompt'=>'Seleccione...']) ?>
 		</div>
 		
 		
 		<div class="col-md-2">
 			<?php 
-			echo $form->field($model, 'horaIniMan[]')->widget(TimePicker::classname(), [
+			echo $form->field($model, "[$num]horaIniMan")->widget(TimePicker::classname(), [
 				'options' => 
 				[
 					'readOnly' => true,
@@ -38,7 +40,7 @@ use kartik\time\TimePicker;
 
 		<div class="col-md-2">
 			<?php 
-			echo $form->field($model, 'horaFinMan[]')->widget(TimePicker::classname(), [
+			echo $form->field($model, "[$num]horaFinMan")->widget(TimePicker::classname(), [
 				'options' => 
 				[
 					'readOnly' => true,

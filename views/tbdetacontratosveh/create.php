@@ -6,8 +6,8 @@ use yii\helpers\Html;
 /* @var $model app\models\Tbdetacontratosveh */
 
 $this->title = '';
-$this->params['breadcrumbs'][] = ['label' => 'Tbdetacontratosvehs', 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+// $this->params['breadcrumbs'][] = ['label' => 'Tbdetacontratosvehs', 'url' => ['index']];
+// $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tbdetacontratosveh-create">
 
@@ -17,6 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'model' => $model,
 		'form'  => $form,
 		'placa' => $placa,
+		'num'=> $num,
     ]) ?>
 
 </div>
