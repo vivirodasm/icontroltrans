@@ -93,15 +93,42 @@ class TbcontratosController extends Controller
 		$departamento = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();
 		$departamento = ArrayHelper::map($departamento,"Departamento","Departamento");
 	
-        // if ($model->load(Yii::$app->request->post()) && $model->save()) 
+		$añoActual = date("Y");
+       
         if ($model->load(Yii::$app->request->post())) 
 		{
-			echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
-			die;
-            // return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
+			
+			//saber cual es numero de contrato que debe seguir
+			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1;  ;
+						
+			$model->idContrato 		= $idContrato ;
+			$model->anioContrato	= $añoActual  ;
+			$model->nroContrato 	= $idContrato . "-" . $añoActual ;
+			$model->sucursalActiva 	= 0 ;
+			
+			//se guarda desspues de completar los campos requeridos
+			$model->save();
+			
+			//se guardan los vehiculos en la tabla intermedia
+			$vehiculos = [];
+			foreach (Yii::$app->request->post()['Tbdetacontratosveh'] as $key => $contratosveh)
+			{
+				$vehiculos[$key] = new Tbdetacontratosveh();
+			}
+			
+	
+			if (Tbdetacontratosveh::loadMultiple($vehiculos, Yii::$app->request->post())) 
+			{
+				foreach ($vehiculos as $key => $vehiculo) 
+				{
+					$vehiculo->idContrato = $model->idContrato;
+					$vehiculo->save(false);
+					
+				}
+			}
+						
+            return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
-
-		
         return $this->render('create', [
             'model' => $model,
 			'estado' => $this->estado,

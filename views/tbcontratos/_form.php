@@ -11,6 +11,9 @@ use dosamigos\datepicker\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
+//no funciona en el archivo externos contratos.js
+
+//se valida la presion del boton "enter" para hacer la busqueda de los terceros
 $this->registerJs( "
 
 	$( document ).ready(function() 
@@ -28,6 +31,10 @@ $this->registerJs( "
 								info = info + '<option value='+index+'>'+datos+'</option>';
 								
 							});
+							
+						$('#tbcontratos-idtercero').html('');
+						$('#tbcontratos-idtercero').trigger('chosen:updated');
+						
 						$('#tbcontratos-idtercero').append(info);
 						$('#tbcontratos-idtercero').trigger('chosen:updated');
 						
@@ -281,7 +288,7 @@ $this->registerJs( "
 </div>
 
     
-    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>1])->label(false) ?>
+    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>30323355])->label(false) ?>
 
     <?= $form->field($model, 'Aud_Fecha')->hiddenInput(["value"=> date("Y-m-d H:i:s")])->label(false) ?>
 
