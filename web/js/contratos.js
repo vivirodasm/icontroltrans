@@ -106,7 +106,7 @@ $("#tbcontratos-cantveh").change(function()
 $('#tbcontratos-idtercero').change(function()
 {
 	var d = new Date();
-	var strDate = d.getFullYear() + "/" + (d.getMonth()+1) + "/" + d.getDate();
+	var strDate = d.getFullYear();
 	
 	idtercero = $(this).val();
 	
