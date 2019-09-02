@@ -142,7 +142,13 @@ class VehiculosController extends Controller
 		$searchModel = new VehiculosBuscar();
 		$model = new Vehiculos();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-		$dataProvider->query->andWhere( "placa='$placa'" );
+		$dataProvider->query->andWhere( 
+		['or',
+			['like', 'placa', '%'. $placa . '%', false],
+			['like', 'NroInterno', '%'. $placa . '%', false]
+		]);
+			
+		
 		
 		
 

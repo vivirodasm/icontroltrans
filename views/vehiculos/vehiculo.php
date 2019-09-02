@@ -8,7 +8,7 @@ use yii\bootstrap\ActiveForm;
 /* @var $searchModel app\models\VehiculosBuscar */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Información Vehiculo';
+$this->title = 'Información fechas vencimiento vehiculo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 
@@ -19,18 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
         'layout' => 'horizontal',
         'fieldConfig' => [
             'template' => "{label}\n<div class=\"col-lg-3\">{input}</div>\n<div class=\"col-lg-8\">{error}</div>",
-            'labelOptions' => ['class' => 'col-lg-1 control-label'],
+           
         ],
 		 'action' =>['vehiculos/vehiculo','placa'=>$model->placa]
     ]); ?>
 	
 	<div class="row">
 	  <div class="col-md-4"></div>
-	  <div class="col-md-8"><?= $form->field($model, 'placa')->textInput()->label('Placa') ?>
-		  <div class="form-group">
+	  <div class="col-md-8"><?= $form->field($model, 'placa')->textInput()->label('Placa o Nro Interno') ?>
+		  </div>
+	</div>
+	<div class="row">
+	  <div class="col-md-5"></div>
+	  <div class="col-md-7"><div class="form-group">
 			<?= Html::submitButton('Buscar', ['class' => 'btn btn-success']) ?>
 		  </div></div>
-	 
 	</div>
     
     <?php ActiveForm::end(); ?>
@@ -51,14 +54,14 @@ $this->params['breadcrumbs'][] = $this->title;
 
             'placa',
             'NroInterno',
-            'fechaAfil',
-            'fechaDesafil',
-            'estado',
+            // 'fechaAfil',
+            // 'fechaDesafil',
+            // 'estado',
             //'emprAfil',
-            //'fechaVtoConvenio',
+            'fechaVtoConvenio',
             //'relacion',
             //'nroContrAfil',
-            //'fechaVtoContAfil',
+            'fechaVtoContAfil',
             //'clase',
             //'claseTarifaFUEC',
             //'marca',
@@ -81,24 +84,24 @@ $this->params['breadcrumbs'][] = $this->title;
             //'chasis',
             //'nroTarjOper',
             //'fechaExpTO',
-            //'fechaVtoTO',
+            'fechaVtoTO',
             //'nombreCDA',
             //'nroCertCDA',
-            //'fechaVtoExtintor',
+            'fechaVtoExtintor',
             //'fechaExpCDA',
-            //'fechaVtoCDA',
+            'fechaVtoCDA',
             //'aseguradoraSOAT',
             //'nroSOAT',
             //'fechaExpSOAT',
-            //'fechaVtoSOAT',
+            'fechaVtoSOAT',
             //'aseguradoraRCC',
             //'nroRCC',
             //'fechaExpRCC',
-            //'fechaVtoRCC',
+            'fechaVtoRCC',
             //'aseguradoraRCE',
             //'nroRCE',
             //'fechaExpRCE',
-            //'fechaVtoRCE',
+            'fechaVtoRCE',
             //'carct_TV',
             //'carct_sonido',
             //'carct_banio',
