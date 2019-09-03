@@ -15,6 +15,7 @@ use app\models\Tbdetacontratosveh;
 use app\models\Vehiculos;
 use app\models\Tbpoblaciones;
 
+
 /**
  * TbcontratosController implements the CRUD actions for Tbcontratos model.
  */
@@ -87,6 +88,7 @@ class TbcontratosController extends Controller
      */
     public function actionCreate()
     {
+
         $model = new Tbcontratos();
 
 		
@@ -212,6 +214,15 @@ class TbcontratosController extends Controller
 		return json_encode($tercero);	
 	}
 
+
+
+	public function actionPdf()
+	{
+		
+		echo  $this->renderFile('../views/tbcontratos/contpdf.php');
+		
+	}
+				
     /**
      * Deletes an existing Tbcontratos model.
      * If deletion is successful, the browser will be redirected to the 'index' page.
