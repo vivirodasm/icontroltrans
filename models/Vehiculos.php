@@ -396,4 +396,22 @@ class Vehiculos extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Terceros::className(), ['idtercero' => 'propietario']);
     }
+	
+	  /**
+     * @return la fecha con estilo si es menor a la actual
+     */
+	public function validarFechas($fecha){
+        $fecha=strtotime($fecha) ;  //2020-10-08 00:00:00.000000 date('r', strtotime($fecha));
+		$fechaActual=time();
+		if($fechaActual > $fecha){
+			$fecha=date('Y-m-d',($fecha));  
+			$validacion='<span class="" style="background-color:  #a93226;  color: white; border-radius: 5px;"> '.$fecha.'</span>';
+		}
+		else{
+			$fecha=date('Y-m-d',($fecha));
+			$validacion='<span class=""> '.$fecha.'</span>';
+		}
+		
+        return $validacion;
+    }
 }

@@ -58,10 +58,25 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'fechaDesafil',
             // 'estado',
             //'emprAfil',
-            'fechaVtoConvenio',
+            [
+			    'attribute'=>'fechaVtoConvenio',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoConvenio);
+				}
+			],
             //'relacion',
             //'nroContrAfil',
-            'fechaVtoContAfil',
+            // 'fechaVtoContAfil',
+			[
+			    'attribute'=>'fechaVtoContAfil',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoContAfil);
+				}
+			],
             //'clase',
             //'claseTarifaFUEC',
             //'marca',
@@ -84,24 +99,72 @@ $this->params['breadcrumbs'][] = $this->title;
             //'chasis',
             //'nroTarjOper',
             //'fechaExpTO',
-            'fechaVtoTO',
+            // 'fechaVtoTO',
+			[
+			    'attribute'=>'fechaVtoTO',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoTO);
+				}
+			],
             //'nombreCDA',
             //'nroCertCDA',
-            'fechaVtoExtintor',
+            // 'fechaVtoExtintor',
+			[
+			    'attribute'=>'fechaVtoExtintor',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoExtintor);
+				}
+			],
             //'fechaExpCDA',
-            'fechaVtoCDA',
+            // 'fechaVtoCDA',
+			[
+			    'attribute'=>'fechaVtoCDA',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoCDA);
+				}
+			],
             //'aseguradoraSOAT',
             //'nroSOAT',
             //'fechaExpSOAT',
-            'fechaVtoSOAT',
+            // 'fechaVtoSOAT',
+			[
+			    'attribute'=>'fechaVtoSOAT',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoSOAT);
+				}
+			],
             //'aseguradoraRCC',
             //'nroRCC',
             //'fechaExpRCC',
-            'fechaVtoRCC',
+            // 'fechaVtoRCC',
+			[
+			    'attribute'=>'fechaVtoRCC',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoRCC);
+				}
+			],
             //'aseguradoraRCE',
             //'nroRCE',
             //'fechaExpRCE',
-            'fechaVtoRCE',
+            // 'fechaVtoRCE',
+			[
+			    'attribute'=>'fechaVtoRCE',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
+					return $data->validarFechas($data->fechaVtoRCE);
+				}
+			],
             //'carct_TV',
             //'carct_sonido',
             //'carct_banio',
