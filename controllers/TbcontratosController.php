@@ -14,6 +14,7 @@ use app\models\Tbtercerossucursal;
 use app\models\Tbdetacontratosveh;
 use app\models\Vehiculos;
 use app\models\Tbpoblaciones;
+use app\models\Pdf;
 
 
 /**
@@ -218,8 +219,14 @@ class TbcontratosController extends Controller
 
 	public function actionPdf()
 	{
+		$ecm = "0973-xxxx";
+		$pdf = new Pdf();
+		$pdf->generarPdf($ecm);
 		
-		echo  $this->renderFile('../views/tbcontratos/contpdf.php');
+		// $_SESSION['info']= $datos;
+		 // $params['contrato'] = "aaaa";
+		// echo  $this->renderFile('../views/tbcontratos/contpdf.php',$params);
+		// echo  $this->render('contpdf.php',["contrato"=>"1234-12314" ]);
 		
 	}
 				
