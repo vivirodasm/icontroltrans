@@ -17,35 +17,36 @@ class Pdf extends FPDF
 {
 	//Cabecera de página
 	
-	public function generarPdf($data)
+	public function generarPdf(array $datos)
 	{
 		
+		extract($datos);
 		$pdf = new FPDF();
 		
 		$pdf->AddPage();
 		$pdf->Image('plantillas/contrato/1.png',0,0,210,300);
 		$pdf->SetFont('Arial','B',9.5);
 		//Movernos a la derecha
-		$pdf->Ln(20);
+		$pdf->Ln(11);
 		$pdf->Cell(200,20,utf8_decode("FICHA TECNICA CONTRATO DE TRANSPORTE"),0,2,'C');
 		$pdf->Cell(200,-10,utf8_decode("FORMATO ÚNICO DE CONTRATO DEL SERVICIO PÚBLICO DE TRANSPORTE TERRESTRE AUTOMOTOR ESPECIAL"),0,2,'C');
 		$pdf->Ln(15);
-		$pdf->Cell(200,-10,utf8_decode("CONTRATO N° $data"),0,2,'C');
+		$pdf->Cell(200,-10,utf8_decode("CONTRATO N° $numContrato"),0,2,'C');
 		
-		$pdf->Ln(20);
+		$pdf->Ln(8);
 		
 		//CONTRATISTA 
 		$pdf->Cell(27,5,utf8_decode("CONTRATISTA :"),0);
 		$pdf->SetFont('Arial','I',9.5);
 		// $pdf->Ln(10);
-		$pdf->Cell(160,5,utf8_decode("REAL"),0,2,'L');
+		$pdf->Cell(160,5,utf8_decode("$contratista"),0,2,'L');
 		
 		$pdf->Ln(1);
 		//NIT
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(27,5,utf8_decode("NIT                     :"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(160,5,utf8_decode("810.005.477-0"),0,2,'L');
+		$pdf->Cell(160,5,utf8_decode("$nitContratista"),0,2,'L');
 		
 		//SALTO DE LINEA
 		$pdf->Ln(1);
@@ -53,7 +54,7 @@ class Pdf extends FPDF
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(27,5,utf8_decode("CONTRATANTE:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(160,5,utf8_decode("CARLOS ALONSO MUÑOZ MARTIN"),0,2,'L');
+		$pdf->Cell(160,5,utf8_decode("$contratante"),0,2,'L');
 		
 		//SALTO DE LINEA
 		$pdf->Ln(1);
@@ -62,7 +63,7 @@ class Pdf extends FPDF
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(29,5,utf8_decode("IDENTIFICACIÓN:"));
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(160,5,utf8_decode("810.005.477-0"),0,2,'L');
+		$pdf->Cell(160,5,utf8_decode("$identificacion"),0,2,'L');
 		
 		//SALTO DE LINEA
 		$pdf->Ln(1);
@@ -71,24 +72,21 @@ class Pdf extends FPDF
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(35,5,utf8_decode("TIPO DE CONTRATO:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(160,5,utf8_decode("810.005.477-0"),0,2,'L');
-		$pdf->Ln(11);
+		$pdf->Cell(160,5,utf8_decode("$tipoContrato"),0,2,'L');
+		$pdf->Ln(5);
 		
+		
+		//OBJETO
 		$pdf->MultiCell(542,4,utf8_decode("OBJETO: EL TRANSPORTADOR de manera independiente, con plena autonomía técnica y administrativa, se compromete a 
 prestar  el  servicio  de  transporte de un  grupo  de personas ocasional en los vehículos que se describen o en caso de fuerza 
 mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en  las  mismas  condiciones  de  funcionamiento."),0,'J');
-		$pdf->Ln(10);
+		$pdf->Ln(8);
 
 		//ORIGEN
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(16,5,utf8_decode("ORIGEN:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(70,5,utf8_decode("MANIZALES - CALDAS:"),0);
-		$pdf->Cell(13,5,utf8_decode("PLACA"),1);
-		$pdf->Cell(1,1,utf8_decode(""),0);
-		$pdf->Cell(17,5,utf8_decode("LATERAL"),1);
-		$pdf->Cell(1,1,utf8_decode(""),0);
-		$pdf->Cell(70,5,utf8_decode("PROPIETARIO"),1,2,'C');
+		$pdf->Cell(70,5,utf8_decode("$origen"),0,2);
 		
 		$pdf->Ln(1);
 		
@@ -96,26 +94,16 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(17,5,utf8_decode("DESTINO:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(69,5,utf8_decode("MANIZALES - CALDAS:"),0);
-		$pdf->SetFont('Arial','I',8);
-		$pdf->Cell(13,5,utf8_decode("ZNK-661"),1);
-		$pdf->Cell(1,1,utf8_decode(""),0);
-		$pdf->Cell(17,5,utf8_decode("1234"),1);
-		$pdf->Cell(1,1,utf8_decode(""),0);
-		$pdf->Cell(70,5,utf8_decode("Juan Rios"),1,2,'C');
+		$pdf->Cell(69,5,utf8_decode("$destino"),0,2);
 		
 		$pdf->Ln(1);
+		
 		$pdf->SetFont('Arial','B',9.5);
 		//FECHA DE INICIO 
 		$pdf->Cell(31,5,utf8_decode("FECHA DE INICIO:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(55,5,utf8_decode("2019-00-00"),0,0,'L');
-		$pdf->SetFont('Arial','I',8);
-		$pdf->Cell(13,5,utf8_decode("ZNK-661"),1,0);
-		$pdf->Cell(1,1,utf8_decode(""),0,0);
-		$pdf->Cell(17,5,utf8_decode("1234"),1,0);
-		$pdf->Cell(1,1,utf8_decode(""),0,0);
-		$pdf->Cell(70,5,utf8_decode("Juan Rios"),1,2,'C');
+		$pdf->Cell(55,5,utf8_decode(substr($fechaInicio,0,10)),0,2,'L');
+		
 		
 		$pdf->Ln(1);
 		
@@ -123,28 +111,25 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 		//FECHA DE TERMINACIÓN 
 		$pdf->Cell(43,5,utf8_decode("FECHA DE TERMINACIÓN:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(43,5,utf8_decode("2019-00-00"),0,0,'L');
-		$pdf->SetFont('Arial','I',8);
-		$pdf->Cell(13,5,utf8_decode("ZNK-661"),1,0);
-		$pdf->Cell(1,1,utf8_decode(""),0,0);
-		$pdf->Cell(17,5,utf8_decode("1234"),1,0);
-		$pdf->Cell(1,1,utf8_decode(""),0,0);
-		$pdf->Cell(70,5,utf8_decode("Juan Rios"),1,2,'C');
+		$pdf->Cell(43,5,utf8_decode(substr($fechaTerminacion,0,10)),0,2,'L');
+		
 		
 		$pdf->Ln(1);
 			
 		$pdf->SetFont('Arial','B',9.5);
 		//N° PASAJEROS
-		$pdf->Cell(31,5,utf8_decode("N° PASAJEROS:"),0);
+		$pdf->Cell(29,5,utf8_decode("N° PASAJEROS:"),0);
 		$pdf->SetFont('Arial','I',9.5);
-		$pdf->Cell(55,5,utf8_decode("2019-00-00"),0,0,'L');
-		$pdf->SetFont('Arial','I',8);
-		$pdf->Cell(13,5,utf8_decode("ZNK-661"),1,0);
-		$pdf->Cell(1,1,utf8_decode(""),0,0);
-		$pdf->Cell(17,5,utf8_decode("1234"),1,0);
-		$pdf->Cell(1,1,utf8_decode(""),0,0);
-		$pdf->Cell(70,5,utf8_decode("Juan Rios"),1,2,'C');
+		$pdf->Cell(57,5,utf8_decode("$numePasajeros"),0,2,'L');
 		
+		
+		$pdf->Ln(1);
+			
+		$pdf->SetFont('Arial','B',9.5);
+		//N° PASAJEROS
+		$pdf->Cell(42,5,utf8_decode("VALOR DEL CONTRATO:"),0);
+		$pdf->SetFont('Arial','I',9.5);
+		$pdf->Cell(44,5,utf8_decode("$valorContrato"),0,2,'L');
 		
 		//SALTO DE LINEA
 		$pdf->Ln(1);
@@ -152,7 +137,7 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 		//VALOR EN LETRAS
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(33,5,utf8_decode("VALOR EN LETRAS:"),0);
-		$pdf->Cell(160,5,utf8_decode("TRESCIENTOS SETENTA YOCHO MIL PESOS M/CTE"),0,2,'L');
+		$pdf->Cell(160,5,utf8_decode("$valorContratoletras"),0,2,'L');
 		
 		//SALTO DE LINEA
 		$pdf->Ln(1);
@@ -160,11 +145,76 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 		//OBJETO DEL CONTRATO
 		$pdf->SetFont('Arial','I',9.5);
 		$pdf->Cell(43,5,utf8_decode("OBJETO DEL CONTRATO:"),0);
-		$pdf->Cell(150,5,utf8_decode("810.005.477-0"),0,2,'L');
+		$pdf->Cell(150,5,utf8_decode("$objetoContrato"),0,2,'L');
+		
+		// vehiculos
+		$pdf->Ln(2);
+		$pdf->Cell(13,5,utf8_decode("PLACA"),1);
+		$pdf->Cell(1,1,utf8_decode(""),0);
+		$pdf->Cell(17,5,utf8_decode("LATERAL"),1);
+		$pdf->Cell(1,1,utf8_decode(""),0);
+		$pdf->Cell(66,5,utf8_decode("PROPIETARIO"),1,0,'C');
+		
+		$pdf->Cell(1,1,utf8_decode(""),0,0);
+		
+		//mostrar doble titulo si existe mas de 1 vehiculo
+		if(count($infoVehiculo) > 1)
+		{
+			$pdf->Cell(13,5,utf8_decode("PLACA"),1);
+			$pdf->Cell(1,1,utf8_decode(""),0);
+			$pdf->Cell(17,5,utf8_decode("LATERAL"),1);
+			$pdf->Cell(1,1,utf8_decode(""),0);
+			$pdf->Cell(66,5,utf8_decode("PROPIETARIO"),1,1,'C');
+			
+		}
+		else
+		{
+			//salto de linea para corregir error al mostrar solo 1 vehiculo
+			$pdf->Ln(4);
+			
+		}
+		
 		
 		$pdf->Ln(2);
 		
+		 
+            // [idtercero] => 30312316
+            // [nombrecompleto] => SEINET  SALINAS MORALES
 		
+		foreach ($infoVehiculo as  $key => $info)
+		{
+			$pdf->SetFont('Arial','I',8);
+			if ($key % 2 == 0)
+			{
+				
+				
+				$pdf->Cell(13,5,utf8_decode($info['placa']),1,0);
+				$pdf->Cell(1,1,utf8_decode(""),0,0);
+				$pdf->Cell(17,5,utf8_decode($info['NroInterno']),1,0);
+				$pdf->Cell(1,1,utf8_decode(""),0,0);
+				$pdf->Cell(18,5,utf8_decode($info['idtercero']),1,0);
+				$pdf->Cell(1,1,utf8_decode(""),0,0);
+				$pdf->Cell(47,5,utf8_decode(substr($info['nombrecompleto'],0,28)),1,0,'C');
+			}
+			else
+			{
+				$pdf->Cell(1,1,utf8_decode(""),0);
+				$pdf->Cell(13,5,utf8_decode($info['placa']),1,0);
+				$pdf->Cell(1,1,utf8_decode(""),0,0);
+				$pdf->Cell(17,5,utf8_decode($info['NroInterno']),1,0);
+				$pdf->Cell(1,1,utf8_decode(""),0,0);
+				$pdf->Cell(18,5,utf8_decode($info['idtercero']),1,0);
+				$pdf->Cell(1,1,utf8_decode(""),0,0);
+				$pdf->Cell(47,5,utf8_decode(substr($info['nombrecompleto'],0,28)),1,0,'C');
+				
+				$pdf->Ln(7);
+				
+			}
+			// $pdf->Ln(2);
+		}
+		
+			
+		$pdf->Ln(5);
 		$pdf->MultiCell(542,5,utf8_decode("
 CLÁUSULA PENAL: Si una de las partes incumpliese alguna de las obligaciones que por este contrato contrae, pagará a otra a 
 título de pena una suma equivalente al diez por ciento (10%) del valor total del contrato. PARAGRAFO: Las sumas pactadas serán 

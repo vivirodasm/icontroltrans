@@ -100,7 +100,9 @@ class TbcontratosController extends Controller
        
         if ($model->load(Yii::$app->request->post())) 
 		{
-			
+			echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
+			die;
+
 			//saber cual es numero de contrato que debe seguir
 			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1;  ;
 						
@@ -129,8 +131,10 @@ class TbcontratosController extends Controller
 					
 				}
 			}
-						
-            return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
+			
+			$this->actionPdf($idContrato, $añoActual,$valorContratoletras);
+			
+            // return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
         return $this->render('create', [
             'model' => $model,
@@ -217,11 +221,75 @@ class TbcontratosController extends Controller
 
 
 
+	// public function actionPdf($idContrato, $anioContrato,$valorContratoletras)
 	public function actionPdf()
 	{
-		$ecm = "0973-xxxx";
+		
+		$idContrato = 1265;
+		$anioContrato = 2019;
+		
+		$datosContrato = $this->findModel($idContrato,$anioContrato);
+		
+		$connection = Yii::$app->get($_SESSION['db']);
+		
+		$command = $connection->createCommand("
+			SELECT 	
+					v.placa,
+					v.NroInterno,
+					t.idtercero, 
+					t.nombrecompleto
+			FROM
+				vehiculos as v,
+				terceros  as t,
+				tbdetacontratosveh as tv
+			WHERE
+				tv.idContrato = $idContrato
+			And
+				tv.anioContrato = $anioContrato
+			AND 
+				tv.placa = v.placa
+			AND
+				v.propietario = t.idtercero
+		");
+		$infoVehiculo = $command->queryAll();
+		
+	// echo "<pre>"; print_r(strlen("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")); echo "</pre>"; 
+// die;
+
+		
+		$datosTercero = Terceros::find()->AndWhere(["idtercero"=> $datosContrato->idtercero ])->one();
+		
+		
+		$ciudadOrigen = tbpoblaciones::find()->AndWhere(["idCenPob" => $datosContrato->ciudadOrigen ])->one();
+		$ciudadOrigen = $ciudadOrigen->Municipio . "-" . $ciudadOrigen->Departamento;
+		
+		
+		$ciudadDestino = tbpoblaciones::find()->AndWhere(["idCenPob" => $datosContrato->ciudadDestino ])->one();
+		$ciudadDestino = $ciudadDestino->Municipio . "-" . $ciudadDestino->Departamento;
+		
+	
+		
+		$datos=
+		[
+			"numContrato"			=> $datosContrato->nroContrato,
+			"contratista" 			=> $_SESSION['nombre'],
+			"nitContratista"		=> $_SESSION['nit'],
+			"contratante"			=> $datosTercero->nombrecompleto,
+			"identificacion"		=> $datosTercero->idtercero . " ".$datosTercero->dv_tercero ,
+			"tipoContrato"			=> $datosContrato->tipoContrato,
+			"origen"				=> $ciudadOrigen,
+			"destino"				=> $ciudadDestino,
+			"fechaInicio"			=> $datosContrato->fechaInicio,
+			"fechaTerminacion"		=> $datosContrato->fechaFin,
+			"numePasajeros"			=> $datosContrato->nroPsj,
+			"valorContrato"			=> $datosContrato->vlrContrato,
+			"valorContratoletras" 	=> "$ millon de pesos",
+			"objetoContrato" 		=> $datosContrato->objetCont,
+			"infoVehiculo" 			=> $infoVehiculo
+			
+		];
 		$pdf = new Pdf();
-		$pdf->generarPdf($ecm);
+		$pdf->generarPdf($datos);
 		
 		// $_SESSION['info']= $datos;
 		 // $params['contrato'] = "aaaa";

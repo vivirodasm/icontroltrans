@@ -72,13 +72,9 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 			//ORIGEN
 			$this->SetFont('Arial','B',9.5);
 			$this->Cell(16,5,utf8_decode("ORIGEN:"),0);
-			$this->SetFont('Arial','I',9.5);
-			$this->Cell(70,5,utf8_decode("MANIZALES - CALDAS:"),0);
-			$this->Cell(13,5,utf8_decode("PLACA"),1);
-			$this->Cell(1,1,utf8_decode(""),0);
-			$this->Cell(17,5,utf8_decode("LATERAL"),1);
-			$this->Cell(1,1,utf8_decode(""),0);
-			$this->Cell(70,5,utf8_decode("PROPIETARIO"),1,2,'C');
+			
+			$this->Ln(1);
+			
 			
 			$this->Ln(1);
 			
@@ -153,6 +149,14 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 			$this->Cell(150,5,utf8_decode("810.005.477-0"),0,2,'L');
 			
 			$this->Ln(2);
+		
+			$this->SetFont('Arial','I',9.5);
+			$this->Cell(70,5,utf8_decode("MANIZALES - CALDAS:"),0);
+			$this->Cell(13,5,utf8_decode("PLACA"),1);
+			$this->Cell(1,1,utf8_decode(""),0);
+			$this->Cell(17,5,utf8_decode("LATERAL"),1);
+			$this->Cell(1,1,utf8_decode(""),0);
+			$this->Cell(70,5,utf8_decode("PROPIETARIO"),1,2,'C');
 		
 		
 		$this->MultiCell(542,5,utf8_decode("
