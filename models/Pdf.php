@@ -228,7 +228,7 @@ Para EL TRANSPORTADOR: REALTUR S.A, AV. PANAMERICANA - ESTACIÓN URIBE - LOTE EL
 (6)893-1411 - (6)893-1412, Para EL CONTRATANTE: CRA 17 Nª51C-04 Tel: 3118928325Se suscribe en dos (02) ejemplares 
 de un mismo tenor literal, en Manizales, en junio 08, 2019 "),0,'J');
 
-		$pdf->Image('plantillas/contrato/2.png',140,240,50,24);
+		$pdf->Image('plantillas/contrato/2.png',140,$pdf->GetY() + 5 ,50,24);
 		
 		$pdf->Ln(20);
 		

@@ -253,10 +253,6 @@ class TbcontratosController extends Controller
 		");
 		$infoVehiculo = $command->queryAll();
 		
-	// echo "<pre>"; print_r(strlen("aaaaaaaaaaaaaaaaaaaaaaaaaaaa")); echo "</pre>"; 
-// die;
-
-		
 		$datosTercero = Terceros::find()->AndWhere(["idtercero"=> $datosContrato->idtercero ])->one();
 		
 		
