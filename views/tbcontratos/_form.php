@@ -245,7 +245,7 @@ $this->registerJs( "
 					],
 					'placeholder' => 'Seleccione la ciudad destino',
 			])?></div>
-			  <div class="col-md-4"><label>Valor en letras</label><?= Html::input('text', 'valorLetras', '',['class'=>'form-control','disabled'=>true,]) ?></div>
+			  <div class="col-md-4"><label>Valor en letras</label><?= Html::input('text', 'valorLetras', '',['class'=>'form-control','readonly'=>true,]) ?></div>
 			</div>
 				
 			<div class="row">
@@ -261,10 +261,10 @@ $this->registerJs( "
 			</div>	
 			
 			<div class="row">
-			  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true,'disabled'=>true]) ?></div>
-			  <div class="col-md-3"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number",'disabled'=>true]) ?></div>
-			  <div class="col-md-3"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true,'disabled'=>true]) ?></div>
-			  <div class="col-md-3"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number",'disabled'=>true]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true ]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true ]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
 			</div>	
 
 				
@@ -275,7 +275,7 @@ $this->registerJs( "
 				
 			<?php 
 				for($i=1;$i<=10;$i++)
-				echo  $this->context->actionVehiculos($form,$i); 
+					echo $this->context->actionVehiculos($form,$i); 
 			
 			?>   
 			

@@ -15,6 +15,7 @@ use app\models\Tbdetacontratosveh;
 use app\models\Vehiculos;
 use app\models\Tbpoblaciones;
 use app\models\Pdf;
+use app\models\Tbempresa;
 
 
 /**
@@ -100,8 +101,12 @@ class TbcontratosController extends Controller
        
         if ($model->load(Yii::$app->request->post())) 
 		{
-			echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
-			die;
+			// echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
+			// echo "<pre>"; print_r(Yii::$app->request->post()['valorLetras']); echo "</pre>"; 
+			
+			
+			
+			// die;
 
 			//saber cual es numero de contrato que debe seguir
 			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1;  ;
@@ -132,7 +137,8 @@ class TbcontratosController extends Controller
 				}
 			}
 			
-			$this->actionPdf($idContrato, $añoActual,$valorContratoletras);
+			$valorContratoletras = Yii::$app->request->post()['valorLetras'] ;
+			$this->actionPdf($idContrato, $añoActual, $valorContratoletras);
 			
             // return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
@@ -221,12 +227,12 @@ class TbcontratosController extends Controller
 
 
 
-	// public function actionPdf($idContrato, $anioContrato,$valorContratoletras)
-	public function actionPdf()
+	public function actionPdf($idContrato, $anioContrato,$valorContratoletras)
+	// public function actionPdf()
 	{
 		
-		$idContrato = 1265;
-		$anioContrato = 2019;
+		// $idContrato = 1265;
+		// $anioContrato = 2019;
 		
 		$datosContrato = $this->findModel($idContrato,$anioContrato);
 		
@@ -235,7 +241,6 @@ class TbcontratosController extends Controller
 		$command = $connection->createCommand("
 			SELECT 	
 					v.placa,
-					v.NroInterno,
 					t.idtercero, 
 					t.nombrecompleto
 			FROM
@@ -256,14 +261,24 @@ class TbcontratosController extends Controller
 		$datosTercero = Terceros::find()->AndWhere(["idtercero"=> $datosContrato->idtercero ])->one();
 		
 		
-		$ciudadOrigen = tbpoblaciones::find()->AndWhere(["idCenPob" => $datosContrato->ciudadOrigen ])->one();
+		$ciudadOrigen = Tbpoblaciones::find()->AndWhere(["idCenPob" => $datosContrato->ciudadOrigen ])->one();
 		$ciudadOrigen = $ciudadOrigen->Municipio . "-" . $ciudadOrigen->Departamento;
 		
 		
-		$ciudadDestino = tbpoblaciones::find()->AndWhere(["idCenPob" => $datosContrato->ciudadDestino ])->one();
+		$ciudadDestino = Tbpoblaciones::find()->AndWhere(["idCenPob" => $datosContrato->ciudadDestino ])->one();
 		$ciudadDestino = $ciudadDestino->Municipio . "-" . $ciudadDestino->Departamento;
 		
-	
+		// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' , $_SESSION['nit'] ])->one();
+		$infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' , '810.005.477-0'])->one();
+		$ciudadEmpresa = Tbpoblaciones::find()->AndWhere(["idCenPob" => $infoEmpresa->Ciudad ])->one();
+		$ciudadEmpresa = $ciudadEmpresa->Municipio;
+				
+		//fecha formateada en español
+		setlocale(LC_TIME, 'es_ES.UTF-8');
+		$miFecha = strtotime($datosContrato->fechaInicio);
+		$fechaContrato = strftime("en %B %d, %Y", $miFecha);
+
+
 		
 		$datos=
 		[
@@ -275,14 +290,19 @@ class TbcontratosController extends Controller
 			"tipoContrato"			=> $datosContrato->tipoContrato,
 			"origen"				=> $ciudadOrigen,
 			"destino"				=> $ciudadDestino,
-			"fechaInicio"			=> $datosContrato->fechaInicio,
+			"fechaInicio"			=> substr($datosContrato->fechaInicio,0,10),
 			"fechaTerminacion"		=> $datosContrato->fechaFin,
 			"numePasajeros"			=> $datosContrato->nroPsj,
 			"valorContrato"			=> $datosContrato->vlrContrato,
-			"valorContratoletras" 	=> "$ millon de pesos",
+			"valorContratoletras" 	=> $valorContratoletras,
 			"objetoContrato" 		=> $datosContrato->objetCont,
-			"infoVehiculo" 			=> $infoVehiculo
-			
+			"infoVehiculo" 			=> $infoVehiculo,
+			"infoEmpresa"			=> $infoEmpresa,
+			"dirContacto"			=> $datosContrato->dirResp_Contrato,
+			"telContacto"			=> $datosContrato->telResp_Contrato,
+			"fechaContrato" 		=> $fechaContrato,
+			"ciudadEmpresa"			=> $ciudadEmpresa,
+		
 		];
 		$pdf = new Pdf();
 		$pdf->generarPdf($datos);
