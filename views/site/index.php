@@ -9,7 +9,7 @@ if (isset($_SESSION["usuario"])) {
 	$this->registerJs( "
 	  swal.fire({
 		  title: 'Importante',
-		  text: 'Verifique el estado del vehículo',
+		  text: 'Consulte el estado del vehículo',
 		  type: 'warning',
 		  confirmButtonText: 'Validar!',
 		  cancelButtonText: 'Cancelar',

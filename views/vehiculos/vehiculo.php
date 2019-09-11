@@ -26,7 +26,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	
 	<div class="row">
 	  <div class="col-md-4"></div>
-	  <div class="col-md-8"><?= $form->field($model, 'placa')->textInput()->label('Placa o Nro Interno') ?>
+	  <div class="col-md-8"><?= $form->field($model, 'placa')->textInput()->label('Placa o Lateral') ?>
 		  </div>
 	</div>
 	<div class="row">
@@ -45,6 +45,10 @@ $this->params['breadcrumbs'][] = $this->title;
     <h1><?= Html::encode($this->title) ?></h1>
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php 
+		global $mensaje;
+		$mensaje = array (); 
+	?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
@@ -62,8 +66,15 @@ $this->params['breadcrumbs'][] = $this->title;
 			    'attribute'=>'fechaVtoConvenio',
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
-					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoConvenio);
+					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>'; Array ( [fecha] => Sin datos [mensaje] => )
+					
+					$valor = $data->validarFechas($data->fechaVtoConvenio, 'Convenio');
+                    global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					// echo $(div).html()
+					// print_r($mensaje);
+					return $valor['fecha']; 
+					
 				}
 			],
             //'relacion',
@@ -74,7 +85,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoContAfil);
+					$valor = $data->validarFechas($data->fechaVtoContAfil, 'Contrato afiliación');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					return $valor['fecha'];
 				}
 			],
             //'clase',
@@ -104,8 +118,10 @@ $this->params['breadcrumbs'][] = $this->title;
 			    'attribute'=>'fechaVtoTO',
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
-					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoTO);
+					$valor = $data->validarFechas($data->fechaVtoTO, 'Tarjeta operación');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					return $valor['fecha'];
 				}
 			],
             //'nombreCDA',
@@ -116,7 +132,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoExtintor);
+					$valor = $data->validarFechas($data->fechaVtoExtintor, 'Extintor');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					return $valor['fecha'];
 				}
 			],
             //'fechaExpCDA',
@@ -126,7 +145,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoCDA);
+					$valor =  $data->validarFechas($data->fechaVtoCDA , 'CDA');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje'];  print_r($valor['mensaje']);
+					return $valor['fecha'];
 				}
 			],
             //'aseguradoraSOAT',
@@ -138,7 +160,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoSOAT);
+					$valor = $data->validarFechas($data->fechaVtoSOAT, 'SOAT');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					return $valor['fecha'];
 				}
 			],
             //'aseguradoraRCC',
@@ -150,7 +175,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoRCC);
+					$valor = $data->validarFechas($data->fechaVtoRCC, 'RCC');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					return $valor['fecha'];
 				}
 			],
             //'aseguradoraRCE',
@@ -162,7 +190,10 @@ $this->params['breadcrumbs'][] = $this->title;
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					return $data->validarFechas($data->fechaVtoRCE);
+					$valor =  $data->validarFechas($data->fechaVtoRCE, 'RCE');
+					global $mensaje;
+					$mensaje[] = $valor['mensaje']; 
+					return $valor['fecha'];
 				}
 			],
             //'carct_TV',
@@ -197,6 +228,19 @@ $this->params['breadcrumbs'][] = $this->title;
             // ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
+	
+<!-- div para mensajes-->
 
+<div id="mensajes">
+<?php  
+	// print_r($mensaje);
+$total = count($mensaje);
+if ($mensaje != ''){
+		for($x = 0; $x < $total; $x++) {
+		echo $mensaje[$x];
+		echo "<br>";
+		}
+} ?>
+</div>
 
 </div>

@@ -37,7 +37,7 @@ class Tbempresas extends \yii\db\ActiveRecord
     {
         return [
             [['nit'], 'required'],
-            [['nit'], 'integer'],
+            [['nit'], 'string'],
             
         ];
     }

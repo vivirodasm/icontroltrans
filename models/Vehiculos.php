@@ -400,18 +400,25 @@ class Vehiculos extends \yii\db\ActiveRecord
 	  /**
      * @return la fecha con estilo si es menor a la actual
      */
-	public function validarFechas($fecha){
-        $fecha=strtotime($fecha) ;  //2020-10-08 00:00:00.000000 date('r', strtotime($fecha));
-		$fechaActual=time();
-		if($fechaActual > $fecha){
-			$fecha=date('Y-m-d',($fecha));  
-			$validacion='<span class="" style="background-color:  #a93226;  color: white; border-radius: 5px;"> '.$fecha.'</span>';
+	public function validarFechas($fecha, $documento){
+		$valores = array('fecha' =>'', 'mensaje'=>'');
+		if ($fecha ){ 
+			$fecha=strtotime($fecha) + 24*3600 ;  //2020-10-08 00:00:00.000000 date('r', strtotime($fecha));
+			
+			$fechaActual=time();
+			if($fechaActual > $fecha){
+				$fecha=date('Y-m-d',($fecha));  
+				$valores['fecha']='<span class="" style="background-color:  #a93226;  color: white; border-radius: 5px;"> '.$fecha.'</span>';
+				$valores['mensaje']='<span class="" style="color:  #a93226; "> El vencimiento de: '.$documento.' es '.$fecha.'</span>';
+			}
+			else{
+				$fecha=date('Y-m-d',($fecha));
+				$valores['fecha']='<span class=""> '.$fecha.'</span>';
+			}
 		}
-		else{
-			$fecha=date('Y-m-d',($fecha));
-			$validacion='<span class=""> '.$fecha.'</span>';
-		}
+		else {$valores['fecha']= "Sin datos";}
 		
-        return $validacion;
+		 // print_r($valores); 
+        return $valores;
     }
 }
