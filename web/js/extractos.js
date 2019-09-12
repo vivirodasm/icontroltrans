@@ -63,7 +63,7 @@ $("#tbextractos-idvehiculo").change(function()
 				vehvtorce.attr("style","");
 					
 				//TO
-				if (data.fechaVtoTO.fecha.substr(10) == "vencido" )
+				if (data.fechaVtoTO.fecha.substr(10) == "vencido"|| data.fechaVtoTO.fecha.substr(0,8) == "no posee") 
 				{
 					vehvtoto.attr("style",stilo);
 					vehvtoto.val(data.fechaVtoTO.fecha.substr(0,10));
@@ -74,7 +74,7 @@ $("#tbextractos-idvehiculo").change(function()
 				}
 				
 				//extintor
-				if (data.fechaVtoExtintor.fecha.substr(10) == "vencido"   )
+				if (data.fechaVtoExtintor.fecha.substr(10) == "vencido"  || data.fechaVtoExtintor.fecha.substr(0,8) == "no posee") 
 				{
 					vehvtoextintor.attr("style",stilo);
 					vehvtoextintor.val(data.fechaVtoExtintor.fecha.substr(0,10));
@@ -84,21 +84,22 @@ $("#tbextractos-idvehiculo").change(function()
 				{
 					vehvtoextintor.val(data.fechaVtoExtintor.fecha);
 				}
-				
+					
 				//CDA
-				if (data.fechaVtoCDA.fecha.substr(10) == "vencido" )
+				if (data.fechaVtoCDA.fecha.substr(10) == "vencido" || data.fechaVtoCDA.fecha.substr(0,8) == "no posee")
 				{
+					
 					vehvtocda.attr("style",stilo);
-					vehvtocda.val(data.fechaVtoTO.fecha.substr(0,10));
+					vehvtocda.val(data.fechaVtoCDA.fecha.substr(0,10));
 				}
 				else
 				{
-					vehvtocda.val(data.fechaVtoTO.fecha);
+					vehvtocda.val(data.fechaVtoCDA.fecha);
 				}
 				
 				
 				//SOAT
-				if (data.fechaVtoSOAT.fecha.substr(10) == "vencido"   )
+				if (data.fechaVtoSOAT.fecha.substr(10) == "vencido"   || data.fechaVtoSOAT.fecha.substr(0,8) == "no posee")
 				{
 					vehvtosoat.attr("style",stilo);
 					vehvtosoat.val(data.fechaVtoSOAT.fecha.substr(0,10));
@@ -109,7 +110,7 @@ $("#tbextractos-idvehiculo").change(function()
 				}
 				
 				//RCC
-				if (data.fechaVtoRCC.fecha.substr(10) == "vencido"   )
+				if (data.fechaVtoRCC.fecha.substr(10) == "vencido" || data.fechaVtoRCC.fecha.substr(0,8) == "no posee")  
 				{
 					vehvtorcc.attr("style",stilo);
 					vehvtorcc.val(data.fechaVtoRCC.fecha.substr(0,10));
@@ -120,7 +121,7 @@ $("#tbextractos-idvehiculo").change(function()
 				}
 				
 				//RCE
-				if (data.fechaVtoRCE.fecha.substr(10) == "vencido"  )
+				if (data.fechaVtoRCE.fecha.substr(10) == "vencido" || data.fechaVtoRCE.fecha.substr(0,8) == "no posee") 
 				{
 					vehvtorce.attr("style",stilo);
 					vehvtorce.val(data.fechaVtoRCE.fecha.substr(0,10));
@@ -131,7 +132,7 @@ $("#tbextractos-idvehiculo").change(function()
 				}
 				
 				
-				// $("#tbextractos-vehvtobimestral").val(data.fechaVtoRPbimest.fecha);
+				$("#tbextractos-vehvtobimestral").val(data.fechaVtoRPbimest);
 				
 				estadoDoc = "";
 				$.each(data.estadoDocumentos, function (index, value) 

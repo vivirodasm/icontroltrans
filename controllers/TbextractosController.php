@@ -203,11 +203,11 @@ class TbextractosController extends Controller
 		//vencimiento bimestral del vehiculo
 		$vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');
 		
-		$infoVehiculos['fechaVtoRPbimest'] = $vtoBimestral;
+		$infoVehiculos['fechaVtoRPbimest'] = $this->vencimientofecha(substr($vtoBimestral,0,10));
 		
 		$infoVehiculos['estadoDocumentos'] = $vehEstado;
-		
-		// echo "<pre>"; print_r($infoVehiculos); echo "</pre>"; 
+		$infoVehiculos['estadoDocumentos']['Revisión Bimestra'] = $this->fechaVencida("Revisión Bimestra",substr($vtoBimestral,0,10));
+		 
 		
 		echo json_encode( $infoVehiculos );
 	}
@@ -233,7 +233,7 @@ class TbextractosController extends Controller
 	{
 		
 		if(strlen($fecha) == 0)
-			return "no posee  ";
+			return "No posee";
 		elseif (date("Y-m-d") >  $fecha )
 			return $fecha.'vencido';
 		else
