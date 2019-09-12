@@ -150,16 +150,50 @@ $("#tbextractos-idvehiculo").change(function()
 				  confirmButtonText:
 					'aceptar'
 				  
-				})
+				});
 
 			},'json'
 				);
 	
 });
 
+$("#btnTercero,#btnConTercero ").click(function() 
+{
+	// alert();
+	idtercero = $("#tbextractos-idtercero").val();
+	if (idtercero == null)
+	{
+		Swal.fire(
+			{
+			  title: 'Seleccione un tercero',
+			  type: 'info',
+			  focusConfirm: false,
+			  confirmButtonText:
+				'aceptar'
+			  
+			})
+	}
+	else
+	{
+		$.get( 'index.php?r=tbextractos/info-responsable&idtercero='+idtercero+"&btn="+$(this).attr("id"),
+		function( data )
+		{
+									
+			//responsable contrato 
+			$("#tbextractos-resp_contrato").val(data.nombre);
+			//cedula contacto 
+			$("#tbextractos-cedresp_contrato").val(data.identificacion);
+			//direccion contacto 
+			$("#tbextractos-dirresp_contrato").val(data.direccion);
+			// telefono contacto
+			$("#tbextractos-telresp_contrato").val(data.movil);
+			
+			
+		},'json'
+			);
+	}
 
-
-
+});
 
 
 

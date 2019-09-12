@@ -119,21 +119,9 @@ $this->registerJs( "
                             'placeholder' => 'Seleccione un tercero',
 							'noResultsText' => "Enter para buscar",
 					])?>
-	
-
-    <?= $form->field($model, 'fechaExtracto')->textInput() ?>
-
-    <?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'fechaVtoConvenio')->textInput() ?>
+					
+					
+	<?= $form->field($model, 'fechaExtracto')->textInput() ?>
 	
 	<?= $form->field($model, "nroContrato")->widget(
 						Chosen::className(), [
@@ -147,6 +135,28 @@ $this->registerJs( "
                             'placeholder' => 'Seleccione un contrato',
 							'noResultsText' => "Enter para buscar",
 					])?>
+	
+ 
+
+    <?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true]) ?>
+	
+	<?= Html::button('Tercero', ['class' => '','id'=>"btnTercero"]) ?>
+	
+	<?= Html::button('Conctacto Terceo', ['class' => '','id'=>"btnConTercero"]) ?>
+	
+	
+
+    <?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true]) ?>
+
+    <?= $form->field($model, 'fechaVtoConvenio')->textInput() ?>
+	
+	
 	
 
     <?= $form->field($model, 'anioContrato')->textInput(["readOnly"=>"","value" => date("Y")]) ?>

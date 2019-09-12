@@ -14,6 +14,7 @@ use app\models\Tbcontratos;
 use app\models\Tbpoblaciones;
 use app\models\Vehiculos;
 use app\models\Tbrpbimestral;
+use app\models\Terceros;
 
 /**
  * TbextractosController implements the CRUD actions for Tbextractos model.
@@ -239,6 +240,34 @@ class TbextractosController extends Controller
 		else
 			return $fecha;
 		
+	}
+	
+	
+	public function actionInfoResponsable($idtercero,$btn)
+	{
+		
+		$tercero = Terceros::find()->AndWhere("idtercero = $idtercero")->all();
+		$tercero = ArrayHelper::toArray($tercero)[0];
+		
+		$infoinfoContacto = [];
+		if($btn == "btnTercero")
+		{
+			$infoContacto['nombre'] 		= $tercero['nombrecompleto'];
+			$infoContacto['identificacion'] = $tercero['idtercero'];
+			$infoContacto['direccion'] 		= $tercero['direccion_tercero'];
+			$infoContacto['movil'] 			= $tercero['movil_tercero'];
+			
+		}
+		elseif($btn == "btnConTercero")
+		{
+			$infoContacto['nombre'] 		= $tercero['contacto_tercero'];
+			$infoContacto['identificacion'] = $tercero['ced_Contacto'];
+			$infoContacto['direccion'] 		= $tercero['dir_contacto'];
+			$infoContacto['movil'] 			= $tercero['tel_contacto'];
+			
+		}
+		
+			echo json_encode($infoContacto);
 	}
 
     /**
