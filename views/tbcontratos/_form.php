@@ -22,7 +22,7 @@ $this->registerJs( "
 				if(event.which == 13)
 				{
 					var info ='';
-					filtro = $('#tbcontratos_idtercero_chosen').children('div').children().children().val();
+					filtro = $(this).children('div').children().children().val();
 					$.get( 'index.php?r=tbcontratos/info-tercero&filtro='+filtro,
 					function( data )
 					{
@@ -31,12 +31,13 @@ $this->registerJs( "
 								info = info + '<option value='+index+'>'+datos+'</option>';
 								
 							});
-							
-						$('#tbcontratos-idtercero').html('');
-						$('#tbcontratos-idtercero').trigger('chosen:updated');
 						
-						$('#tbcontratos-idtercero').append(info);
-						$('#tbcontratos-idtercero').trigger('chosen:updated');
+						select = $('#tbcontratos-idtercero');
+						select.html('');
+						select.trigger('chosen:updated');
+						
+						select.append(info);
+						select.trigger('chosen:updated');
 						
 						
 					},'json'
