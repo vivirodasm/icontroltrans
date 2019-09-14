@@ -402,14 +402,14 @@ class Vehiculos extends \yii\db\ActiveRecord
      */
 	public function validarFechas($fecha, $documento){
 		$valores = array('fecha' =>'', 'mensaje'=>'');
-		if ($fecha ){ 
+		if ($fecha ){
 			$fecha=strtotime($fecha) + 24*3600 ;  //2020-10-08 00:00:00.000000 date('r', strtotime($fecha));
 			
 			$fechaActual=time();
 			if($fechaActual > $fecha){
 				$fecha=date('Y-m-d',($fecha));  
 				$valores['fecha']='<span class="" style="background-color:  #a93226;  color: white; border-radius: 5px;"> '.$fecha.'</span>';
-				$valores['mensaje']='<span class="" style="color:  #a93226; "> El vencimiento de: '.$documento.' es '.$fecha.'</span>';
+				$valores['mensaje']='<span class="" style="color:  #a93226; font-size:large;"> El vencimiento de: '.$documento.' es '.$fecha.'</span>';
 			}
 			else{
 				$fecha=date('Y-m-d',($fecha));

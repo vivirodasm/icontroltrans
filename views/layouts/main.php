@@ -53,7 +53,7 @@ AppAsset::register($this);
 				['label' => 'Consultar Vehiculo', 'url' => ['/vehiculos/vehiculo']],
 				['label' => 'Terceros', 'url' => ['/terceros/index']],
 				['label' => 'Contratos', 'url' => ['/tbcontratos/create']], 
-				['label' => 'Extracto Contratos', 'url' => ['/site/contact']],
+				['label' => 'Extracto Contratos', 'url' => ['/tbextractos/create']],
 				['label' => 'Salir', 'url' => ['/login/logout']],
 				
 				

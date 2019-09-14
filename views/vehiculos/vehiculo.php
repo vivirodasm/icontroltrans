@@ -47,7 +47,9 @@ $this->params['breadcrumbs'][] = $this->title;
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
     <?php 
 		global $mensaje;
+		global $proximaFecha;
 		$mensaje = array (); 
+		$proximaFecha = array (); 
 	?>
 
     <?= GridView::widget([
@@ -70,9 +72,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					
 					$valor = $data->validarFechas($data->fechaVtoConvenio, 'Convenio');
                     global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
-					// echo $(div).html()
-					// print_r($mensaje);
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'Convenio'; 
 					return $valor['fecha']; 
 					
 				}
@@ -87,7 +92,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
 					$valor = $data->validarFechas($data->fechaVtoContAfil, 'Contrato afiliación');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'Contrato afiliación'; 
 					return $valor['fecha'];
 				}
 			],
@@ -120,7 +130,12 @@ $this->params['breadcrumbs'][] = $this->title;
 				'content'=>function($data){
 					$valor = $data->validarFechas($data->fechaVtoTO, 'Tarjeta operación');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'Tarjeta operación'; 
 					return $valor['fecha'];
 				}
 			],
@@ -134,7 +149,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
 					$valor = $data->validarFechas($data->fechaVtoExtintor, 'Extintor');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'Extintor'; 
 					return $valor['fecha'];
 				}
 			],
@@ -147,7 +167,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
 					$valor =  $data->validarFechas($data->fechaVtoCDA , 'CDA');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje'];  print_r($valor['mensaje']);
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'CDA'; 
 					return $valor['fecha'];
 				}
 			],
@@ -162,7 +187,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
 					$valor = $data->validarFechas($data->fechaVtoSOAT, 'SOAT');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'SOAT'; 
 					return $valor['fecha'];
 				}
 			],
@@ -177,7 +207,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
 					$valor = $data->validarFechas($data->fechaVtoRCC, 'RCC');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'RCC'; 
 					return $valor['fecha'];
 				}
 			],
@@ -192,7 +227,12 @@ $this->params['breadcrumbs'][] = $this->title;
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
 					$valor =  $data->validarFechas($data->fechaVtoRCE, 'RCE');
 					global $mensaje;
-					$mensaje[] = $valor['mensaje']; 
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'RCE'; 
 					return $valor['fecha'];
 				}
 			],
@@ -233,14 +273,53 @@ $this->params['breadcrumbs'][] = $this->title;
 
 <div id="mensajes">
 <?php  
-	// print_r($mensaje);
-$total = count($mensaje);
-if ($mensaje != ''){
+	 
+	 // echo "<pre>"; print_r($mensaje); echo "</pre>";
+	$total = count($mensaje);
+	if (count($mensaje) > 0){ echo "hola1";
 		for($x = 0; $x < $total; $x++) {
 		echo $mensaje[$x];
 		echo "<br>";
 		}
-} ?>
+	}
+	else{ 
+		$totalFechas = count($proximaFecha['fecha']); 
+		
+		$dias = array();
+		$datetime1 = date_create( date("Y-m-d") );
+		
+		for($x = 0; $x < $totalFechas; $x++) {
+			if ($proximaFecha['fecha'][$x] == 'Sin datos')
+					$proximaFecha['fecha'][$x] = date("Y-m-d");
+		}
+		
+		echo "<pre>"; print_r($proximaFecha); echo "</pre>";
+		
+		for($x = 0; $x < $totalFechas; $x++) {
+			
+			// print_r ($proximaFecha['fecha'][$x]); echo "<br>";
+			// if ($proximaFecha['fecha'][$x] == 'Sin datos')
+			// {
+				// $proximaFecha['fecha'][$x] = date("Y-m-d");
+				$datetime2 = date_create($proximaFecha['fecha'][$x]);
+				 // print_r($datetime2); echo "<br>";
+			// }
+			// else {
+				// $datetime2 = date_create($proximaFecha['fecha'][$x]);
+				 print_r($datetime2); echo "<br>";
+			// }
+		
+			// print_r($datetime2); echo "<br>";
+			// $intervalDias = date_diff($datetime1, $datetime2);
+			// $dias[$x]=$intervalDias;
+			// $intervalDias = $nombrec . " " .$intervalDias->format("%a") . " dias Para vencerse";
+		
+		}
+		echo 'El próximo documento a vencer es'; print_r($dias);
+	
+	} 
+	
+	?>
 </div>
 
 </div>
