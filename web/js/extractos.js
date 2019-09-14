@@ -2,6 +2,7 @@ $( document ).ready(function()
 {
 
 
+
 });
 
 
@@ -38,13 +39,21 @@ $("#tbextractos-nrocontrato").change(function()
 	
 });
 
-
+//validaciones de las fechas de vencimientos de los documentos del vehiculo
 $("#tbextractos-idvehiculo").change(function() 
 {
 	filtro = $(this).val();
 	$.get( 'index.php?r=tbextractos/doc-vehiculos&placa='+filtro,
 			function( data )
 			{
+				
+				if( data.emprAfil.emprAfil != nombreEmpresa)
+				{
+					$("#tbextractos-convenioemp").val(data.emprAfil.emprAfil);
+					$("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio);
+				}
+				
+
 				stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
 				
 				vehvtoto = $("#tbextractos-vehvtoto");
@@ -141,21 +150,29 @@ $("#tbextractos-idvehiculo").change(function()
 					estadoDoc = estadoDoc + value +"<br>";
 
 				});
-				// alert(estadoDoc);
+				
+				swal(estadoDoc);
+
+			},'json'
+				);
+	
+});
+
+
+function swal(mensaje)
+{
+	// alert(estadoDoc);
 				Swal.fire(
 				{
-				  title: ''+ estadoDoc,
+				  title: ''+ mensaje,
 				  type: 'info',
 				  focusConfirm: false,
 				  confirmButtonText:
 					'aceptar'
 				  
 				});
-
-			},'json'
-				);
 	
-});
+}
 
 $("#btnTercero,#btnConTercero ").click(function() 
 {
@@ -195,5 +212,72 @@ $("#btnTercero,#btnConTercero ").click(function()
 
 });
 
+//validaciones de las fechas de vencimientos de los documentos del conductor 
+$("#tbextractos-idvehiculo").change(function() 
+{
+	placa = $(this).val();
+	
+	$.get( 'index.php?r=tbextractos/conductores&placa='+placa,
+	function( data )
+	{
+		stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
+		if (data.length > 0)
+		{
 
+			$.each( data, function( key, value ) 
+			{
+				vtoSegSocial=value.vtoSegSocial.substr(0,10);
+				vigLicencia=value.vigLicencia.substr(0,10);
+				
+				campovtoSegSocial = ' Vig Seg Social <input type="text" name="vtoSegSocial' + key +'" value = "'+vtoSegSocial+'" readOnly >';
+				if (fechaActual() > vtoSegSocial) 
+				{
+					
+					campovtoSegSocial =' Vig Seg Social <input type="text" name="vtoSegSocial' + key+'" value = "'+vtoSegSocial+'" readOnly style = "'+stilo+'" >';
+				}
+				
+				if (fechaActual() > vigLicencia) 
+				{
+					campovigLicencia = ' Vig Seg Social <input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly style = "'+stilo+'" >';
+				}
+				
+				$("#conductores").html('<div>Nombre del conductor <input type="text" name="nombre' + key+ '" value = "'+value.nombrecompleto+'" readOnly >	identificación <input type="text" name="idtercero' + key+'" value = "'+value.idtercero +'" readOnly > Nro licencia <input type="text" name="licencia' + key +'" value = "'+value.licencia +'" readOnly >	'+campovtoSegSocial+' '+campovtoSegSocial+'<button onclick="borrarConductor(this)" type="button">x</button></div> ');
+			});		 
+		}
+		else
+		{
+			$("#conductores").html('Nombre del conductor <input type="text" style = "'+stilo+'" value = "sin datos" readOnly  >	 identificación <input type="text" style = "'+stilo+'" value = "sin datos" readOnly > Nro licencia <input type="text"  style = "'+stilo+'" value = "sin datos" readOnly >	Vig Licencia <input type="text" style = "'+stilo+'" value = "sin datos" readOnly >	Vig Seg Social <input type="text"  style = "'+stilo+'" value = "sin datos" readOnly > ');
+		}
+		
+		
+	},'json'
+		);
+
+
+
+
+});
+
+
+function fechaActual()
+{
+	
+	var d = new Date();
+
+	var month = d.getMonth()+1;
+	var day = d.getDate();
+
+	var fecha = d.getFullYear() + '-' +
+		(month<10 ? '0' : '') + month + '-' +
+		(day<10 ? '0' : '') + day;
+
+	return fecha;
+	
+}
+
+
+function borrarConductor(obj)
+{
+	$(obj).parent().remove();	
+}
 
