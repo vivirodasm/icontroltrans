@@ -276,7 +276,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	 
 	 // echo "<pre>"; print_r($mensaje); echo "</pre>";
 	$total = count($mensaje);
-	if (count($mensaje) > 0){ echo "hola1";
+	if (count($mensaje) > 0){ 
 		for($x = 0; $x < $total; $x++) {
 		echo $mensaje[$x];
 		echo "<br>";
@@ -286,36 +286,45 @@ $this->params['breadcrumbs'][] = $this->title;
 		$totalFechas = count($proximaFecha['fecha']); 
 		
 		$dias = array();
+		date_default_timezone_set('America/La_Paz');
 		$datetime1 = date_create( date("Y-m-d") );
 		
-		for($x = 0; $x < $totalFechas; $x++) {
-			if ($proximaFecha['fecha'][$x] == 'Sin datos')
-					$proximaFecha['fecha'][$x] = date("Y-m-d");
-		}
-		
-		echo "<pre>"; print_r($proximaFecha); echo "</pre>";
+		// echo "<pre>"; print_r($proximaFecha); echo "</pre>";
 		
 		for($x = 0; $x < $totalFechas; $x++) {
 			
-			// print_r ($proximaFecha['fecha'][$x]); echo "<br>";
-			// if ($proximaFecha['fecha'][$x] == 'Sin datos')
-			// {
-				// $proximaFecha['fecha'][$x] = date("Y-m-d");
-				$datetime2 = date_create($proximaFecha['fecha'][$x]);
-				 // print_r($datetime2); echo "<br>";
-			// }
-			// else {
-				// $datetime2 = date_create($proximaFecha['fecha'][$x]);
-				 print_r($datetime2); echo "<br>";
-			// }
+			 // print_r ($proximaFecha['fecha'][$x]); echo "<br>";
+			if ($proximaFecha['fecha'][$x] == 'Sin datos')
+			{
+				$proximaFecha1 = date("Y-m-d"); 
+				$datetime2 = new DateTime($proximaFecha1);
+				  // print_r($datetime2); echo "<br>";
+				  
+			}
+			else {
+				
+				 $fecha = trim($proximaFecha['fecha'][$x]); 
+				 $datetime2 =new DateTime($fecha);
+				  // print_r($datetime2); 
+				  // echo "<br>";print_r($datetime2); echo "<br>";
+			}
 		
-			// print_r($datetime2); echo "<br>";
-			// $intervalDias = date_diff($datetime1, $datetime2);
-			// $dias[$x]=$intervalDias;
-			// $intervalDias = $nombrec . " " .$intervalDias->format("%a") . " dias Para vencerse";
+			 // print_r($datetime2); echo "<br>";
+			   $intervalDias = date_diff($datetime1, $datetime2);
+				$dias[$x]=$intervalDias->days;
+			// $intervalDias = $nombrec . " " .$intervalDias->format("%a") . " dias Para vencerse";echo "<pre>"; print_r($dias[0]->days); echo "</pre>";
 		
 		}
-		echo 'El próximo documento a vencer es'; print_r($dias);
+		$menorValor = min($dias);
+		for($i=0;$i<count($dias);$i++)
+		{
+			if($dias[$i]==$menorValor){
+				// echo "<br>Minimo: Se encuentra en la posición ".$i;
+				echo '<span class="" style="color:  #a93226; font-size:large;">El proximo documento a vencer es: '.$proximaFecha['documento'][$i]. ' en la fecha '.$proximaFecha['fecha'][$i]. ' en '.$menorValor. ' dias</span>';
+			}
+		}
+		 // echo "<pre>"; print_r($menorValor); echo "</pre>";
+		  // echo "<pre>"; print_r($dias); echo "</pre>";
 	
 	} 
 	

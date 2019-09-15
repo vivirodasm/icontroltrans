@@ -413,7 +413,8 @@ class Vehiculos extends \yii\db\ActiveRecord
 			}
 			else{
 				$fecha=date('Y-m-d',($fecha));
-				$valores['fecha']='<span class=""> '.$fecha.'</span>';
+				// $valores['fecha']='<span class=""> '.$fecha.'</span>';
+				$valores['fecha']=$fecha;
 			}
 		}
 		else {$valores['fecha']= "Sin datos";}
