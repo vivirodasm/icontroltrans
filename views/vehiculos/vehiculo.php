@@ -286,7 +286,7 @@ $this->params['breadcrumbs'][] = $this->title;
 		$totalFechas = count($proximaFecha['fecha']); 
 		
 		$dias = array();
-		date_default_timezone_set('America/La_Paz');
+		date_default_timezone_set('America/Bogota');
 		$datetime1 = date_create( date("Y-m-d") );
 		
 		// echo "<pre>"; print_r($proximaFecha); echo "</pre>";

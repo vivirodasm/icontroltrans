@@ -31,17 +31,18 @@ use nex\chosen\Chosen;
 		<hr>
 		
 		<div class="row">
-		  <div class="col-md-4"> <?= $form->field($model, 'nombreSucursalTer')->textInput(['maxlength' => true]) ?></div>
-		  <div class="col-md-4"><?= $form->field($model, 'direccionSucursalTer')->textInput(['maxlength' => true]) ?></div>
-		  <div class="col-md-4"><?= $form->field($model, 'telSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-2"> <?= $form->field($model, 'nombreSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-2"><?= $form->field($model, 'direccionSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-2"><?= $form->field($model, 'telSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-2"><?= $form->field($model, 'movilSucursalTer')->textInput(['maxlength' => true]) ?></div>
+		  <div class="col-md-3"><?= $form->field($model, 'contactoSucursalTer')->textInput(['maxlength' => true]) ?></div>
 		</div>
 
    
 		<div class="row">
-		  <div class="col-md-4"><?= $form->field($model, 'movilSucursalTer')->textInput(['maxlength' => true]) ?></div>
-		  <div class="col-md-4"><?= $form->field($model, 'contactoSucursalTer')->textInput(['maxlength' => true]) ?></div>
 		  
-		    <div class="col-md-6">
+		  
+		    <div class="col-md-2"><label> Departamento</label>
 	  <?= Chosen::widget([
 			'name' => 'departamentoSucursal',
 			'items' => $departamento,
@@ -55,7 +56,7 @@ use nex\chosen\Chosen;
 		]);?>
 				</div>
 		  
-		  <div class="col-md-4"><?= $form->field($model, "ciudadSucursalTer")->widget(
+		  <div class="col-md-2"><?= $form->field($model, "ciudadSucursalTer")->widget(
 			Chosen::className(), [
 				'items' => [],
 				'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items

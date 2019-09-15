@@ -15,7 +15,7 @@ use nex\chosen\Chosen;
     <?php $form = ActiveForm::begin(); ?>
 
 	<div class="row">
-		<div class="col-md-3">
+		<div class="col-md-2">
 			 <?= $form->field($model, 'idtercero')->textInput(['maxlength' => true,'type' => 'number']) ?>
 		</div>
 
@@ -23,68 +23,64 @@ use nex\chosen\Chosen;
 		 <?= $form->field($model, 'dv_tercero')->textInput(['maxlength' => true,'type' => 'number']) ?>
 		</div>
 		
-		<div class="col-md-4">
+		<div class="col-md-3">
 			<?= $form->field($model, 'IdEmpresa')->DropDownList($empresa) ?>
 		</div>
 		
 	</div>
 
   <div class="row">
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'idIdentidad')->DropDownList($identidades,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-3">
 		<?= $form->field($model, 'idSociedad')->DropDownList($sociedades,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-3">
 		<?= $form->field($model, 'naturalez_tercero')->DropDownList($naturalezTercero,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 	  </div>
 	</div>
 	
 	<div class="row">
 
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<?= $form->field($model, 'nombre1_tercero')->textInput(['maxlength' => true]) ?>
 		</div>
 		
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<?= $form->field($model, 'nombre2_tercero')->textInput(['maxlength' => true]) ?>
 		</div>
 		
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<?= $form->field($model, 'apellido1_tercero')->textInput(['maxlength' => true]) ?>
 		</div>
 		
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<?= $form->field($model, 'apellido2_tercero')->textInput(['maxlength' => true]) ?>
 		</div>
 
 	</div>
 	
 	<div class="row">
-	  <div class="col-md-6">
+	  <div class="col-md-3">
 		<?= $form->field($model, 'nombrecompleto')->textInput(['maxlength' => true]) ?>
 	  </div>
-	  <div class="col-md-6">
+	  <div class="col-md-3">
 		<?= $form->field($model, 'nombreComercial')->textInput(['maxlength' => true]) ?>
 	  </div>
-	</div>
-
-    
-	<div class="row">
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'direccion_tercero')->textInput(['maxlength' => true]) ?>
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'tel_tercero')->textInput(['maxlength' => true,'type' => 'number']) ?>
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'movil_tercero')->textInput(['maxlength' => true,'type' => 'number']) ?>
 	  </div>
 	</div>
     
 	<div class="row">
-	  <div class="col-md-6">
+	  <div class="col-md-2">
 	  <?= $form->field($model, "idpaises")->widget(
 						Chosen::className(), [
 							'items' => $paises,
@@ -97,7 +93,7 @@ use nex\chosen\Chosen;
 					])?>
 	  </div>
 	  
-	    <div class="col-md-6">
+	    <div class="col-md-2"><label> Departamento</label>
 	  <?= Chosen::widget([
 			'name' => 'departamentos',
 			'items' => $departamentos,
@@ -110,7 +106,7 @@ use nex\chosen\Chosen;
 			'placeholder' => 'Seleccione un Departamento',
 		]);?>
 				</div>
-	  <div class="col-md-6">
+	  <div class="col-md-2">
 	  <?= $form->field($model, "idCenPob")->widget(
 					Chosen::className(), [
 						'items' => [],
@@ -123,44 +119,37 @@ use nex\chosen\Chosen;
 						'placeholder' => 'Seleccione una ciudad',
 				])?>
 	  </div>
-	</div>
-    
-	<div class="row">
-	  <div class="col-md-8">
+	  <div class="col-md-3">
 		<?= $form->field($model, 'contacto_tercero')->textInput(['maxlength' => true]) ?>
 	 </div>
-	 <div class="col-md-4">
+	 <div class="col-md-2">
 		<?= $form->field($model, 'ced_Contacto')->textInput(['maxlength' => true,'type' => 'number']) ?>
 	 </div>
 	</div>
-   
+    
+	  
 	<div class="row">
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'dir_contacto')->textInput(['maxlength' => true]) ?>
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'tel_contacto')->textInput(['maxlength' => true,'type' => 'number']) ?>
 	  </div>
-	  <div class="col-md-4">
+	  <div class="col-md-2">
 		<?= $form->field($model, 'mail_tercero')->input('email',['maxlength' => true]) ?>
 	  </div>
-	</div>
-    
-	<div class="row">
-		<div class="col-md-4">
+	  <div class="col-md-2">
 			 <?= $form->field($model, 'tipo_tercero')->DropDownList($tipoTercero,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
 		</div>
 
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true]) ?>
 		</div>
 		
-		<div class="col-md-2">
+		<div class="col-md-1">
 			<?= $form->field($model, 'autData')->checkbox() ?>
 		</div>
 	</div>
-	
-
     
 
     <?= $form->field($model, 'obs_tercero')->textarea(['rows' => '3']) ?>
