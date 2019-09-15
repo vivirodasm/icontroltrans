@@ -74,6 +74,8 @@ class TbextractosController extends Controller
      */
     public function actionCreate()
     {
+		
+		
         $model = new Tbextractos();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
@@ -162,7 +164,9 @@ class TbextractosController extends Controller
 	public function actionDocVehiculos($placa)
 	{
 		$infoVehiculos = Vehiculos::find()->andWhere(["placa" => $placa])->one();
-		// $infoVehiculos = ArrayHelper::toArray( $infoVehiculos );
+		
+		// $infoVehiculosEmpAfil =  ArrayHelper::map($infoVehiculos,'emprAfil','emprAfil');
+		$infoVehiculosEmprAfil= $infoVehiculos;
 		
 		
 		$infoVehiculos = ArrayHelper::getValue($infoVehiculos, function ($infoVehiculos, $defaultValue) {
@@ -194,13 +198,10 @@ class TbextractosController extends Controller
 		foreach ($infoVehiculos as $vehi)
 			$vehEstado[ $vehi['nombre'] ]= $this->fechaVencida($vehi['nombre'],$vehi['fecha']);
 			
-			
-			// echo "<pre>"; print_r($infoVehiculos); echo "</pre>"; 
 		//dar formato a las fechas vencidas
 		foreach ($infoVehiculos as $key => $vehi)
 			$infoVehiculos[$key]['fecha'] = $this->vencimientofecha($vehi['fecha']);
 		
-		// echo "<pre>"; print_r($infoVehiculos); echo "</pre>"; 
 		//vencimiento bimestral del vehiculo
 		$vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');
 		
@@ -208,13 +209,21 @@ class TbextractosController extends Controller
 		
 		$infoVehiculos['estadoDocumentos'] = $vehEstado;
 		$infoVehiculos['estadoDocumentos']['Revisión Bimestra'] = $this->fechaVencida("Revisión Bimestra",substr($vtoBimestral,0,10));
-		 
 		
+		$infoVehiculos['emprAfil']['emprAfil'] = $infoVehiculosEmprAfil->emprAfil;
+		$infoVehiculos['emprAfil']['fechaVtoConvenio'] = $infoVehiculosEmprAfil->fechaVtoConvenio;
+		
+		//tipo de vehiculo clase
+		$infoVehiculos['clase'] = $infoVehiculosEmprAfil->clase;
+		 // echo "<pre>"; print_r($infoVehiculosEmprAfil); echo "</pre>"; 
+		 
+		 
 		echo json_encode( $infoVehiculos );
 	}
 
 	private function fechaVencida($nombrec,$fecha)
 	{
+		date_default_timezone_set('America/La_Paz');
 		if (date("Y-m-d") >  $fecha )
 		{
 			return "$nombrec vencido";
@@ -232,7 +241,7 @@ class TbextractosController extends Controller
 	
 	private function vencimientofecha($fecha)
 	{
-		
+		date_default_timezone_set('America/La_Paz');
 		if(strlen($fecha) == 0)
 			return "No posee";
 		elseif (date("Y-m-d") >  $fecha )
@@ -268,6 +277,43 @@ class TbextractosController extends Controller
 		}
 		
 			echo json_encode($infoContacto);
+	}
+	
+	public function actionConductores($placa)
+	{
+		
+
+		$connection = Yii::$app->get($_SESSION['db']);
+		$command = $connection->createCommand("
+			SELECT 
+			t.nombrecompleto,
+			h.idtercero,
+			h.licencia,
+			h.vigLicencia,
+			s.vtoSegSocial
+		FROM 
+			tbdetaconductores AS c, 
+			tbhv AS h, 
+			terceros AS t, 
+			tbsegsocial AS s
+		WHERE 
+			c.idVeh = '$placa'
+		AND
+			c.idhv = h.idhv
+		AND 
+			h.estado = 'ACTIVO'
+		AND
+			s.idhv = h.idhv
+		AND 
+			h.idtercero = t.idtercero
+			
+		GROUP BY h.idtercero
+		");
+		$result = $command->queryAll();
+		
+		echo json_encode($result); 
+		// return $result;
+		
 	}
 
     /**

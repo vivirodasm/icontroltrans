@@ -7,10 +7,11 @@ use nex\chosen\Chosen;
 /* @var $model app\models\Tbextractos */
 /* @var $form yii\widgets\ActiveForm */
 
-
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/extractos.js',['depends' => [\yii\web\JqueryAsset::className()]]);
-//no funciona en el archivo externos contratos.js
 
+
+
+//no funciona en el archivo externos contratos.js
 //se valida la presion del boton "enter" para hacer la busqueda de los terceros
 $this->registerJs( "
 
@@ -74,26 +75,19 @@ $this->registerJs( "
 		});
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		
 	});
 		
 ");
 
+$nombreEmpresa = $_SESSION['nombre'];
 
 ?>
 
-
+<script type="text/javascript">
+var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
+</script>
 
 <div class="tbextractos-form">
 
@@ -106,6 +100,20 @@ $this->registerJs( "
     <?= $form->field($model, 'idExtracto')->textInput() ?>
 
     <?= $form->field($model, 'antFUEC')->textInput(['maxlength' => true]) ?>
+	
+	
+	<label>
+		Empresa
+	</label>
+	
+	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?>
+	
+	
+	<label>
+		Clase vehículo
+	</label>
+	
+	<?= Html::input('text','','', $options=['id'=> 'claseVehiculo', "disabled"=>"" ]) ?>
 	
 	<?= $form->field($model, "idtercero")->widget(
 						Chosen::className(), [
@@ -152,9 +160,9 @@ $this->registerJs( "
 	
 	
 
-    <?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true]) ?>
+    <?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true,"readOnly"=>true]) ?>
 
-    <?= $form->field($model, 'fechaVtoConvenio')->textInput() ?>
+    <?= $form->field($model, 'fechaVtoConvenio')->textInput(["readOnly"=>true]) ?>
 	
 	
 	
@@ -237,7 +245,10 @@ $this->registerJs( "
 							'noResultsText' => "No se encontraron resultados",
 					])?>
 	
-
+<div id="conductores">
+	</div>
+	
+	
     <?= $form->field($model, 'vehVtoTO')->textInput() ?>
 
     <?= $form->field($model, 'vehVtoExtintor')->textInput() ?>
@@ -263,6 +274,9 @@ $this->registerJs( "
     <?= $form->field($model, 'rboFUEC')->textInput() ?>
 
     <?= $form->field($model, 'tipoContrato')->textInput(['maxlength' => true]) ?>
+	
+	
+	
 
     <?= $form->field($model, 'notaExtracto')->textInput(['maxlength' => true]) ?>
 
