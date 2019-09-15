@@ -108,6 +108,13 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	
 	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?>
 	
+	
+	<label>
+		Clase vehículo
+	</label>
+	
+	<?= Html::input('text','','', $options=['id'=> 'claseVehiculo', "disabled"=>"" ]) ?>
+	
 	<?= $form->field($model, "idtercero")->widget(
 						Chosen::className(), [
 							'items' => [""=>""],

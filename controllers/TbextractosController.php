@@ -212,6 +212,9 @@ class TbextractosController extends Controller
 		
 		$infoVehiculos['emprAfil']['emprAfil'] = $infoVehiculosEmprAfil->emprAfil;
 		$infoVehiculos['emprAfil']['fechaVtoConvenio'] = $infoVehiculosEmprAfil->fechaVtoConvenio;
+		
+		//tipo de vehiculo clase
+		$infoVehiculos['clase'] = $infoVehiculosEmprAfil->clase;
 		 // echo "<pre>"; print_r($infoVehiculosEmprAfil); echo "</pre>"; 
 		 
 		 

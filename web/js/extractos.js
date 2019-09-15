@@ -47,6 +47,8 @@ $("#tbextractos-idvehiculo").change(function()
 			function( data )
 			{
 				
+				$("#claseVehiculo").val(data.clase);
+				
 				if( data.emprAfil.emprAfil != nombreEmpresa)
 				{
 					$("#tbextractos-convenioemp").val(data.emprAfil.emprAfil);
