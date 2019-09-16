@@ -223,7 +223,7 @@ class TbextractosController extends Controller
 
 	private function fechaVencida($nombrec,$fecha)
 	{
-		date_default_timezone_set('America/La_Paz');
+		date_default_timezone_set('America/Bogota');
 		if (date("Y-m-d") >  $fecha )
 		{
 			return "$nombrec vencido";
@@ -241,7 +241,7 @@ class TbextractosController extends Controller
 	
 	private function vencimientofecha($fecha)
 	{
-		date_default_timezone_set('America/La_Paz');
+		date_default_timezone_set('America/Bogota');
 		if(strlen($fecha) == 0)
 			return "No posee";
 		elseif (date("Y-m-d") >  $fecha )

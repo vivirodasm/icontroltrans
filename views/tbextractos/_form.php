@@ -22,6 +22,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use nex\chosen\Chosen;
+use dosamigos\datepicker\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbextractos */
 /* @var $form yii\widgets\ActiveForm */
@@ -115,7 +116,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	<div class="row">
 	  <div class="col-md-2"><?= $form->field($model, 'FUEC')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"> <?= $form->field($model, 'anioContrato')->textInput(["readOnly"=>"","value" => date("Y")]) ?></div>
-	  <div class="col-md-3"><label>Empresa</label>
+	  <div class="col-md-3"><label>Empresa</label><br>
 	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?></div>
 	</div>
 	
@@ -147,13 +148,13 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  
 		<div id="contenedor">
 			<div id="contenidos">
-				<div id="columna1"><?= $form->field($model, 'vehVtoTO')->textInput() ?></div>
-				<div id="columna2"><?= $form->field($model, 'vehVtoExtintor')->textInput() ?></div>
-				<div id="columna3"><?= $form->field($model, 'vehVtoCDA')->textInput() ?></div>
-				<div id="columna4"><?= $form->field($model, 'vehVtoSOAT')->textInput() ?></div>
-				<div id="columna5"><?= $form->field($model, 'vehVtoRCC')->textInput() ?></div>
-				<div id="columna6"><?= $form->field($model, 'vehVtoRCE')->textInput() ?></div>
-				<div id="columna7"><?= $form->field($model, 'vehVtoBimestral')->textInput() ?></div>
+				<div id="columna1"><?= $form->field($model, 'vehVtoTO')->textInput(["readOnly" =>""]) ?></div>
+				<div id="columna2"><?= $form->field($model, 'vehVtoExtintor')->textInput(["readOnly" =>""]) ?></div>
+				<div id="columna3"><?= $form->field($model, 'vehVtoCDA')->textInput(["readOnly" =>""]) ?></div>
+				<div id="columna4"><?= $form->field($model, 'vehVtoSOAT')->textInput(["readOnly" =>""]) ?></div>
+				<div id="columna5"><?= $form->field($model, 'vehVtoRCC')->textInput(["readOnly" =>""]) ?></div>
+				<div id="columna6"><?= $form->field($model, 'vehVtoRCE')->textInput(["readOnly" =>""]) ?></div>
+				<div id="columna7"><?= $form->field($model, 'vehVtoBimestral')->textInput(["readOnly" =>""]) ?></div>
 			</div>
 		</div>
 	  
@@ -174,7 +175,13 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
                             'placeholder' => 'Seleccione un tercero',
 							'noResultsText' => "Enter para buscar",
 					])?></div>
-	  <div class="col-md-4">.col-md-4</div>
+	  <div class="col-md-4">
+		<label>
+			  <br />
+			  
+		</label>
+		<br />
+		<?= Html::input('text','','', $options=['id'=> 'docTercero', "disabled"=>"" ]) ?></div>
 	  <div class="col-md-4">	<?= $form->field($model, "nroContrato")->widget(
 						Chosen::className(), [
 							'items' => [],
@@ -200,11 +207,33 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 						
 
 	<div class="row">
-	  <div class="col-md-2"><?= $form->field($model, 'fechaInicio')->textInput() ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'fechaFin')->textInput() ?></div>
+	  <div class="col-md-2">
+	  <?= $form->field($model, 'fechaInicio')->widget(
+        DatePicker::className(), [
+            // modify template for custom rendering
+            'template' => '{addon}{input}',
+            'language' => 'es',
+            'clientOptions' => [
+                'autoclose' => true,
+                'format'    => 'yyyy-mm-dd',
+        ],
+    ]); ?>
+	  </div>
+	  <div class="col-md-2">
+	   <?= $form->field($model, 'fechaFin')->widget(
+        DatePicker::className(), [
+            // modify template for custom rendering
+            'template' => '{addon}{input}',
+            'language' => 'es',
+            'clientOptions' => [
+                'autoclose' => true,
+                'format'    => 'yyyy-mm-dd',
+        ],
+    ]); ?>
+	  </div>
 	  <div class="col-md-1">cantidad dias</div>
-	  <div class="col-md-2"><?= $form->field($model, 'tipoContrato')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'destinosVarios')->textInput() ?></div>
+	  <div class="col-md-2"><?= $form->field($model, 'tipoContrato')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
+	  <div class="col-md-2"><?= $form->field($model, 'destinosVarios')->checkbox() ?></div>
 	</div>
    
 	
@@ -270,7 +299,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	</div>
    
 
-    <?= $form->field($model, 'fechaExtracto')->textInput() ?>
+    <?= $form->field($model, 'fechaExtracto')->textInput(["value"=>date("Y-m-d"),"readOnly"=>true]) ?>
 	
     <?= $form->field($model, 'idDestino')->textInput() ?>
 
@@ -302,7 +331,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
     <?= $form->field($model, 'Aud_FechaEdit')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
-        <?= Html::submitButton('Save', ['class' => 'btn btn-success']) ?>
+        <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
     </div>
 
     <?php ActiveForm::end(); ?>
