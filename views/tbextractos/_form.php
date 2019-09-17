@@ -208,8 +208,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 
 	<div class="row">
 	  <div class="col-md-2">
-	  <?= $form->field($model, 'fechaInicio')->widget(
-        DatePicker::className(), [
+	  <?= $form->field($model, 'fechaInicio')->widget(   DatePicker::className(), [
             // modify template for custom rendering
             'template' => '{addon}{input}',
             'language' => 'es',
@@ -217,7 +216,8 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
                 'autoclose' => true,
                 'format'    => 'yyyy-mm-dd',
         ],
-    ]); ?>
+		
+    ],[ "readOnly"=>true]); ?>
 	  </div>
 	  <div class="col-md-2">
 	   <?= $form->field($model, 'fechaFin')->widget(
