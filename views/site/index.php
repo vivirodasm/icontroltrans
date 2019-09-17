@@ -11,7 +11,7 @@ if (isset($_SESSION["usuario"])) {
 		  title: 'Importante',
 		  text: 'Consulte el estado del vehículo',
 		  type: 'warning',
-		  confirmButtonText: 'Validar!',
+		  confirmButtonText: 'Consultar!',
 		  cancelButtonText: 'Cancelar',
 		  showCancelButton: true,
 		  confirmButtonColor: '#3085d6',
