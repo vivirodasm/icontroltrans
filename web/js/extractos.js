@@ -187,7 +187,7 @@ $("#tbextractos-idvehiculo").change(function()
 					campovtoSegSocial ='<label>Vig Seg Social</label><input type="text" name="vtoSegSocial' + key+'" value = "'+vtoSegSocial+'" readOnly style = "'+stilo+'" >';
 				}
 				
-				campovigLicencia = '<label>Vig Licencia</label> <input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly style = "'++'" >';
+				campovigLicencia = '<label>Vig Licencia</label> <input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly  >';
 				
 				if (fechaActual() > vigLicencia) 
 				{
