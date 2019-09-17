@@ -5,7 +5,7 @@ $( document ).ready(function()
 
 });
 
-
+//informacion del contrato
 $("#tbextractos-nrocontrato").change(function() 
 {
 	filtro = $(this).val();
@@ -33,7 +33,9 @@ $("#tbextractos-nrocontrato").change(function()
 				//tipoContrato
 				$("#tbextractos-tipocontrato").val(data.tipoContrato);
 				
-				
+				//valor contrato 
+				$("#tbextractos-vlrservicio").val(data.vlrContrato);
+					
 			},'json'
 				);
 	
@@ -52,11 +54,9 @@ $("#tbextractos-idvehiculo").change(function()
 				if( data.emprAfil.emprAfil != nombreEmpresa)
 				{
 					$("#tbextractos-convenioemp").val(data.emprAfil.emprAfil);
-					$("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio);
+					$("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio.substr(0,10));
 				}
 				
-
-				stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
 				
 				vehvtoto = $("#tbextractos-vehvtoto");
 				vehvtoextintor = $("#tbextractos-vehvtoextintor");
@@ -64,86 +64,19 @@ $("#tbextractos-idvehiculo").change(function()
 				vehvtosoat = $("#tbextractos-vehvtosoat");
 				vehvtorcc = $("#tbextractos-vehvtorcc");
 				vehvtorce = $("#tbextractos-vehvtorce");
+				vehvtobimestral = $("#tbextractos-vehvtobimestral");
 				
+				//validaciones de fecha 
 				
-				vehvtoto.attr("style","");
-				vehvtoextintor.attr("style","");
-				vehvtocda.attr("style","");
-				vehvtosoat.attr("style","");
-				vehvtorcc.attr("style","");
-				vehvtorce.attr("style","");
-					
-				//TO
-				if (data.fechaVtoTO.fecha.substr(10) == "vencido"|| data.fechaVtoTO.fecha.substr(0,8) == "no posee") 
-				{
-					vehvtoto.attr("style",stilo);
-					vehvtoto.val(data.fechaVtoTO.fecha.substr(0,10));
-				}
-				else
-				{
-					vehvtoto.val(data.fechaVtoTO.fecha);
-				}
+				vechasVencidas(data.fechaVtoTO.fecha,vehvtoto);
+				vechasVencidas(data.fechaVtoExtintor.fecha,vehvtoextintor);
+				vechasVencidas(data.fechaVtoCDA.fecha,vehvtocda);
+				vechasVencidas(data.fechaVtoSOAT.fecha,vehvtosoat);
+				vechasVencidas(data.fechaVtoRCC.fecha,vehvtorcc);
+				vechasVencidas(data.fechaVtoRCE.fecha,vehvtorce);
 				
-				//extintor
-				if (data.fechaVtoExtintor.fecha.substr(10) == "vencido"  || data.fechaVtoExtintor.fecha.substr(0,8) == "no posee") 
-				{
-					vehvtoextintor.attr("style",stilo);
-					vehvtoextintor.val(data.fechaVtoExtintor.fecha.substr(0,10));
-					
-				}
-				else
-				{
-					vehvtoextintor.val(data.fechaVtoExtintor.fecha);
-				}
-					
-				//CDA
-				if (data.fechaVtoCDA.fecha.substr(10) == "vencido" || data.fechaVtoCDA.fecha.substr(0,8) == "no posee")
-				{
-					
-					vehvtocda.attr("style",stilo);
-					vehvtocda.val(data.fechaVtoCDA.fecha.substr(0,10));
-				}
-				else
-				{
-					vehvtocda.val(data.fechaVtoCDA.fecha);
-				}
+				vechasVencidas(data.fechaVtoRPbimest,vehvtobimestral);
 				
-				
-				//SOAT
-				if (data.fechaVtoSOAT.fecha.substr(10) == "vencido"   || data.fechaVtoSOAT.fecha.substr(0,8) == "no posee")
-				{
-					vehvtosoat.attr("style",stilo);
-					vehvtosoat.val(data.fechaVtoSOAT.fecha.substr(0,10));
-				}
-				else
-				{
-					vehvtosoat.val(data.fechaVtoSOAT.fecha);
-				}
-				
-				//RCC
-				if (data.fechaVtoRCC.fecha.substr(10) == "vencido" || data.fechaVtoRCC.fecha.substr(0,8) == "no posee")  
-				{
-					vehvtorcc.attr("style",stilo);
-					vehvtorcc.val(data.fechaVtoRCC.fecha.substr(0,10));
-				}
-				else
-				{
-					vehvtorcc.val(data.fechaVtoRCC.fecha);
-				}
-				
-				//RCE
-				if (data.fechaVtoRCE.fecha.substr(10) == "vencido" || data.fechaVtoRCE.fecha.substr(0,8) == "no posee") 
-				{
-					vehvtorce.attr("style",stilo);
-					vehvtorce.val(data.fechaVtoRCE.fecha.substr(0,10));
-				}
-				else
-				{
-					vehvtorce.val(data.fechaVtoRCE.fecha);
-				}
-				
-				
-				$("#tbextractos-vehvtobimestral").val(data.fechaVtoRPbimest);
 				
 				estadoDoc = "";
 				$.each(data.estadoDocumentos, function (index, value) 
@@ -160,19 +93,35 @@ $("#tbextractos-idvehiculo").change(function()
 	
 });
 
+//valida si la fecha esta vencida y aplica el atributo 
+function vechasVencidas(fecha, obj)
+{
+	estilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
+	obj.attr("style","");
+	if (fecha.substr(10) == "vencido" || fecha.substr(0,8) == "No posee") 
+	{
+		
+		obj.attr("style",estilo);
+		obj.val(fecha.substr(0,10));
+	}
+	else
+	{
+		 obj.val(fecha);
+	}
+	
+}
 
 function swal(mensaje)
 {
-	// alert(estadoDoc);
-				Swal.fire(
-				{
-				  title: ''+ mensaje,
-				  type: 'info',
-				  focusConfirm: false,
-				  confirmButtonText:
-					'aceptar'
-				  
-				});
+	Swal.fire(
+	{
+	  title: ''+ mensaje,
+	  type: 'info',
+	  focusConfirm: false,
+	  confirmButtonText:
+		'aceptar'
+	  
+	});
 	
 }
 
@@ -231,19 +180,20 @@ $("#tbextractos-idvehiculo").change(function()
 				vtoSegSocial=value.vtoSegSocial.substr(0,10);
 				vigLicencia=value.vigLicencia.substr(0,10);
 				
-				campovtoSegSocial = ' Vig Seg Social <input type="text" name="vtoSegSocial' + key +'" value = "'+vtoSegSocial+'" readOnly >';
+				campovtoSegSocial = '<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial' + key +'" value = "'+vtoSegSocial+'" readOnly >';
 				if (fechaActual() > vtoSegSocial) 
 				{
 					
-					campovtoSegSocial =' Vig Seg Social <input type="text" name="vtoSegSocial' + key+'" value = "'+vtoSegSocial+'" readOnly style = "'+stilo+'" >';
+					campovtoSegSocial ='<label>Vig Seg Social</label><input type="text" name="vtoSegSocial' + key+'" value = "'+vtoSegSocial+'" readOnly style = "'+stilo+'" >';
 				}
 				
+				campovigLicencia = '<label>Vig Licencia</label> <input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly style = "'+stilo+'" >';
 				if (fechaActual() > vigLicencia) 
 				{
-					campovigLicencia = ' Vig Seg Social <input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly style = "'+stilo+'" >';
+					campovigLicencia = '<label>Vig Licencia </label><input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly style = "'+stilo+'" >';
 				}
 				
-				$("#conductores").html('<div>Nombre del conductor <input type="text" name="nombre' + key+ '" value = "'+value.nombrecompleto+'" readOnly >	identificación <input type="text" name="idtercero' + key+'" value = "'+value.idtercero +'" readOnly > Nro licencia <input type="text" name="licencia' + key +'" value = "'+value.licencia +'" readOnly >	'+campovtoSegSocial+' '+campovtoSegSocial+'<button onclick="borrarConductor(this)" type="button">x</button></div> ');
+				$("#conductores").html('<div><label>Nombre del conductor</label> <input type="text" name="nombre' + key+ '" value = "'+value.nombrecompleto+'" readOnly >	<label>identificación </label><input type="text" name="idtercero' + key+'" value = "'+value.idtercero +'" readOnly ><label> Nro licencia</label> <input type="text" name="licencia' + key +'" value = "'+value.licencia +'" readOnly >	'+campovtoSegSocial+' '+campovigLicencia+'<button onclick="borrarConductor(this)" type="button">x</button></div> ');
 			});		 
 		}
 		else
@@ -255,9 +205,29 @@ $("#tbextractos-idvehiculo").change(function()
 	},'json'
 		);
 
+});
 
 
 
+//rutas 
+$(" #tbextractos-idruta ").change(function() 
+{
+		idRuta = $(this).val();
+		descripruta = $("#tbextractos-descripruta" ).val();
+		$.get( 'index.php?r=tbextractos/rutas&idRuta='+idRuta,
+		function( data )
+		{
+			descripruta = descripruta + data;
+			$("#tbextractos-descripruta" ).val(descripruta);
+			
+		},'json'
+			);
+});
+
+//identificacion del tercero o contratante 
+$(" #tbextractos-idtercero ").change(function() 
+{
+	$(" #docTercero").val($(this).val());
 });
 
 
@@ -280,6 +250,21 @@ function fechaActual()
 
 function borrarConductor(obj)
 {
-	$(obj).parent().remove();	
+	Swal.fire({
+  title: '¿Esta seguro?',
+  text: "Esta apunto de borrar el conductor",
+  type: 'warning',
+  showCancelButton: true,
+  confirmButtonColor: '#3085d6',
+  cancelButtonColor: '#d33',
+  confirmButtonText: 'Aceptar',
+  cancelButtonText: 'Cancelar'
+	}).then((result) => {
+	  if (result.value) 
+	  {
+		$(obj).parent().remove();	
+	  }
+	})
+	
 }
 
