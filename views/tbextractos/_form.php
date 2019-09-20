@@ -175,11 +175,15 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
                             'placeholder' => 'Seleccione un tercero',
 							'noResultsText' => "Enter para buscar",
 					])?></div>
+					
+					<div id="conductores">  </div>
+	
 	  <div class="col-md-4">
 		<label>
 			  <br />
 			  
 		</label>
+		
 		<br />
 		<?= Html::input('text','','', $options=['id'=> 'docTercero', "disabled"=>"" ]) ?></div>
 	  <div class="col-md-4">	<?= $form->field($model, "nroContrato")->widget(
@@ -284,9 +288,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	</div>
 	
 	
-<div id="conductores">
-	</div>
-	
+
 	<div class="row">
 	  <div class="col-md-12"><?= $form->field($model, 'notaExtracto')->textarea(['rows' => 2]) ?></div>
 	  

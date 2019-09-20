@@ -80,9 +80,7 @@ class TbextractosController extends Controller
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             return $this->redirect(['view', 'anioExtracto' => $model->anioExtracto, 'idExtracto' => $model->idExtracto, 'nroContrato' => $model->nroContrato, 'anioContrato' => $model->anioContrato]);
-        }
-
-	
+        }	
 		
 		$rutas = $this->obtenerRutas();
 		$vehiculos = $this->vehiculos();
@@ -214,7 +212,7 @@ class TbextractosController extends Controller
 		$infoVehiculos['emprAfil']['fechaVtoConvenio'] = $infoVehiculosEmprAfil->fechaVtoConvenio;
 		
 		//tipo de vehiculo clase
-		$infoVehiculos['clase'] = $infoVehiculosEmprAfil->clase;
+		$infoVehiculos['clase'] = $infoVehiculosEmprAfil->claseTarifaFUEC;
 		 // echo "<pre>"; print_r($infoVehiculosEmprAfil); echo "</pre>"; 
 		 
 		 

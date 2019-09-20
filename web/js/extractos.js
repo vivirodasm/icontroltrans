@@ -1,8 +1,8 @@
 $( document ).ready(function() 
 {
 
-
-
+	
+	
 });
 
 //informacion del contrato
@@ -167,41 +167,46 @@ $("#btnTercero,#btnConTercero ").click(function()
 $("#tbextractos-idvehiculo").change(function() 
 {
 	placa = $(this).val();
-	
+	vehiculo = $(this);
 	$.get( 'index.php?r=tbextractos/conductores&placa='+placa,
 	function( data )
 	{
 		stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
 		if (data.length > 0)
 		{
-
+			
 			$.each( data, function( key, value ) 
 			{
 				vtoSegSocial=value.vtoSegSocial.substr(0,10);
 				vigLicencia=value.vigLicencia.substr(0,10);
+				datos = value;
 				
-				campovtoSegSocial = '<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial' + key +'" value = "'+vtoSegSocial+'" readOnly >';
-				if (fechaActual() > vtoSegSocial) 
-				{
-					
-					campovtoSegSocial ='<label>Vig Seg Social</label><input type="text" name="vtoSegSocial' + key+'" value = "'+vtoSegSocial+'" readOnly style = "'+stilo+'" >';
-				}
 				
-				campovigLicencia = '<label>Vig Licencia</label> <input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly  >';
+				html ="";
+				html ='<select name="conductor-' + key +'" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
+				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
+				html +='</select>';
+				html +='<label> Nro licencia </label><input type="text"  value = "" name="nroLicencia-' + key +'"  id="nroLicencia-' + key +'" readOnly >';
+				html +='<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial-' + key +'" id ="vtoSegSocial-' + key +'" value = "" readOnly >';
+				html +='<label>Vig Licencia</label> <input type="text" name="vigLicencia-' + key +'" id="vigLicencia-' + key +'" value = "" readOnly  >';
+				html +='<br />';
 				
-				if (fechaActual() > vigLicencia) 
-				{
-					campovigLicencia = '<label>Vig Licencia </label><input type="text" name="vtoSegSocial' + key +'" value = "'+vigLicencia+'" readOnly style = "'+stilo+'" >';
-				}
 				
-				$("#conductores").html('<div><label>Nombre del conductor</label> <input type="text" name="nombre' + key+ '" value = "'+value.nombrecompleto+'" readOnly >	<label>identificación </label><input type="text" name="idtercero' + key+'" value = "'+value.idtercero +'" readOnly ><label> Nro licencia</label> <input type="text" name="licencia' + key +'" value = "'+value.licencia +'" readOnly >	'+campovtoSegSocial+' '+campovigLicencia+'<button onclick="borrarConductor(this)" type="button">x</button></div> ');
 			});		 
 		}
 		else
 		{
-			$("#conductores").html('Nombre del conductor <input type="text" style = "'+stilo+'" value = "sin datos" readOnly  >	 identificación <input type="text" style = "'+stilo+'" value = "sin datos" readOnly > Nro licencia <input type="text"  style = "'+stilo+'" value = "sin datos" readOnly >	Vig Licencia <input type="text" style = "'+stilo+'" value = "sin datos" readOnly >	Vig Seg Social <input type="text"  style = "'+stilo+'" value = "sin datos" readOnly > ');
+			html ="";
+				html ='<select><option value="0"></option>';
+				html += '<option value="">Sin datos</option>';
+				html +='</select>';
+				html +='<label> Nro licencia </label><input type="text"  value = "sin datos" readOnly >';
+				html +='<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial" value = "" readOnly >';
+				html +='<label>Vig Licencia</label> <input type="text" name="vigLicencia" value = "" readOnly  >';
+			
 		}
 		
+		$("#conductores").html(html);
 		
 	},'json'
 		);
@@ -249,23 +254,86 @@ function fechaActual()
 }
 
 
-function borrarConductor(obj)
+function validarFechasConductor(obj)
 {
-	Swal.fire({
-  title: '¿Esta seguro?',
-  text: "Esta apunto de borrar el conductor",
-  type: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Aceptar',
-  cancelButtonText: 'Cancelar'
-	}).then((result) => {
-	  if (result.value) 
-	  {
-		$(obj).parent().remove();	
-	  }
-	})
+	mensaje = "";
+	id = $(obj).attr("id").split("-")[1];
+	
+	vtoSegSocial =  datos.vtoSegSocial.substr(0,10);
+	vigLicencia  =  datos.vigLicencia.substr(0,10);
+	
+
+	fechaFin = $("#tbextractos-fechafin").val();
+	if(fechaFin == "")
+	{
+			Swal.fire({
+	  title: 'Fecha fin',
+	  text: "No puede estar vacia ",
+	  type: 'warning',
+	  confirmButtonColor: '#3085d6',
+	  confirmButtonText: 'Aceptar',
+		}).then((result) => {
+		  if (result.value) 
+		  {
+			$("#conductor-"+id+"").val(0);
+		  }
+		})
+	}
+	else
+	{
+		
+		if (fechaActual() > vtoSegSocial )
+		{
+			mensaje += "Seguro Vencido <br>";
+			$("#conductor-"+id+"").val(0);
+		}
+		
+		if ( fechaActual() > vigLicencia )
+		{
+			mensaje += "Licencia Vencida<br>";
+			$("#conductor-"+id+"").val(0);
+		}
+		
+		
+		if ( fechaFin > vigLicencia )
+		{
+			mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
+			$("#conductor-"+id+"").val(0);
+		}
+		
+		if(mensaje =="")
+		{
+			
+			if (fechaFin > vtoSegSocial )
+				mensaje += "La vigencia del seguro social sobrepasa la fecha fin <br>";
+			mensaje ="";
+			//dias vencimiento seguro social
+			var fechaInicio = new Date( fechaActual() ).getTime();
+			var fechaFin    = new Date( vtoSegSocial ).getTime();
+			var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
+			mensaje += "la seguridad vence en "+diff+" días";
+			
+			//dias vencimiento licencia
+			var fechaInicio = new Date( fechaActual() ).getTime();
+			var fechaFin    = new Date( vigLicencia ).getTime();
+			var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
+			mensaje += "la seguridad vence en "+diff+" días";
+			
+			
+			$("#nroLicencia-"+id).val(datos.licencia);
+			$("#vtoSegSocial-"+id).val(vtoSegSocial);
+			$("#vigLicencia-"+id).val(vigLicencia);
+			
+		}
+		
+		
+		swal(mensaje);
+	}
+	
+	
+
+
 	
 }
+
 
