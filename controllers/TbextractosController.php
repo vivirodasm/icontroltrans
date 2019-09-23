@@ -135,6 +135,32 @@ class TbextractosController extends Controller
 	}
 	
 	
+	public function actionCiudad($idCenPob)
+	{
+		$departamentos = Tbpoblaciones::find()->andWhere("idCenPob = $idCenPob")->all();
+		$departamentos = ArrayHelper::map($departamentos,"idCenPob","CentroPoblado");
+		
+		echo json_encode( $departamentos );
+	}
+	
+	
+	public function actionCiudades($idPais,$idCenPob)
+	{
+		
+		if (is_numeric($idPais))
+		{
+			$datosCiudades = Tbpoblaciones::find()->andWhere("idCenPob = '$idCenPob'")->all();
+			$datosCiudades = ArrayHelper::toArray($datosCiudades);
+			
+			foreach ($datosCiudades as $ciudad)
+			{
+				$ciudades[$ciudad['idCenPob']] =  $ciudad['CentroPoblado'] . "-" . $ciudad['Municipio'] . "-" . $ciudad['Departamento'];
+			}
+			
+			return json_encode($ciudades);
+		}
+	}
+	
 	
 	public function actionInfoContrato($nroContrato)
 	{

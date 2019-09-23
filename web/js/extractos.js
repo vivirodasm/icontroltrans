@@ -26,10 +26,18 @@ $("#tbextractos-nrocontrato").change(function()
 				$("#tbextractos-fechainicio").val(data.fechaInicio.substr(0, 10));
 				//fecha fin contrato 
 				$("#tbextractos-fechafin").val(data.fechaFin.substr(0, 10));
+				
+				
+				
 				//ciudad origen contrato 
-				$("#tbextractos-ciudadorigen").val(data.ciudadOrigen);
-				//ciudad deestino contrato
-				$("#tbextractos-ciudaddestino").val(data.ciudadDestino);
+				obj = $("#tbextractos-ciudadorigen");
+				poblaciones(data.ciudadOrigen,obj);
+				
+				//ciudad origen contrato 
+				obj = $("#tbextractos-ciudaddestino");
+				poblaciones(data.ciudadDestino,obj);
+				
+				$("#tbextractos-fechainicio").trigger("change");
 				//tipoContrato
 				$("#tbextractos-tipocontrato").val(data.tipoContrato);
 				
@@ -336,4 +344,135 @@ function validarFechasConductor(obj)
 	
 }
 
+//llenar las ciudadades de orien segun el departamento seleccionado
+$("[name='departamentoCiudadOrigen']").change(function() 
+{
+	departamento = $(this).val();
+	
+	var opcionesCiudad = "";
+		idPais = 169;
+		$.get( "index.php?r=terceros/ciudades&idPais="+idPais+"&departamento="+departamento,
+				function( data )
+				{
+					$.each(data, function( index, datos) 
+						{	
+							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
+						});
+						
+					chosen = $("#tbextractos-ciudadorigen");
+					
+					chosen.html("");	
+					chosen.trigger("chosen:updated");	
+					
+					chosen.append(opcionesCiudad);
+					chosen.trigger("chosen:updated");
+					
+						
+				},"json"
+			);
+	
+	
+});
 
+$("[name='departamentoCiudadDestino']").change(function() 
+{
+	departamento = $(this).val();
+	
+	var opcionesCiudad = "";
+		idPais = 169;
+		$.get( "index.php?r=terceros/ciudades&idPais="+idPais+"&departamento="+departamento,
+				function( data )
+				{
+					$.each(data, function( index, datos) 
+						{	
+							opcionesCiudad = opcionesCiudad + '<option value="'+index+'">'+datos+'</option>';
+						});
+						
+					chosen = $("#tbextractos-ciudaddestino");
+					
+					chosen.html("");	
+					chosen.trigger("chosen:updated");	
+					
+					chosen.append(opcionesCiudad);
+					chosen.trigger("chosen:updated");
+					
+				},"json"
+			);
+	
+	
+});
+
+function poblaciones(idCenPob,obj)
+{
+	
+	pob = "";
+	idPais = 169;
+	$.get( "index.php?r=tbextractos/ciudades&idPais="+idPais+"&idCenPob="+idCenPob,
+			function( data )
+			{
+				pob = "";
+				$.each(data, function( index, datos) 
+					{	
+						pob = pob + '<option value="'+index+'">'+datos+'</option>';
+						
+						//llenar select de ciudad
+						chosen = $(obj);
+						chosen.html("");	
+						chosen.trigger("chosen:updated");	
+						chosen.append( pob );
+						chosen.val(index);
+						chosen.trigger("chosen:updated");
+					});
+					
+				
+					//llenar departamento orien
+				if($(obj).attr("id").indexOf("origen") > -1)
+				{
+					departamento = pob.split("-")[2].split("<")[0];
+					// $( "input[name='departamentoCiudadOrigen']" ).val(departamento);
+					departamentoOrigen= $( "#w1" );
+					
+					departamentoOrigen.val(departamento);
+					departamentoOrigen.trigger("chosen:updated");
+				}
+				
+				//llenar departamento destino
+				if($(obj).attr("id").indexOf("destino") > -1)
+				{
+					departamento = pob.split("-")[2].split("<")[0];
+					// $( "input[name='departamentoCiudadOrigen']" ).val(departamento);
+					departamentoOrigen= $( "#w2" );
+					
+					departamentoOrigen.val(departamento);
+					departamentoOrigen.trigger("chosen:updated");
+				}
+				
+			},"json"
+		);
+	
+}
+
+
+//calcular la diferencia de dias entre fechainicio y fecha fin
+$("#tbextractos-fechainicio, #tbextractos-fechafin").change(function() 
+{
+
+	inicio = $("#tbextractos-fechainicio").val();
+	fin = $("#tbextractos-fechafin").val();
+	var fechaini = new Date(inicio);
+	var fechafin = new Date(fin);
+	var diasdif= fechafin.getTime()-fechaini.getTime();
+	var contdias = Math.round(diasdif/(1000*60*60*24));
+	
+	
+	if (isNaN(contdias))
+	{
+		
+	}
+	else
+	{
+		$("#diasExtractos").val(contdias);
+	}
+	
+	
+});

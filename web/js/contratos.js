@@ -198,7 +198,7 @@ $('#tbcontratos-sucursaltercero').click(function()
 
 });
 
-
+//calcular la diferencia de dias entre fechainicio y fecha fin
 $("#tbcontratos-fechainicio, #tbcontratos-fechafin").change(function() 
 {
 	inicio = $("#tbcontratos-fechainicio").val();

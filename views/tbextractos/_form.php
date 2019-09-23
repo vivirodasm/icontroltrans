@@ -18,7 +18,6 @@
 </style>
 
 <?php
-
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use nex\chosen\Chosen;
@@ -235,7 +234,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
         ],
     ]); ?>
 	  </div>
-	  <div class="col-md-1">cantidad dias</div>
+	  <div class="col-md-1"><label> Días</label> <br /><?= Html::input('text','','', $options=['id'=> 'diasExtractos', "disabled"=>"", "style" => "width: 40%;" ]) ?> </div>
 	  <div class="col-md-2"><?= $form->field($model, 'tipoContrato')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'destinosVarios')->checkbox() ?></div>
 	</div>
@@ -254,7 +253,23 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 			],
 			'placeholder' => 'Seleccione un Departamento',
 		]);?></div>
-	  <div class="col-md-2"> <?= $form->field($model, 'ciudadOrigen')->textInput() ?></div>
+	  <div class="col-md-2"> 
+	  
+	  
+	  
+	  <?= $form->field($model, "ciudadOrigen")->widget(
+						Chosen::className(), [
+							'items' => [],
+							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'multiple' => true,
+							'clientOptions' => [
+								'search_contains' => true,
+								'single_backstroke_delete' => false,
+							],
+                            'placeholder' => 'Seleccione una ciudad',
+					])?>
+	  
+	  </div>
 	  <div class="col-md-2"><label> Departamento Destino</label>
 			<?= Chosen::widget([
 			'name' => 'departamentoCiudadDestino',
@@ -267,7 +282,20 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 			],
 			'placeholder' => 'Seleccione un Departamento',
 		]);?></div>
-		<div class="col-md-2"> <?= $form->field($model, 'ciudadDestino')->textInput() ?></div>
+		<div class="col-md-2"> 
+		
+		<?= $form->field($model, "ciudadDestino")->widget(
+						Chosen::className(), [
+							'items' => [],
+							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'multiple' => true,
+							'clientOptions' => [
+								'search_contains' => true,
+								'single_backstroke_delete' => false,
+							],
+                            'placeholder' => 'Seleccione una ciudad',
+					])?>
+		</div>
 		<div class="col-md-2"> <?= $form->field($model, "idRuta")->widget(
 						Chosen::className(), [
 							'items' => $rutas,
