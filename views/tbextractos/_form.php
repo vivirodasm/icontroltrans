@@ -113,11 +113,12 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
     <?php $form = ActiveForm::begin(); ?>
 	
 	<div class="row">
-	  <div class="col-md-2"><?= $form->field($model, 'FUEC')->textInput(['maxlength' => true]) ?></div>
+	  <div class="col-md-2"> <?= $form->field($model, 'fechaExtracto')->textInput(["value"=>date("Y-m-d"),"readOnly"=>true]) ?></div>
 	  <div class="col-md-2"> <?= $form->field($model, 'anioContrato')->textInput(["readOnly"=>"","value" => date("Y")]) ?></div>
 	  <div class="col-md-3"><label>Empresa</label><br>
 	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?></div>
 	</div>
+	
 	
 	<div class="row">
 	  
@@ -310,7 +311,11 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 					])?></div>
 	</div>
 
-    
+	 
+    <div class="row">
+	  <div class="col-md-12"><?= $form->field($model, 'descripDestino')->textarea(['rows' => 2]) ?></div>
+	</div>
+	
 	<div class="row">
 	  <div class="col-md-12"><?= $form->field($model, 'descripRuta')->textarea(['rows' => 2]) ?></div>
 	</div>
@@ -325,15 +330,15 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	<div class="row">
 	  <div class="col-md-2"><?= $form->field($model, 'vlrServicio')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'vlrFUEC')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'idExtracto')->textInput(['maxlength' => true])?></div>
+	  <div class="col-md-3"><?= $form->field($model, 'FUEC')->textInput(['maxlength' => true]) ?></div>
 	</div>
-   
-
-    <?= $form->field($model, 'fechaExtracto')->textInput(["value"=>date("Y-m-d"),"readOnly"=>true]) ?>
+    
+<!-- Este campo se incrementa de a uno, al cambiar el año se reinicia en 1 , 4 digitos maximo, se usa para armar el # FUEC-->
+  <?= $form->field($model, 'idExtracto')->hiddenInput()->label(false) ?> 
 	
-    <?= $form->field($model, 'idDestino')->textInput() ?>
+    <?= $form->field($model, 'idDestino')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'descripDestino')->textarea(['rows' => 6]) ?>
+   
     
 
     <?= $form->field($model, 'vlrCONTBFUEC')->hiddenInput()->label(false) ?>
