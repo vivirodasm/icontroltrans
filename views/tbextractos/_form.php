@@ -176,7 +176,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 							'noResultsText' => "Enter para buscar",
 					])?></div>
 					
-					<div id="conductores">  </div>
+					
 	
 	  <div class="col-md-4">
 		<label>
@@ -320,7 +320,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  <div class="col-md-12"><?= $form->field($model, 'descripRuta')->textarea(['rows' => 2]) ?></div>
 	</div>
 	
-	
+	<div id="conductores">  </div>
 
 	<div class="row">
 	  <div class="col-md-12"><?= $form->field($model, 'notaExtracto')->textarea(['rows' => 2]) ?></div>
