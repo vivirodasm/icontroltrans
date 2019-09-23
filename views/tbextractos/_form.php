@@ -262,7 +262,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 						Chosen::className(), [
 							'items' => [],
 							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
-							'multiple' => true,
+							'multiple' => false,
 							'clientOptions' => [
 								'search_contains' => true,
 								'single_backstroke_delete' => false,
@@ -289,7 +289,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 						Chosen::className(), [
 							'items' => [],
 							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
-							'multiple' => true,
+							'multiple' => false,
 							'clientOptions' => [
 								'search_contains' => true,
 								'single_backstroke_delete' => false,
