@@ -15,6 +15,7 @@ use app\models\Tbpoblaciones;
 use app\models\Vehiculos;
 use app\models\Tbrpbimestral;
 use app\models\Terceros;
+use app\models\Tbempresa;
 
 /**
  * TbextractosController implements the CRUD actions for Tbextractos model.
@@ -165,8 +166,13 @@ class TbextractosController extends Controller
 	public function actionInfoContrato($nroContrato)
 	{
 		
-		$contratos = Tbcontratos::find()->andWhere("anioContrato =". date("Y"). " and nroContrato like '%$nroContrato%' "  )->all();
-		$contratos = ArrayHelper::toArray( $contratos, 'idContrato','nroContrato' );
+		$contratos = Tbcontratos::find()->andWhere("anioContrato =". date("Y"). " and nroContrato =" .str_pad($nroContrato, 4, "0", STR_PAD_LEFT) )->all();
+		$contratos = ArrayHelper::toArray( $contratos );
+		
+		$contabilidadFuec = Tbempresa::find()->andWhere([ "Nombre" =>$_SESSION['nombre'] ])->all();
+		$contabilidadFuec = ArrayHelper::getColumn( $contabilidadFuec,"contabilidadFUEC" ); 
+		
+		$contratos[0]['contabilidadFuec'] = $contabilidadFuec[0]/100;
 		
 		echo json_encode( $contratos[0] );
 		
