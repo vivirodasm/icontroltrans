@@ -5,7 +5,7 @@ use yii\helpers\Html;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbextractos */
 
-$this->title = 'Create Tbextractos';
+$this->title = 'Crear extracto';
 $this->params['breadcrumbs'][] = ['label' => 'Tbextractos', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

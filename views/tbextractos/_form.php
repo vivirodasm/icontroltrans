@@ -226,7 +226,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 		
 		<br />
 		<?= Html::input('text','','', $options=['id'=> 'docTercero', "disabled"=>"" ]) ?></div>
-	  <div class="col-md-4">	<?= $form->field($model, "nroContrato")->widget(
+	  <div class="col-md-2">	<?= $form->field($model, "nroContrato")->widget(
 						Chosen::className(), [
 							'items' => [],
 							'disableSearch' => 0, 
@@ -241,12 +241,12 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	</div>
 	
 	<div class="row">
-	  <div class="col-md-2"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?></div>
+	  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-4"><?= Html::button('Tercero', ['class' => '','id'=>"btnTercero"]) ?>
-	  <?= Html::button('Conctacto Terceo', ['class' => '','id'=>"btnConTercero"]) ?></div>
+	  <div class="col-md-3"><?= Html::button('<img src="images/tarea.png" width="20px" height="20px">', ['class' => '','id'=>"btnTercero",'title' => 'Datos igual al contratante']) ?>
+	  <?= Html::button('<img src="images/carnet-de-identidad.png" width="20px" height="20px">', ['class' => '','id'=>"btnConTercero",'title' => 'Datos igual al contacto contratante']) ?></div>
 	</div>
 						
 
@@ -282,7 +282,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
    
 	
 	<div class="row">
-	  <div class="col-md-2"><label> Departamento origen</label>
+	  <div class="col-md-2"><label> Departamento 0rigen</label>
 			<?= Chosen::widget([
 			'name' => 'departamentoCiudadOrigen',
 			'items' => $departamentos,
