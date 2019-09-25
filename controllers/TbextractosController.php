@@ -407,4 +407,70 @@ class TbextractosController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+	
+	public function actionFuecAnterior($fuecAnt)
+	{
+		
+
+		$connection = Yii::$app->get($_SESSION['db']);
+		$command = $connection->createCommand("
+			SELECT 
+			tbter.nombrecompleto,
+			tbter.idtercero,
+			tbext.resp_Contrato,
+			tbext.cedResp_Contrato,
+			tbext.dirResp_Contrato,
+			tbext.telResp_Contrato,
+            tbext.ciudadOrigen,
+            tbext.ciudadDestino,
+            tbext.descripRuta
+			
+		FROM 
+			tbextractos as tbext, terceros as tbter
+		WHERE 
+			tbext.FUEC = '$fuecAnt'
+
+		AND
+			tbext.idtercero = tbter.idtercero
+			
+		
+		");
+		$result = $command->queryAll();
+		
+		//consulta ciudad origen  1765
+		$command = $connection->createCommand("SELECT `CentroPoblado` FROM `tbpoblaciones` WHERE `idCenPob`=".$result[0]['ciudadOrigen']);
+		$ciudadOrigen = $command->queryAll();
+		// $result[0]['ciudadOrigen']=$ciudadOrigen[0]['CentroPoblado'];
+		$result[0]['idciudadOrigen']=$result[0]['ciudadOrigen'];
+		
+		//consulta ciudad destino  
+		$command = $connection->createCommand("SELECT `CentroPoblado` FROM `tbpoblaciones` WHERE `idCenPob`=".$result[0]['ciudadDestino']);
+		$ciudadDestino = $command->queryAll();
+		
+		// $result[0]['ciudadDestino']=$ciudadDestino[0]['CentroPoblado'];
+		$result[0]['idciudadDestino']=$result[0]['ciudadDestino'];
+		echo json_encode($result[0]); 
+		 // var_dump($result[0]);
+		// return $result; 317017202201700200001
+		
+		// array(1) {
+  // [0]=>
+  // array(6) {
+    // ["nombrecompleto"]=>
+    // string(26) "CAROLINA  GALLEGO PALACIOS"
+    // ["idtercero"]=>
+    // string(8) "30333379"
+    // ["resp_Contrato"]=>
+    // string(26) "CAROLINA  GALLEGO PALACIOS"
+    // ["cedResp_Contrato"]=>
+    // string(8) "30333379"
+    // ["dirResp_Contrato"]=>
+    // string(12) "CL 105 27 11"
+    // ["telResp_Contrato"]=>
+    // string(10) "3113084777"
+  // }
+// }
+
+		
+	}
 }
