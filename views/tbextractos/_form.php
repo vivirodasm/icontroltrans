@@ -27,6 +27,7 @@ use dosamigos\datepicker\DatePicker;
 /* @var $form yii\widgets\ActiveForm */
 
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/extractos.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerCssFile("@web/css/extractos.css", ['depends' => [\yii\bootstrap\BootstrapAsset::className()]]);
 
 
 
@@ -142,11 +143,17 @@ $this->registerJs( "
 
 $nombreEmpresa = $_SESSION['nombre'];
 
+
+
+
+
 ?>
 
 <script type="text/javascript">
 var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 </script>
+
+
 
 <div class="tbextractos-form">
 

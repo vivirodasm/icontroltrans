@@ -192,13 +192,16 @@ $("#tbextractos-idvehiculo").change(function()
 				
 				
 				html ="";
-				html ='<select name="conductor-' + key +'" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
+				html ='<fieldset class="scheduler-border">';
+				html +='<legend class="scheduler-border">Conductores</legend>';
+				html +='<select name="conductor-' + key +'" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
 				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
 				html +='</select>';
 				html +='<label> Nro licencia </label><input type="text"  value = "" name="nroLicencia-' + key +'"  id="nroLicencia-' + key +'" readOnly >';
 				html +='<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial-' + key +'" id ="vtoSegSocial-' + key +'" value = "" readOnly >';
 				html +='<label>Vig Licencia</label> <input type="text" name="vigLicencia-' + key +'" id="vigLicencia-' + key +'" value = "" readOnly  >';
 				html +='<br />';
+				html +='</fieldset>';
 				
 				
 			});		 
@@ -206,12 +209,15 @@ $("#tbextractos-idvehiculo").change(function()
 		else
 		{
 			html ="";
-				html ='<select><option value="0"></option>';
-				html += '<option value="">Sin datos</option>';
+				html ='<fieldset class="scheduler-border">';
+				html +='<legend class="scheduler-border">Conductores</legend>';
+				html +='<select><option value="0"></option>';
+				html +='<option value="">Sin datos</option>';
 				html +='</select>';
 				html +='<label> Nro licencia </label><input type="text"  value = "sin datos" readOnly >';
 				html +='<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial" value = "" readOnly >';
 				html +='<label>Vig Licencia</label> <input type="text" name="vigLicencia" value = "" readOnly  >';
+				html +='</fieldset>';
 			
 		}
 		
