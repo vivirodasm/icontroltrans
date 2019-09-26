@@ -183,7 +183,9 @@ $("#tbextractos-idvehiculo").change(function()
 		stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
 		if (data.length > 0)
 		{
-			
+				html ="";
+				html ='<fieldset class="scheduler-border">';
+				html +='<legend class="scheduler-border">Conductores</legend>';
 			$.each( data, function( key, value ) 
 			{
 				vtoSegSocial=value.vtoSegSocial.substr(0,10);
@@ -191,32 +193,34 @@ $("#tbextractos-idvehiculo").change(function()
 				datos = value;
 				
 				
-				html ="";
-				html ='<fieldset class="scheduler-border">';
-				html +='<legend class="scheduler-border">Conductores</legend>';
-				html +='<select name="conductor-' + key +'" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
+				
+				html +='<div class="row">';
+				html +='<div class="col-md-3"><label> Nombre conductor </label><select name="conductor-' + key +'" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
 				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
-				html +='</select>';
-				html +='<label> Nro licencia </label><input type="text"  value = "" name="nroLicencia-' + key +'"  id="nroLicencia-' + key +'" readOnly >';
-				html +='<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial-' + key +'" id ="vtoSegSocial-' + key +'" value = "" readOnly >';
-				html +='<label>Vig Licencia</label> <input type="text" name="vigLicencia-' + key +'" id="vigLicencia-' + key +'" value = "" readOnly  >';
-				html +='<br />';
+				html +='</select></div>';
+				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia-' + key +'"  id="nroLicencia-' + key +'" readOnly ></div>';
+				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial-' + key +'" id ="vtoSegSocial-' + key +'" value = "" readOnly ></div>';
+				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia-' + key +'" id="vigLicencia-' + key +'" value = "" readOnly  ></div>';
+				html +='</div>';
+				
+				
+				
+			});	
+
 				html +='</fieldset>';
-				
-				
-			});		 
 		}
 		else
 		{
 			html ="";
 				html ='<fieldset class="scheduler-border">';
 				html +='<legend class="scheduler-border">Conductores</legend>';
-				html +='<select><option value="0"></option>';
+				html +='<div class="row">';
+				html +='<div class="col-md-4"><select><option value="0"></option>';
 				html +='<option value="">Sin datos</option>';
-				html +='</select>';
-				html +='<label> Nro licencia </label><input type="text"  value = "sin datos" readOnly >';
-				html +='<label> Vig Seg Social</label> <input type="text" name="vtoSegSocial" value = "" readOnly >';
-				html +='<label>Vig Licencia</label> <input type="text" name="vigLicencia" value = "" readOnly  >';
+				html +='</select></div>';
+				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "sin datos" readOnly ></div>';
+				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial" value = "" readOnly ></div>';
+				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia" value = "" readOnly  ></div>';
 				html +='</fieldset>';
 			
 		}
