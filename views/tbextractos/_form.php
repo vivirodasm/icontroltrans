@@ -381,7 +381,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 
 	<div class="row">
 	  <div class="col-md-2"><?= $form->field($model, 'vlrServicio')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'vlrFUEC')->textInput(['maxlength' => true]) ?></div>
+	  <div class="col-md-2"><?= $form->field($model, 'vlrCONTBFUEC')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-3"><?= $form->field($model, 'FUEC')->textInput(['maxlength' => true]) ?></div>
 	</div>
     
@@ -391,9 +391,9 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
     <?= $form->field($model, 'idDestino')->hiddenInput()->label(false) ?>
 
    
-    
+    <?= $form->field($model, 'vlrFUEC')->hiddenInput()->label(false) ?>
 
-    <?= $form->field($model, 'vlrCONTBFUEC')->hiddenInput()->label(false) ?>
+    
 
     <?= $form->field($model, 'vlrRecibido')->hiddenInput()->label(false) ?>
 
