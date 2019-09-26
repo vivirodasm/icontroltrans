@@ -16,6 +16,7 @@ use app\models\Vehiculos;
 use app\models\Tbrpbimestral;
 use app\models\Terceros;
 use app\models\Tbempresa;
+use app\models\Tbdestinosfuec;
 
 /**
  * TbextractosController implements the CRUD actions for Tbextractos model.
@@ -86,12 +87,13 @@ class TbextractosController extends Controller
 		$rutas = $this->obtenerRutas();
 		$vehiculos = $this->vehiculos();
 		$departamentos = $this->departamentos();
-		
+		$variosDestinos =  $this->variosDestinos();
         return $this->render('create', [
             'model' => $model,
 			'rutas' => $rutas,
 			'departamentos' => $departamentos, 
 			'vehiculos' => $vehiculos,
+			'variosDestinos' => $variosDestinos,
         ]);
     }
 	
@@ -346,6 +348,14 @@ class TbextractosController extends Controller
 		
 	}
 
+	private function variosDestinos()
+	{
+		$variosDestinos = Tbdestinosfuec::find()->all();
+		$variosDestinos = ArrayHelper::map($variosDestinos,'idDestinoFUEC','nombreDestinoFUEC');
+		
+		return $variosDestinos;
+	}
+	
     /**
      * Updates an existing Tbextractos model.
      * If update is successful, the browser will be redirected to the 'view' page.

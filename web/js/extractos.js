@@ -1,6 +1,6 @@
 $( document ).ready(function() 
 {
-
+	
 	
 	
 });
@@ -480,6 +480,20 @@ $("#tbextractos-fechainicio, #tbextractos-fechafin").change(function()
 	{
 		$("#diasExtractos").val(contdias);
 	}
+	
+	
+});
+
+
+//varios destino 
+$("#tbextractos-destinosvarios").change(function() 
+{
+	// $("#w2_chosen").parent().append('<select id="variosDestinos" >  <option value="volvo">Volvo</option>  </select>');
+	$("#variosDestinos").toggle();
+	$("#w2_chosen").toggle();
+	$("#w2_chosen").siblings("label").toggle();
+	$(".field-tbextractos-ciudaddestino").toggle();
+	// $("#w2_chosen").parent().toggle();
 	
 	
 });

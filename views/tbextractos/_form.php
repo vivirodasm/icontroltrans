@@ -22,6 +22,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use nex\chosen\Chosen;
 use dosamigos\datepicker\DatePicker;
+use yii\helpers\ArrayHelper;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbextractos */
 /* @var $form yii\widgets\ActiveForm */
@@ -289,7 +290,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
    
 	
 	<div class="row">
-	  <div class="col-md-2"><label> Departamento 0rigen</label>
+	  <div class="col-md-2"><label> Departamento Origen</label>
 			<?= Chosen::widget([
 			'name' => 'departamentoCiudadOrigen',
 			'items' => $departamentos,
@@ -318,7 +319,11 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 					])?>
 	  
 	  </div>
-	  <div class="col-md-2"><label> Departamento Destino</label>
+	  <div class="col-md-2">
+	  <!-- select de varios destinos -->
+	  <div id ="variosDestinos" style="display:none"><label> Varios destinos </label> <?= Html::dropDownList('variosDestinos', null, $variosDestinos,['prompt'=> 'Seleccione..']) ?> </div>
+	  
+	  <label> Departamento Destino</label>
 			<?= Chosen::widget([
 			'name' => 'departamentoCiudadDestino',
 			'items' => $departamentos,
