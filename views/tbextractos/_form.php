@@ -162,9 +162,9 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	
 	<div class="row">
 	  <div class="col-md-2"> <?= $form->field($model, 'fechaExtracto')->textInput(["value"=>date("Y-m-d"),"readOnly"=>true]) ?></div>
-	  <div class="col-md-2"> <?= $form->field($model, 'anioContrato')->textInput(["readOnly"=>"","value" => date("Y")]) ?></div>
 	  <div class="col-md-3"><label>Empresa</label><br>
 	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?></div>
+	 <div class="col-md-2"> <?= $form->field($model, 'anioContrato')->hiddenInput()->label(false) ?></div>
 	</div>
 	
 	
@@ -175,7 +175,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 		<?= Html::input('text','','', $options=['id'=> 'claseVehiculo', "disabled"=>"" ]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'fechaVtoConvenio')->textInput(["readOnly"=>true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'anioExtracto')->textInput() ?></div>
+	  <div class="col-md-2"><?= $form->field($model, 'anioExtracto')->hiddenInput()->label(false) ?></div>
 	</div>
 	
     
