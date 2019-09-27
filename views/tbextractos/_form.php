@@ -321,7 +321,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  </div>
 	  <div class="col-md-2">
 	  <!-- select de varios destinos -->
-	  <div id ="variosDestinos" style="display:none"><label> Varios destinos </label> <?= Html::dropDownList('variosDestinos', null, $variosDestinos,['prompt'=> 'Seleccione..']) ?> </div>
+	  <div id ="variosDestinos" style="display:none"><label> Varios destinos </label> <?= Html::dropDownList('variosDestinos', null, $variosDestinos,['prompt'=> 'Seleccione..',"id"=> "idVariosDestinos"]) ?> </div>
 	  
 	  <label> Departamento Destino</label>
 			<?= Chosen::widget([
@@ -385,7 +385,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  <div class="col-md-3"><?= $form->field($model, 'FUEC')->textInput(['maxlength' => true]) ?></div>
 	</div>
     
-<!-- Este campo se incrementa de a uno, al cambiar el año se reinicia en 1 , 4 digitos maximo, se usa para armar el # FUEC-->
+<!-- Este campo se incrementa de a uno, al cambiar el aÃ±io se reinicia en 1 , 4 digitos maximo, se usa para armar el # FUEC-->
   <?= $form->field($model, 'idExtracto')->hiddenInput()->label(false) ?> 
 	
     <?= $form->field($model, 'idDestino')->hiddenInput()->label(false) ?>

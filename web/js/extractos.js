@@ -76,27 +76,25 @@ $("#tbextractos-idvehiculo").change(function()
 				vehvtobimestral = $("#tbextractos-vehvtobimestral");
 				
 				//validaciones de fecha 
+				arrayfechas =[];
+				arrayfechas[0] = vechasVencidas(data.fechaVtoTO.fecha,vehvtoto);
+				arrayfechas[1] = vechasVencidas(data.fechaVtoExtintor.fecha,vehvtoextintor);
+				arrayfechas[2] = vechasVencidas(data.fechaVtoCDA.fecha,vehvtocda);
+				arrayfechas[3] = vechasVencidas(data.fechaVtoSOAT.fecha,vehvtosoat);
+				arrayfechas[4] = vechasVencidas(data.fechaVtoRCC.fecha,vehvtorcc);
+				arrayfechas[5] = vechasVencidas(data.fechaVtoRCE.fecha,vehvtorce);
+				arrayfechas[6] = vechasVencidas(data.fechaVtoRPbimest.fecha,vehvtobimestral);
 				
-				vechasVencidas(data.fechaVtoTO.fecha,vehvtoto);
-				vechasVencidas(data.fechaVtoExtintor.fecha,vehvtoextintor);
-				vechasVencidas(data.fechaVtoCDA.fecha,vehvtocda);
-				vechasVencidas(data.fechaVtoSOAT.fecha,vehvtosoat);
-				vechasVencidas(data.fechaVtoRCC.fecha,vehvtorcc);
-				vechasVencidas(data.fechaVtoRCE.fecha,vehvtorce);
-				
-				vechasVencidas(data.fechaVtoRPbimest,vehvtobimestral);
-				
-				
-				estadoDoc = "";
-				$.each(data.estadoDocumentos, function (index, value) 
+				Swal.fire(
 				{
-					// alert(value);
-					estadoDoc = estadoDoc + value +"<br>";
-
+				  title: ''+ data.estadoDocumentos,
+				  type: 'info',
+				  focusConfirm: false,
+				  confirmButtonText:
+					'aceptar'
+				  
 				});
-				
-				swal(estadoDoc);
-
+		
 			},'json'
 				);
 	
@@ -112,10 +110,13 @@ function vechasVencidas(fecha, obj)
 		
 		obj.attr("style",estilo);
 		obj.val(fecha.substr(0,10));
+		
+		return 1;
 	}
 	else
 	{
 		 obj.val(fecha);
+		 return 0;
 	}
 	
 }
@@ -345,8 +346,16 @@ function validarFechasConductor(obj)
 			
 		}
 		
-		
-		swal(mensaje);
+		Swal.fire(
+		{
+		  title: ''+ mensaje,
+		  type: 'info',
+		  focusConfirm: false,
+		  confirmButtonText:
+			'aceptar'
+		  
+		});
+	
 	}
 	
 	
@@ -499,5 +508,28 @@ $("#tbextractos-destinosvarios").change(function()
 	$(".field-tbextractos-ciudaddestino").toggle();
 	// $("#w2_chosen").parent().toggle();
 	
-	
+	//si no esta checked borrar los datos
+	if (!$(this).checked) 
+	{
+		$("#tbextractos-descripdestino").val("");
+		$("#idVariosDestinos").val("");
+	}
+ 
 });
+
+
+
+//varios destino 
+$("#idVariosDestinos").change(function() 
+{
+	idDestinoFUEC = $(this).val();
+	$.get( "index.php?r=tbextractos/decripcion-destino&idDestinoFUEC="+idDestinoFUEC,
+			function( data )
+			{
+				$("#tbextractos-descripdestino").val(data);
+			},"json"
+		);
+});
+
+
+

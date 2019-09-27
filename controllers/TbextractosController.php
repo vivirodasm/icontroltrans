@@ -200,7 +200,6 @@ class TbextractosController extends Controller
 		// $infoVehiculosEmpAfil =  ArrayHelper::map($infoVehiculos,'emprAfil','emprAfil');
 		$infoVehiculosEmprAfil= $infoVehiculos;
 		
-		
 		$infoVehiculos = ArrayHelper::getValue($infoVehiculos, function ($infoVehiculos, $defaultValue) {
 			
 			$arrayInfo['fechaVtoTO']['nombre'] = "Tarjeta Operación";
@@ -229,27 +228,68 @@ class TbextractosController extends Controller
 		//llenar el array con la informacion del estado actual de los documentos del vehiculo
 		foreach ($infoVehiculos as $vehi)
 			$vehEstado[ $vehi['nombre'] ]= $this->fechaVencida($vehi['nombre'],$vehi['fecha']);
+		
+		$vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');		
+		
 			
 		//dar formato a las fechas vencidas
 		foreach ($infoVehiculos as $key => $vehi)
 			$infoVehiculos[$key]['fecha'] = $this->vencimientofecha($vehi['fecha']);
 		
-		//vencimiento bimestral del vehiculo
-		$vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');
+		$infoVehiculos['fechaVtoRPbimest']['nombre'] ="Revisión Bimestra";
+		$infoVehiculos['fechaVtoRPbimest']['fecha'] = $this->vencimientofecha(substr($vtoBimestral,0,10));
 		
-		$infoVehiculos['fechaVtoRPbimest'] = $this->vencimientofecha(substr($vtoBimestral,0,10));
+		$fechasVencidas = [];
+		foreach ($infoVehiculos as $info)
+		{
+			if (strpos ( $info['fecha'] , "vencido" ) > 0)
+			{
+				$fechasVencidas[] = $info['nombre'];
+			}
+			else
+			{
+				$fechas[] = $info['fecha'];
+				$nombres[] = $info['nombre'];
+			}
+			
+		}
+			
+		//saber si tiene alguna fecha vencida o cual es la mas proxima a vencerse
+		$estadoDoc ="";
+		if (count ($fechasVencidas) > 0)
+		{
+			foreach ($fechasVencidas as $fv)
+			{
+				$estadoDoc .= $fv ." vencido <br>";
+			}
+		}
+		else
+		{
+			date_default_timezone_set('America/Bogota');
+			$datetime1 = date_create( date("Y-m-d") );
+			$datetime2 = date_create(min($fechas));
+			$intervalDias = date_diff($datetime1, $datetime2);
+			$intervalDias = " " .$intervalDias->format("%a") . " días para vencerse";
+			
+			$estadoDoc = $nombres[array_search (min($fechas),$fechas)]. $intervalDias ;
 		
-		$infoVehiculos['estadoDocumentos'] = $vehEstado;
-		$infoVehiculos['estadoDocumentos']['Revisión Bimestra'] = $this->fechaVencida("Revisión Bimestra",substr($vtoBimestral,0,10));
+		}
+
+		
+		$infoVehiculos['estadoDocumentos'] = $estadoDoc;
+		
+		
+		
 		
 		$infoVehiculos['emprAfil']['emprAfil'] = $infoVehiculosEmprAfil->emprAfil;
 		$infoVehiculos['emprAfil']['fechaVtoConvenio'] = $infoVehiculosEmprAfil->fechaVtoConvenio;
 		
 		//tipo de vehiculo clase
 		$infoVehiculos['clase'] = $infoVehiculosEmprAfil->claseTarifaFUEC;
-		 // echo "<pre>"; print_r($infoVehiculosEmprAfil); echo "</pre>"; 
-		 
-		 
+		
+		
+		
+		
 		echo json_encode( $infoVehiculos );
 	}
 
@@ -355,6 +395,15 @@ class TbextractosController extends Controller
 		
 		return $variosDestinos;
 	}
+	
+	public function actionDecripcionDestino($idDestinoFUEC)
+	{
+		$descripcion = Tbdestinosfuec::find()->andWhere("idDestinoFUEC = $idDestinoFUEC")->all();
+		$descripcion = ArrayHelper::getColumn($descripcion,'decripcionDestinoFUEC','');
+		
+		echo json_encode ($descripcion[0]);
+	}
+	
 	
     /**
      * Updates an existing Tbextractos model.
