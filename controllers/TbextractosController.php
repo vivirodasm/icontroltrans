@@ -1,4 +1,6 @@
 <?php
+namespace app\controllers;
+
 // sesion
 if(!isset($_SESSION['db']))
 { 
@@ -20,7 +22,7 @@ if(!isset($_SESSION['db']))
 })
 	
 	");
-	// echo $_SESSION['nombre'];
+	
 } 
 //si no tiene sesion se redirecciona al login
 // else
@@ -29,7 +31,7 @@ if(!isset($_SESSION['db']))
 	// die;
 // }
 
-namespace app\controllers;
+
 
 use Yii;
 use app\models\Tbextractos;
@@ -159,26 +161,7 @@ class TbextractosController extends Controller
 				
 				// $conductorExtracto->save();
 			}
-		
-			
-		/**
-		
-			RECORRIDO Descripción Ruta ?? 
-					
-			MARCA KIA
-			CLASE DE VEHICULO MICROBUS
-			MODELO 2013
-			Nro TARJETA OPERACIÓN 
-			
-			nombre conductores
-			identificacion conductores
-			nro licencia conductores
-			vigencia licencia conductores
-			
-			
-			direccion empresa sesion
-			
-			*/
+
 			
 			
 			$datosVehiculos = Vehiculos::find()->AndWhere([ "placa" => $post ['Tbextractos']['idvehiculo'] ])->one();
