@@ -73,7 +73,7 @@ class LoginController extends Controller
 			{
 				return $this->render('login', [
 					 'model' => $model,
-					 
+					 'mensaje' => 1,
 					   
 				]);
 				

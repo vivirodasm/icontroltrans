@@ -44,5 +44,19 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php ActiveForm::end(); ?>
 
-    
+    <?php  
+
+if (@$mensaje == 1) {
+	$this->registerJs( "
+	  swal.fire({
+			title: 'Usuario no encontrado',
+			text: ' Verifique los datos ingresados',
+			type: 'error',
+			confirmButtonText: 'Salir',
+		});
+	
+	");
+}
+
+?>
 </div>

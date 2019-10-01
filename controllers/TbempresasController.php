@@ -237,6 +237,7 @@ class TbempresasController extends Controller
 		$modelLogin = new Login();
 		return $this->renderPartial('../login/login', [
              'model' => $modelLogin,
+             'mensaje' => 0,
         ]);
 		
 	}
