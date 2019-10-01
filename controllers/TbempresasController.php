@@ -78,6 +78,8 @@ class TbempresasController extends Controller
 		
 			$nit = $_POST['Tbempresas']['nit'];
 			$conexion = Yii::$app->db;
+	
+			// echo "<pre>"; print_r($conexion); echo "</pre>"; 
 			
 			$consulta = "SELECT * FROM tbempresas";
 			$consulta .= " WHERE nit ='" .$nit."' AND estado = 1";
@@ -235,6 +237,7 @@ class TbempresasController extends Controller
 		$modelLogin = new Login();
 		return $this->renderPartial('../login/login', [
              'model' => $modelLogin,
+             'mensaje' => 0,
         ]);
 		
 	}

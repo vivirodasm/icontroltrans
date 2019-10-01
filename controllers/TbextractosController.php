@@ -1,4 +1,33 @@
 <?php
+// sesion
+if(!isset($_SESSION['db']))
+{ 
+	$this->registerJs( "
+	  swal.fire({
+		  title: 'Importante',
+		  text: 'Su sesión a terminado',
+		  type: 'warning',
+		  confirmButtonText: 'Loguearse',
+		  cancelButtonText: 'Cancelar',
+		  showCancelButton: true,
+		  confirmButtonColor: '#3085d6',
+		  cancelButtonColor: '#d33'
+		  
+		}).then((result) => {
+  if (result.value) {
+    window.location=\"index.php?r=site%2Findex\";
+  }
+})
+	
+	");
+	// echo $_SESSION['nombre'];
+} 
+//si no tiene sesion se redirecciona al login
+// else
+// {
+	// echo "<script> window.location=\"index.php?r=site%2Flogin\";</script>";
+	// die;
+// }
 
 namespace app\controllers;
 
