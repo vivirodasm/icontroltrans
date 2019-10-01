@@ -17,6 +17,9 @@ use app\models\Tbrpbimestral;
 use app\models\Terceros;
 use app\models\Tbempresa;
 use app\models\Tbdestinosfuec;
+use app\models\Tbhv;
+use app\models\Tbextractoscond;
+use app\models\Pdfextractos;
 
 /**
  * TbextractosController implements the CRUD actions for Tbextractos model.
@@ -80,8 +83,129 @@ class TbextractosController extends Controller
 		
         $model = new Tbextractos();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'anioExtracto' => $model->anioExtracto, 'idExtracto' => $model->idExtracto, 'nroContrato' => $model->nroContrato, 'anioContrato' => $model->anioContrato]);
+        if ($model->load(Yii::$app->request->post()) ) 
+		{
+			
+			$añoActual = date("Y");
+			$nroContrato = str_pad(Yii::$app->request->post()['Tbextractos']['nroContrato'], 4, "0", STR_PAD_LEFT);
+			$idExtracto = Tbextractos::find()->select('max(idExtracto)')->andWhere(" anioContrato = $añoActual ")->scalar() +1; //
+			$idExtracto = str_pad($idExtracto , 4, "0", STR_PAD_LEFT);
+			
+			$model->anioExtracto = $añoActual;
+			$datosEmp= Tbempresa::find()->one();
+			
+			//Tbempresa codDirTerritorial y  nroResolucionEmp y  fechaHab y año actual(2019 solo 19) y #contrato y Tbextracto idExtracto
+			$FUEC = $datosEmp->codDirTerritorial . $datosEmp->nroResolucionEmp . substr($datosEmp->fechaHab,2,2) . $añoActual . $nroContrato. $idExtracto ;
+	
+			$model->FUEC = $FUEC ;		
+			$model->idExtracto = $idExtracto;
+			$model->nroContrato = $nroContrato;
+			$model->anioContrato = substr($model->fechaInicio,0,4);
+			
+			$model->Aud_Usuario = $_SESSION['usuario'];
+			$model->Aud_Fecha = date("Y-m-d");
+			
+		
+			// $model->save(false);
+			
+			
+			$post = Yii::$app->request->post();
+			for ( $i = 0; $i <= count($post['conductor']) - 1; $i++ )
+			{
+				$conductor = $post['conductor'][$i];
+				$idhv = Tbhv::find()->AndWhere("idtercero = $conductor ")->one();
+				$idhv = $idhv->idhv;
+				$nombreConductor= Terceros::find()->AndWhere(["idtercero" => $conductor ])->one()->nombrecompleto;
+				$conductorExtracto =  new Tbextractoscond();
+				$conductorExtracto->FUEC = $FUEC;
+				$conductorExtracto->idhv = $idhv;
+				$conductorExtracto->licencia = $post['nroLicencia'][$i];
+				$conductorExtracto->vigLicencia = $post['vigLicencia'][$i]; 
+				$conductorExtracto->ultPagoSS = $post['vtoSegSocial'][$i];
+				
+				$arraConductores[$i]["nombre"]= $nombreConductor;
+				$arraConductores[$i]["cc"]= $conductor;
+				$arraConductores[$i]['nroLicencia']=$post['nroLicencia'][$i];
+				$arraConductores[$i]['vigLicencia']=$post['vigLicencia'][$i]; 
+				
+				// $conductorExtracto->save();
+			}
+		
+			
+		/**
+		
+			RECORRIDO Descripción Ruta ?? 
+					
+			MARCA KIA
+			CLASE DE VEHICULO MICROBUS
+			MODELO 2013
+			Nro TARJETA OPERACIÓN 
+			
+			nombre conductores
+			identificacion conductores
+			nro licencia conductores
+			vigencia licencia conductores
+			
+			
+			direccion empresa sesion
+			
+			*/
+			
+			
+			$datosVehiculos = Vehiculos::find()->AndWhere([ "placa" => $post ['Tbextractos']['idvehiculo'] ])->one();
+			
+			$nombreContratante= Terceros::find()->AndWhere(["idtercero" => $post['Tbextractos']['idtercero'] ])->one()->nombrecompleto;
+			
+			$objetoContrato = Tbcontratos::find()->andWhere(["nroContrato" => $nroContrato ."-" .$añoActual])->one()->objetCont;
+			
+			 
+			$poblacionOrigen = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadOrigen']  ])->one();
+			$poblacionDestino = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadDestino']  ])->one();
+			 
+			
+			
+			$datos = 
+			[
+				"FUEC"=>$FUEC,
+				"nombreEmpresa"=> $_SESSION['nombre'],
+				"nitEmpresa"=> $_SESSION['nit'],
+				"nroContrato" =>$nroContrato,
+				"rtn" =>$datosEmp->RNT ,
+				"nombreContratante" => $nombreContratante,
+				"nitContratante" => $post['Tbextractos']['idtercero'],
+				"objetoContrato" => $objetoContrato ,
+				"departamentoOrigen" => $poblacionOrigen->Departamento,
+				"ciudadOrigen" => $poblacionOrigen->CentroPoblado,
+				"departamentoDestino" => $poblacionDestino->Departamento,
+				"ciudadDestino" => $poblacionDestino->CentroPoblado,
+				"recorrido" => $post['Tbextractos']['descripRuta'],
+				"tipoContrato" => $post['Tbextractos']['tipoContrato'],
+				"convenioEmp" => $post['Tbextractos']['convenioEmp'],
+				"fechaInicio" => $post['Tbextractos']['fechaInicio'],
+				"fechaFin"	 => $post['Tbextractos']['fechaFin'],
+				"placa"	 =>	$post['Tbextractos']['idvehiculo'],
+				"interno" => $datosVehiculos->NroInterno,
+				"marca" =>$datosVehiculos->marca,
+				"clase" =>$datosVehiculos->clase,
+				"modelo" => $datosVehiculos->	modelo,
+				"nroTarjeta" =>$datosVehiculos->nroTarjOper,
+				"conductores" => $arraConductores,
+				"responsableContrato" 	=> $post['Tbextractos']['resp_Contrato'] ,
+				"cedula"  => $post['Tbextractos']['cedResp_Contrato'] ,
+				"direccion" 	=> $post['Tbextractos']['dirResp_Contrato'] ,
+				"telefono" 	=> $post['Tbextractos']['telResp_Contrato'],
+				"direccionEmpresa" => $datosEmp->Dirección
+			];
+			
+			
+			$pdf = new Pdfextractos();
+			$pdf->generarPdf($datos);
+		
+			die;
+			
+			
+			
+            // return $this->redirect(['view', 'anioExtracto' => $model->anioExtracto, 'idExtracto' => $model->idExtracto, 'nroContrato' => $model->nroContrato, 'anioContrato' => $model->anioContrato]);
         }	
 		
 		$rutas = $this->obtenerRutas();
@@ -96,6 +220,8 @@ class TbextractosController extends Controller
 			'variosDestinos' => $variosDestinos,
         ]);
     }
+	
+	
 	
 	
 	private function obtenerRutas()
@@ -509,26 +635,6 @@ class TbextractosController extends Controller
 		// $result[0]['ciudadDestino']=$ciudadDestino[0]['CentroPoblado'];
 		$result[0]['idciudadDestino']=$result[0]['ciudadDestino'];
 		echo json_encode($result[0]); 
-		 // var_dump($result[0]);
-		// return $result; 317017202201700200001
-		
-		// array(1) {
-  // [0]=>
-  // array(6) {
-    // ["nombrecompleto"]=>
-    // string(26) "CAROLINA  GALLEGO PALACIOS"
-    // ["idtercero"]=>
-    // string(8) "30333379"
-    // ["resp_Contrato"]=>
-    // string(26) "CAROLINA  GALLEGO PALACIOS"
-    // ["cedResp_Contrato"]=>
-    // string(8) "30333379"
-    // ["dirResp_Contrato"]=>
-    // string(12) "CL 105 27 11"
-    // ["telResp_Contrato"]=>
-    // string(10) "3113084777"
-  // }
-// }
 
 		
 	}

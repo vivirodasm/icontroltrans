@@ -2,7 +2,7 @@
 
 return [ 
 'class' => 'yii\db\Connection',
-'dsn' => 'mysql:host=192.168.1.100;dbname=icontroltrans_db2',
+'dsn' => 'mysql:host=localhost;dbname=icontroltrans_db2',
 'username' => 'root',
 'password' => '',
 'charset' => 'utf8', 

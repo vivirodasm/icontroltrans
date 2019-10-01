@@ -121,19 +121,6 @@ function vechasVencidas(fecha, obj)
 	
 }
 
-function swal(mensaje)
-{
-	Swal.fire(
-	{
-	  title: ''+ mensaje,
-	  type: 'info',
-	  focusConfirm: false,
-	  confirmButtonText:
-		'aceptar'
-	  
-	});
-	
-}
 
 $("#btnTercero,#btnConTercero ").click(function() 
 {
@@ -196,12 +183,12 @@ $("#tbextractos-idvehiculo").change(function()
 				
 				
 				html +='<div class="row">';
-				html +='<div class="col-md-3"><label> Nombre conductor </label><select name="conductor-' + key +'" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
+				html +='<div class="col-md-3"><label> Nombre conductor </label><select name="conductor[]" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
 				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
 				html +='</select></div>';
-				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia-' + key +'"  id="nroLicencia-' + key +'" readOnly ></div>';
-				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial-' + key +'" id ="vtoSegSocial-' + key +'" value = "" readOnly ></div>';
-				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia-' + key +'" id="vigLicencia-' + key +'" value = "" readOnly  ></div>';
+				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia[]"  id="nroLicencia-' + key +'" readOnly ></div>';
+				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial[]" id ="vtoSegSocial-' + key +'" value = "" readOnly ></div>';
+				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia[]" id="vigLicencia-' + key +'" value = "" readOnly  ></div>';
 				html +='</div>';
 				
 				
@@ -302,42 +289,43 @@ function validarFechasConductor(obj)
 	else
 	{
 		
-		if (fechaActual() > vtoSegSocial )
-		{
-			mensaje += "Seguro Vencido <br>";
-			$("#conductor-"+id+"").val(0);
-		}
+		// if (fechaActual() > vtoSegSocial )
+		// {
+			// mensaje += "Seguro Vencido <br>";
+			// $("#conductor-"+id+"").val(0);
+		// }
 		
-		if ( fechaActual() > vigLicencia )
-		{
-			mensaje += "Licencia Vencida<br>";
-			$("#conductor-"+id+"").val(0);
-		}
+		// if ( fechaActual() > vigLicencia )
+		// {
+			// mensaje += "Licencia Vencida<br>";
+			// $("#conductor-"+id+"").val(0);
+		// }
 		
 		
-		if ( fechaFin > vigLicencia )
-		{
-			mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
-			$("#conductor-"+id+"").val(0);
-		}
+		// if ( fechaFin > vigLicencia )
+		// {
+			// mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
+			// $("#conductor-"+id+"").val(0);
+		// }
 		
-		if(mensaje =="")
+		// if(mensaje =="")
+		if(true)
 		{
 			
 			if (fechaFin > vtoSegSocial )
 				mensaje += "La vigencia del seguro social sobrepasa la fecha fin <br>";
-			mensaje ="";
+			// mensaje ="";
 			//dias vencimiento seguro social
 			var fechaInicio = new Date( fechaActual() ).getTime();
 			var fechaFin    = new Date( vtoSegSocial ).getTime();
 			var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
-			mensaje += "la seguridad vence en "+diff+" días";
+			mensaje += "la seguridad vence en "+diff+" días <br> ";
 			
 			//dias vencimiento licencia
 			var fechaInicio = new Date( fechaActual() ).getTime();
 			var fechaFin    = new Date( vigLicencia ).getTime();
 			var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
-			mensaje += "la seguridad vence en "+diff+" días";
+			mensaje += "la seguridad vence en "+diff+" días <br> ";
 			
 			
 			$("#nroLicencia-"+id).val(datos.licencia);

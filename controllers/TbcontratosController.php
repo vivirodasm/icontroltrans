@@ -109,7 +109,7 @@ class TbcontratosController extends Controller
 			// die;
 
 			//saber cual es numero de contrato que debe seguir
-			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1;  ;
+			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1; 
 						
 			$model->idContrato 		= $idContrato ;
 			$model->anioContrato	= $añoActual  ;
@@ -307,10 +307,6 @@ class TbcontratosController extends Controller
 		$pdf = new Pdf();
 		$pdf->generarPdf($datos);
 		
-		// $_SESSION['info']= $datos;
-		 // $params['contrato'] = "aaaa";
-		// echo  $this->renderFile('../views/tbcontratos/contpdf.php',$params);
-		// echo  $this->render('contpdf.php',["contrato"=>"1234-12314" ]);
 		
 	}
 				

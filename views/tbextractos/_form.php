@@ -164,7 +164,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  <div class="col-md-2"> <?= $form->field($model, 'fechaExtracto')->textInput(["value"=>date("Y-m-d"),"readOnly"=>true]) ?></div>
 	  <div class="col-md-3"><label>Empresa</label><br>
 	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?></div>
-	 <div class="col-md-2"> <?= $form->field($model, 'anioContrato')->hiddenInput()->label(false) ?></div>
+	 <div class="col-md-2"> </div>
 	</div>
 	
 	
@@ -175,7 +175,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 		<?= Html::input('text','','', $options=['id'=> 'claseVehiculo', "disabled"=>"" ]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'fechaVtoConvenio')->textInput(["readOnly"=>true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'anioExtracto')->hiddenInput()->label(false) ?></div>
+	  <div class="col-md-2"></div>
 	</div>
 	
     
@@ -385,37 +385,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  <div class="col-md-3"><?= $form->field($model, 'FUEC')->textInput(['maxlength' => true]) ?></div>
 	</div>
     
-<!-- Este campo se incrementa de a uno, al cambiar el añio se reinicia en 1 , 4 digitos maximo, se usa para armar el # FUEC-->
-  <?= $form->field($model, 'idExtracto')->hiddenInput()->label(false) ?> 
-	
-    <?= $form->field($model, 'idDestino')->hiddenInput()->label(false) ?>
 
-   
-    <?= $form->field($model, 'vlrFUEC')->hiddenInput()->label(false) ?>
-
-    
-
-    <?= $form->field($model, 'vlrRecibido')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'rboFUEC')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'validoPDF')->hiddenInput()->label(false)?>
-
-    <?= $form->field($model, 'membreteEmp')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'anuladoFUEC')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'facturado')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'GrupoFUEC')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'Aud_Usuario')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'Aud_Fecha')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'Aud_UsuarioEdit')->hiddenInput()->label(false) ?>
-
-    <?= $form->field($model, 'Aud_FechaEdit')->hiddenInput()->label(false) ?>
 
     <div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
