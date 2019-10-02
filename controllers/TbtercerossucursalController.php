@@ -11,7 +11,7 @@ if(@isset($_SESSION['db']))
 //si no tiene sesion se redirecciona al login
 else
 {
-	echo "<script> window.location=\"index.php?r=emprsas%2Fcreate\";</script>";
+	echo "<script> window.location=\"index.php?r=empresas%2Fcreate\";</script>";
 	die;
 }
 
