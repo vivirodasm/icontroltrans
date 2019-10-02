@@ -120,7 +120,7 @@ class TbextractosController extends Controller
 			$model->Aud_Fecha = date("Y-m-d");
 			
 		
-			// $model->save(false);
+			$model->save(false);
 			
 			
 			$post = Yii::$app->request->post();
@@ -142,7 +142,7 @@ class TbextractosController extends Controller
 				$arraConductores[$i]['nroLicencia']=$post['nroLicencia'][$i];
 				$arraConductores[$i]['vigLicencia']=$post['vigLicencia'][$i]; 
 				
-				// $conductorExtracto->save();
+				$conductorExtracto->save();
 			}
 
 			
@@ -156,8 +156,9 @@ class TbextractosController extends Controller
 			 
 			$poblacionOrigen = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadOrigen']  ])->one();
 			$poblacionDestino = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadDestino']  ])->one();
-			 
 			
+			$poblacionEmpresa= Tbpoblaciones::find()->andWhere(["idCenPob" =>$datosEmp->Ciudad ])->one();
+			 
 			
 			$datos = 
 			[
@@ -189,7 +190,7 @@ class TbextractosController extends Controller
 				"cedula"  => $post['Tbextractos']['cedResp_Contrato'] ,
 				"direccion" 	=> $post['Tbextractos']['dirResp_Contrato'] ,
 				"telefono" 	=> $post['Tbextractos']['telResp_Contrato'],
-				"direccionEmpresa" => $datosEmp->Dirección
+				"direccionEmpresa" => $datosEmp->Dirección ."\r\nTelefonos: ". $datosEmp->Telefono . " Móvil: ".$datosEmp->movil . "\r\n". $poblacionEmpresa->Departamento ." - ". $poblacionEmpresa->CentroPoblado . "           " . $datosEmp->email
 			];
 			
 			
