@@ -142,30 +142,18 @@ $this->registerJs( "
 	</div>
     
 	
-	
-	<div class="tabs-index">
-
-
-		<!-- Nav tabs -->
-	<ul class="nav nav-tabs">
-	  <li class="nav-item active">
-		<a class="nav-link active" data-toggle="tab" href="#detalle">Detalle del contrato</a>
+	<div class="panel-group" id="accordion">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+        Detalle del contrato</a>
+      </h4>
+    </div>
+    <div id="collapse1" class="panel-collapse collapse">  <!-- si se necesita abierto al inicio se le pone a la clase al final  in--> 
+      <div class="panel-body">
 	  
-	   
-
-	  
-	  
-	  </li>
-	  <li class="nav-item">
-		<a class="nav-link" data-toggle="tab" href="#vehiculos">Vehiculos del contrato</a>
-	  </li>
-	</ul>
-
-	<!-- Tab panes -->
-	<div class="tab-content">
-	  <div class="tab-pane container active" id="detalle">
-			
-					<div class="row">
+			<div class="row">
 						  <div class="col-md-2"><?= $form->field($model, 'fechaInicio')->widget(
 						DatePicker::className(), [
 						'template' 		=> '{addon}{input}',
@@ -262,28 +250,33 @@ $this->registerJs( "
 			  <div class="col-md-2"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
 			  <div class="col-md-2"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true ]) ?></div>
 			  <div class="col-md-2"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
-			</div>	
-
-				
-					
-	  </div>
-	  <div class="tab-pane container fade" id="vehiculos">
+			</div>
 		
-				
-			<?php 
+	  </div>
+    </div>
+  </div>
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">
+        Vehiculos del contrato</a>
+      </h4>
+    </div>
+    <div id="collapse2" class="panel-collapse collapse">
+      <div class="panel-body">
+	  
+		<?php 
 				for($i=1;$i<=10;$i++)
 					echo $this->context->actionVehiculos($form,$i); 
 			
 			?>   
-			
-		
-		</script>
+	  
 	  </div>
-	</div>
-
-
+    </div>
+  </div>
+  
 </div>
-
+	
     
     <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>30323355])->label(false) ?>
 
