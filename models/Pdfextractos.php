@@ -65,44 +65,119 @@ class Pdfextractos extends FPDF
 		$pdf->Cell(16,5,utf8_decode("$rtn"),"TR",1,"L");
 		
 		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(190,5,utf8_decode("CONTRATO No. $nroContrato   R.T.N. $rtn "),1,1,"C");
-		$pdf->Cell(190,10,utf8_decode("CONTRATANTE $nombreContratante    CC/NIT $nitContratante  "),1,1,"C");
+		$pdf->Cell(20,10,utf8_decode("CONTRATANTE"),"TL",0,"C");
+		
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(145,10,utf8_decode("$nombreContratante "),"T",0,"L");
+		
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(9,10,utf8_decode("CC/NIT "),"T",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(16,10,utf8_decode("$nitContratante"),"TR",1,"L");
 		
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->MultiCell(190,5,utf8_decode("OBJETO DEL CONTRATO: $objetoContrato "),1,"J", 0);
+		$pdf->MultiCell(190,5,utf8_decode("OBJETO DEL CONTRATO:". str_pad(utf8_decode($objetoContrato),1000) ),1,"J", 0);
 
-		$pdf->Cell(190,15,utf8_decode("ORIGEN $departamentoOrigen $ciudadOrigen  DESTINO  $departamentoDestino  $ciudadDestino "),1,1,"C");
+		$pdf->SetFont("Arial","B",6);
+		$pdf->Cell(15,10,utf8_decode("ORIGEN"),"TL",0,"L");
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->MultiCell(190,5,utf8_decode("RECORRIDO:  $recorrido"),1,"J", 0);
+		$pdf->Cell(80,10,utf8_decode("$departamentoOrigen"),0,0,"L");
+		
+		
+		
+		$pdf->SetFont("Arial","B",6);
+		$pdf->Cell(15,10,utf8_decode("DESTINO"),0,0,"L");
+		$pdf->SetFont("Arial","",6);
+		$pdf->Cell(80,10,utf8_decode("$departamentoDestino"),"R",1,"L");
+		
+		
+		
+		$pdf->Cell(15,5,utf8_decode(""),"L",0,"L");
+		$pdf->Cell(80,5,utf8_decode("$ciudadOrigen  "),0,0,"L");
+		$pdf->Cell(15,5,utf8_decode(""),0,0,"L");
+		$pdf->Cell(80,5,utf8_decode("$ciudadDestino "),"R",1,"L");
+		
+		$pdf->SetFont("Arial","",6);
+		$pdf->MultiCell(190,5,utf8_decode("RECORRIDO: ".str_pad(utf8_decode($recorrido),1000) ),1,"J", 0);
 		
 		$pdf->SetFont("Arial","B",7);
 		$pdf->MultiCell(190,4,utf8_decode("TIPO DE CONTRATO : $tipoContrato
-	CONVENIO EMPRESARIAL: $convenioEmp"),1,"J", 0);
+CONVENIO EMPRESARIAL: $convenioEmp"),1,"J", 0);
 		
 		$pdf->SetFont("Arial","B",7);
 		$pdf->Cell(190,5,utf8_decode("VIGENCIA DEL CONTRATO"),1,1,"C");
 		
+		$espacio = 41;
 		$fechadeinicio = explode("-",$fechaInicio);
-		$pdf->Cell(190,5,utf8_decode("FECHA DE INICIO DIA:$fechadeinicio[2]  MES:$fechadeinicio[1]  AÑO: $fechadeinicio[0]"),1,1,"J");
+		$pdf->Cell(45,5,utf8_decode("FECHA DE INICIO"),"L",0,"L");
+		$pdf->Cell(7,5,utf8_decode("DIA:"),0,0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell($espacio,5,utf8_decode("$fechadeinicio[2]"),0,0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(8,5,utf8_decode("MES:"),0,0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell($espacio,5,utf8_decode("$fechadeinicio[1]"),0,0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(7,5,utf8_decode("AÑO:"),0,0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell($espacio,5,utf8_decode("$fechadeinicio[0]"),"R",1,"L");
 		
+		$pdf->SetFont("Arial","B",7);
 		$fechadevencimiento = explode("-",$fechaFin);
-		$pdf->Cell(190,5,utf8_decode("FECHA DE VENCIMIENTO DIA:$fechadevencimiento[2]  MES:$fechadevencimiento[1]  AÑO:$fechadevencimiento[0]"),1,1,"J");
+		
+		$fechadeinicio = explode("-",$fechaInicio);
+		$pdf->Cell(45,5,utf8_decode("FECHA DE VENCIMIENTO"),"LT",0,"L");
+		$pdf->Cell(7,5,utf8_decode("DIA:"),"T",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell($espacio,5,utf8_decode("$fechadevencimiento[2]"),"T",0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(8,5,utf8_decode("MES:"),"T",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell($espacio,5,utf8_decode("$fechadevencimiento[1]"),"T",0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(7,5,utf8_decode("AÑO:"),"T",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell($espacio,5,utf8_decode("$fechadevencimiento[0]"),"TR",1,"L");
+		
+		$pdf->SetFont("Arial","B",7);
 		
 		$pdf->Cell(190,5,utf8_decode("DATOS DEL VEHICULO"),1,1,"C");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(33.5,5,utf8_decode("PLACA"),"L",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(14,5,utf8_decode("$placa"),"R",0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(33.5,5,utf8_decode("Nro"),0,0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(14,5,utf8_decode("$interno"),"R",0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(33.5,5,utf8_decode("MODELO"),0,0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(14,5,utf8_decode("$modelo"),"R",0,"L");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(20.5,5,utf8_decode("MARCA"),0,0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(27,5,utf8_decode("$marca"),"R",1,"L");
 		
-		$pdf->Cell(47.5,5,utf8_decode("PLACA $placa "),1,0,"C");
-		$pdf->Cell(47.5,5,utf8_decode("Nro $interno "),1,0,"C");
-		$pdf->Cell(47.5,5,utf8_decode("MODELO $modelo "),1,0,"C");
-		$pdf->Cell(47.5,5,utf8_decode("MARCA $marca "),1,1,"C");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(47.5,5,utf8_decode("CLASE DE VEHICULO "),"LT",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(47.5,5,utf8_decode("$clase "),"T",0,"L");
 		
-		$pdf->Cell(95,5,utf8_decode("CLASE DE VEHICULO $clase "),1,0,"C");
-		$pdf->Cell(95,5,utf8_decode("Nro TARJETA OPERACIÓN $nroTarjeta "),1,1,"C");
+		$pdf->SetFont("Arial","B",7);
+		$pdf->Cell(47.5,5,utf8_decode("Nro TARJETA OPERACIÓN"),"LT",0,"L");
+		$pdf->SetFont("Arial","",7);
+		$pdf->Cell(47.5,5,utf8_decode("$nroTarjeta "),"TR",1,"L");
+		
+		
+		
+		
 		
 		$pdf->Cell(190,5,utf8_decode("DATOS DEL CONDUCTOR "),1,1,"C");
 		
-		
+		$pdf->SetFont("Arial","",7);
 		for($i=0;$i<7;$i++)
 		{
 			$pdf->Cell(55,5,utf8_decode( @$conductores[$i]['nombre'] ),1,0,"C");
@@ -113,25 +188,29 @@ class Pdfextractos extends FPDF
 		}
 		
 
-		
+		$pdf->SetFont("Arial","B",7);
 		$pdf->Cell(55,5,utf8_decode("RESPONSABLE DEL CONTRATO"),1,0,"C");
 		$pdf->Cell(40,5,utf8_decode("CEDULA"),1,0,"C");
 		$pdf->Cell(55,5,utf8_decode("DIRECCION"),1,0,"C");
 		$pdf->Cell(40,5,utf8_decode("TELEFONO"),1,1,"C");
 		
+		
+		$pdf->SetFont("Arial","",6);
 		$pdf->Cell(55,5,utf8_decode("$responsableContrato"),1,0,"C");
 		$pdf->Cell(40,5,utf8_decode("$cedula"),1,0,"C");
 		$pdf->Cell(55,5,utf8_decode("$direccion"),1,0,"C");
 		$pdf->Cell(40,5,utf8_decode("$telefono"),1,1,"C");
 		
+		$pdf->SetFont("Arial","",7);
+		$pdf->MultiCell(120,3,utf8_decode("$direccionEmpresa"),"LR","J", 0);
 		
-		$pdf->MultiCell(120,7,str_pad(utf8_decode("$direccionEmpresa"), 500),1,"J", 0);
+		$pdf->SetFont("Arial","",20);
+		$pdf->Cell(120,25,utf8_decode($FUEC),"LBR",1,"L");
  
-		$pdf->SetXY($pdf->GetX() + 120,$pdf->GetY() - 28 );
+		$pdf->SetXY($pdf->GetX() + 120,$pdf->GetY() - 34 );
  
 		$pdf->SetFont("Arial","",5);
-		$pdf->MultiCell(70,3.1,utf8_decode("
-		
+		$pdf->MultiCell(70,4.25,utf8_decode("
 		
 		
 		
@@ -141,8 +220,13 @@ class Pdfextractos extends FPDF
 		Fecha Elaboración: 10/05/2019 12:26:30 p. m."),1,"C", 0);
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->Cell(80,5,utf8_decode("-Control-Trans - - H&S Soluciones Tecnológicas - www.hyssolucionestecnologicas.com"),0);
+		$pdf->Cell(80,3,utf8_decode("i-Control-Trans - - H&S Soluciones Tecnológicas - www.hyssolucionestecnologicas.com"),0);
 		
+		
+		
+		
+		$pdf->Image("plantillas/extracto/supertransporte2.jpg",$pdf->GetX() + 29,$pdf->GetY() - 33,10,30);
+		$pdf->Image("plantillas/extracto/2.png",$pdf->GetX() + 43,$pdf->GetY() - 30,50,24);
 
 		
 		// $pdf->Output("Contrato","D");

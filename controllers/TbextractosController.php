@@ -156,9 +156,12 @@ class TbextractosController extends Controller
 			 
 			$poblacionOrigen = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadOrigen']  ])->one();
 			$poblacionDestino = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadDestino']  ])->one();
+			
+			$poblacionEmpresa= Tbpoblaciones::find()->andWhere(["idCenPob" =>$datosEmp->Ciudad ])->one();
 			 
 			
-			
+			// echo "<pre>"; print_r($poblacionEmpresa); echo "</pre>"; 
+			// die;
 			$datos = 
 			[
 				"FUEC"=>$FUEC,
@@ -189,7 +192,7 @@ class TbextractosController extends Controller
 				"cedula"  => $post['Tbextractos']['cedResp_Contrato'] ,
 				"direccion" 	=> $post['Tbextractos']['dirResp_Contrato'] ,
 				"telefono" 	=> $post['Tbextractos']['telResp_Contrato'],
-				"direccionEmpresa" => $datosEmp->Dirección
+				"direccionEmpresa" => $datosEmp->Dirección ."\r\nTelefonos: ". $datosEmp->Telefono . " Móvil: ".$datosEmp->movil . "\r\n". $poblacionEmpresa->Departamento ." - ". $poblacionEmpresa->CentroPoblado . "           " . $datosEmp->email
 			];
 			
 			
