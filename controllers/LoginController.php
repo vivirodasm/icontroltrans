@@ -2,6 +2,23 @@
 
 namespace app\controllers;
 
+
+
+// sesion
+
+if(@isset($_SESSION['db']))
+{ 
+	// echo $_SESSION['nombre'];
+} 
+//si no tiene sesion se redirecciona al login
+else
+{
+	echo "<script> window.location=\"index.php?r=emprsas%2Fcreate\";</script>";
+	die;
+}
+
+
+
 use Yii;
 use yii\filters\AccessControl;
 use yii\web\Controller;
