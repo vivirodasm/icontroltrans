@@ -69,33 +69,6 @@ $this->registerJs( "
 		});
 		
 		
-		//informacion del contrato
-		$('#tbextractos_nrocontrato_chosen').on( 'keydown', function(event) {
-				if(event.which == 13)
-				{
-					var info ='';
-					filtro = $(this).children('div').children().children().val();
-					$.get( 'index.php?r=tbextractos/contratos&nroContrato='+filtro,
-					function( data )
-					{
-						$.each(data, function( index, datos) 
-							{	
-								info = info + '<option value='+index+'>'+datos+'</option>';
-								
-							});
-							
-						select = $('#tbextractos-nrocontrato');	
-						select.html('');
-						select.trigger('chosen:updated');
-						
-						select.append(info);
-						select.trigger('chosen:updated');
-						
-						
-					},'json'
-						);
-				}
-		});
 		
 		
 		//informacion de fuec anterior
@@ -246,7 +219,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 								'single_backstroke_delete' => false,
 							],
                             'placeholder' => 'Seleccione un contrato',
-							'noResultsText' => "Enter para buscar",
+							'noResultsText' => "Sin resultados",
 					])?></div>
 	</div>
 	
