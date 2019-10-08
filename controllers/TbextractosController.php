@@ -242,7 +242,7 @@ class TbextractosController extends Controller
 	public function actionContratos($nroContrato)
 	{
 		
-		$contratos = Tbcontratos::find()->andWhere("anioContrato =". date("Y"). " and nroContrato like '%$nroContrato%' "  )->all();
+		$contratos = Tbcontratos::find()->andWhere("estado ='ACTIVO' and idtercero = '$nroContrato' "  )->all();
 		$contratos = ArrayHelper::map( $contratos, 'idContrato','nroContrato' );
 		
 		echo json_encode( $contratos );
@@ -290,7 +290,7 @@ class TbextractosController extends Controller
 	public function actionInfoContrato($nroContrato)
 	{
 		
-		$contratos = Tbcontratos::find()->andWhere("anioContrato =". date("Y"). " and nroContrato =" .str_pad($nroContrato, 4, "0", STR_PAD_LEFT) )->all();
+		$contratos = Tbcontratos::find()->andWhere(" nroContrato =" .str_pad($nroContrato, 4, "0", STR_PAD_LEFT) )->all();
 		$contratos = ArrayHelper::toArray( $contratos );
 		
 		$contabilidadFuec = Tbempresa::find()->andWhere([ "Nombre" =>$_SESSION['nombre'] ])->all();

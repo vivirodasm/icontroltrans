@@ -248,6 +248,27 @@ $(" #tbextractos-idruta ").change(function()
 $(" #tbextractos-idtercero ").change(function() 
 {
 	$(" #docTercero").val($(this).val());
+	filtro = $(this).val();
+	info ='';
+	$.get( 'index.php?r=tbextractos/contratos&nroContrato='+filtro,
+					function( data )
+					{
+						$.each(data, function( index, datos) 
+							{	
+								info = info + '<option value='+index+'>'+datos+'</option>';
+								
+							});
+							// alert(data);
+						select = $('#tbextractos-nrocontrato');	
+						select.html('');
+						select.trigger('chosen:updated');
+						
+						select.append(info);
+						select.trigger('chosen:updated');
+						
+						
+					},'json'
+						);
 });
 
 
