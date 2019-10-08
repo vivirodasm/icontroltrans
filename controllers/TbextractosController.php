@@ -120,7 +120,7 @@ class TbextractosController extends Controller
 			$model->Aud_Fecha = date("Y-m-d");
 			
 		
-			$model->save(false);
+			// $model->save(false);
 			
 			
 			$post = Yii::$app->request->post();
@@ -142,7 +142,7 @@ class TbextractosController extends Controller
 				$arraConductores[$i]['nroLicencia']=$post['nroLicencia'][$i];
 				$arraConductores[$i]['vigLicencia']=$post['vigLicencia'][$i]; 
 				
-				$conductorExtracto->save();
+				// $conductorExtracto->save();
 			}
 
 			

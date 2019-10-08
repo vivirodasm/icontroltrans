@@ -93,6 +93,13 @@ $("#tbextractos-idvehiculo").change(function()
 				  confirmButtonText:
 					'aceptar'
 				  
+				}).then((result) => 
+				{
+					
+				  if (data.estadoDocumentos.indexOf("vencido") > 1) 
+				  {
+					location.reload();
+				  }
 				});
 		
 			},'json'
