@@ -83,7 +83,7 @@ class LoginController extends Controller
 		$usuarios = Tbusuarios::find()->where(" IdUsuario ='" .$usuario."' 
 						AND ClaveUsuario = '" .$clave."' 
 						AND ActivoUsuario = -1" )->all();		
-		$usuarios = ArrayHelper::getColumn( $usuarios, 'NombreUsuario' );
+		$usuarios = ArrayHelper::map( $usuarios, 'IdUsuario','NombreUsuario' );
 			
 	
 		if (empty($usuarios))
@@ -96,7 +96,7 @@ class LoginController extends Controller
 				
 			}
 			else{
-				$_SESSION["usuario"]=$usuarios[0];
+				$_SESSION["usuario"]=$usuarios;
 			
 				return $this->render('../site/index', [
 					// 'model' => $model,

@@ -119,7 +119,6 @@ class TercerosController extends Controller
 		
 		$estado = ["ACTIVO" => "ACTIVO"];
 		
-		$cedulaUsuario = 1053779647;
 		$tipoTercero = ["CLIENTE"=>"CLIENTE","CONDUCTOR"=>"CONDUCTOR","PROPIETARIO"=>"PROPIETARIO","EMPLEADO"=>"EMPLEADO","PROVEEDOR"=>"PROVEEDOR","PRESTADOR SERVICIO"=>"PRESTADOR SERVICIO"];
 		
 		
@@ -137,7 +136,6 @@ class TercerosController extends Controller
 			'identidades' 		=> $identidades,
 			'estado'			=> $estado,
 			'tipoTercero'		=> $tipoTercero,
-			'cedulaUsuario'		=> $cedulaUsuario,
 			'departamentos'		=> $departamentos,
         ]);
     }

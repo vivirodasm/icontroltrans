@@ -6,8 +6,6 @@ use nex\chosen\Chosen;
 /* @var $this yii\web\View */
 /* @var $model app\models\Terceros */
 /* @var $form yii\widgets\ActiveForm */
-
-
 ?>
 
 <div class="terceros-form border border-primary rounded-lg">
@@ -160,7 +158,7 @@ use nex\chosen\Chosen;
 
     <?= $form->field($model, 'rutaCedula')->hiddenInput(['maxlength' => true])->label(false) ?>
 
-    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>$cedulaUsuario])->label(false) ?>
+    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>key($_SESSION['usuario'])])->label(false) ?>
 
     <?= $form->field($model, 'Aud_Fecha')->hiddenInput(["value"=> date("Y-m-d H:i:s")])->label(false) ?>
 

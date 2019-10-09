@@ -24,7 +24,6 @@ $this->params['breadcrumbs'][] = $this->title;
 		'identidades' 		=> $identidades,
 		'estado'			=> $estado,
 		'tipoTercero'		=> $tipoTercero,
-		'cedulaUsuario'		=> $cedulaUsuario,
 		'departamentos'		=> $departamentos,
     ]) ?>
 

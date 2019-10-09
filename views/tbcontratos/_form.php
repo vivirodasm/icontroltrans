@@ -278,7 +278,7 @@ $this->registerJs( "
 </div>
 	
     
-    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>30323355])->label(false) ?>
+    <?= $form->field($model, 'Aud_Usuario')->hiddenInput(["value"=>key($_SESSION['usuario'])])->label(false) ?>
 
     <?= $form->field($model, 'Aud_Fecha')->hiddenInput(["value"=> date("Y-m-d H:i:s")])->label(false) ?>
 
