@@ -231,7 +231,12 @@ CONVENIO EMPRESARIAL: $convenioEmp"),1,"J", 0);
 
 		
 		// $pdf->Output("Contrato","D");
-		$pdf->Output("ExtractoContrato.pdf","I");
+
+		$pdf->Output("ExtractoContrato$numContrato.pdf",'I');
+		$pdf->Output("ExtractoContrato$numContrato.pdf",'F');
+		return "ExtractoContrato$numContrato.pdf";
+		
+		
 	}  //function header
 
 	

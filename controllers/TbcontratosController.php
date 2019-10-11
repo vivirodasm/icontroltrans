@@ -29,6 +29,7 @@ use app\models\Vehiculos;
 use app\models\Tbpoblaciones;
 use app\models\Pdf;
 use app\models\Tbempresa;
+use app\models\Tbusuarios;
 
 
 /**
@@ -152,7 +153,8 @@ class TbcontratosController extends Controller
 			
 			$valorContratoletras = Yii::$app->request->post()['valorLetras'] ;
 			$this->actionPdf($idContrato, $añoActual, $valorContratoletras);
-			
+
+				
             // return $this->redirect(['view', 'idContrato' => $model->idContrato, 'anioContrato' => $model->anioContrato]);
         }
         return $this->render('create', [
@@ -241,7 +243,6 @@ class TbcontratosController extends Controller
 
 
 	public function actionPdf($idContrato, $anioContrato,$valorContratoletras)
-	// public function actionPdf()
 	{
 		
 		// $idContrato = 1265;
@@ -282,20 +283,24 @@ class TbcontratosController extends Controller
 		$ciudadDestino = $ciudadDestino->Municipio . "-" . $ciudadDestino->Departamento;
 		
 		// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' , $_SESSION['nit'] ])->one();
-		$infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' , '810.005.477-0'])->one();
+		$infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%', false])->one();
 		$ciudadEmpresa = Tbpoblaciones::find()->AndWhere(["idCenPob" => $infoEmpresa->Ciudad ])->one();
 		$ciudadEmpresa = $ciudadEmpresa->Municipio;
+	
 				
+				
+// echo "<pre>"; print_r($infoEmpresa); echo "</pre>"; 
+			// die;
 		//fecha formateada en español
 		setlocale(LC_TIME, 'es_ES.UTF-8');
 		$miFecha = strtotime($datosContrato->fechaInicio);
 		$fechaContrato = strftime("en %B %d, %Y", $miFecha);
 
-
+		$usuario = Tbusuarios::find()->AndWhere([ "IdUsuario" => key($_SESSION['usuario']) ])->one();
 		
 		$datos=
 		[
-			"numContrato"			=> $datosContrato->nroContrato,
+			"numContrato"			=> $datosContrato->nroContrato ,
 			"contratista" 			=> $_SESSION['nombre'],
 			"nitContratista"		=> $_SESSION['nit'],
 			"contratante"			=> $datosTercero->nombrecompleto,
@@ -318,7 +323,69 @@ class TbcontratosController extends Controller
 		
 		];
 		$pdf = new Pdf();
-		$pdf->generarPdf($datos);
+		
+		$contrato = $pdf->generarPdf($datos);
+		
+			
+		// recipient
+		$to = explode("#",$usuario->mail_Usuario)[0];
+
+		// sender
+		$from = $infoEmpresa->email;
+		$fromName = 'icontroltrans';
+
+		// email subject
+		$subject = ''; 
+
+		// attachment file path
+		// $file = "codexworld.pdf";
+		$file = $contrato;
+
+		//email body content
+		// $htmlContent = '<h1>PHP Email with Attachment by CodexWorld</h1> <p>This email has sent from PHP script with attachment.</p>';
+		$htmlContent = '';
+
+		//header for sender info
+		$headers = "From: $fromName"." <".$from.">";
+
+		//boundary 
+		$semi_rand = md5(time()); 
+		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+
+		//headers for attachment 
+		$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
+
+		//multipart boundary 
+		$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
+		"Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n"; 
+
+		//preparing attachment
+		if(!empty($file) > 0){
+			if(is_file($file)){
+				$message .= "--{$mime_boundary}\n";
+				$fp =    fopen($file,"rb");
+				$data =  fread($fp,filesize($file));
+
+				@fclose($fp);
+				$data = chunk_split(base64_encode($data));
+				$message .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" . 
+				"Content-Description: ".basename($file)."\n" .
+				"Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" . 
+				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+				
+				unlink($file);
+			}
+		}
+		$message .= "--{$mime_boundary}--";
+		$returnpath = "-f" . $from;
+
+		//send email
+		$mail = @mail($to, $subject, $message, $headers, $returnpath); 
+
+		//email sending status
+		// echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";
+		
+		
 		
 		
 	}
