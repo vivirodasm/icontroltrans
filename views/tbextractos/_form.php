@@ -188,7 +188,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	<div class="row">
 	  <div class="col-md-4"><?= $form->field($model, "idtercero")->widget(
 						Chosen::className(), [
-							'items' => [""=>""],
+							'items' => [0 => ''],
 							'disableSearch' => 0, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [
@@ -211,7 +211,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 		<?= Html::input('text','','', $options=['id'=> 'docTercero', "disabled"=>"" ]) ?></div>
 	  <div class="col-md-2">	<?= $form->field($model, "nroContrato")->widget(
 						Chosen::className(), [
-							'items' => [],
+							'items' => [0 => ''],
 							'disableSearch' => 0, 
 							'multiple' => false,
 							'clientOptions' => [
@@ -283,7 +283,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  
 	  <?= $form->field($model, "ciudadOrigen")->widget(
 						Chosen::className(), [
-							'items' => [],
+							'items' => [0 => ''],
 							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [
@@ -314,7 +314,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 		
 		<?= $form->field($model, "ciudadDestino")->widget(
 						Chosen::className(), [
-							'items' => [],
+							'items' => [0 => ''],
 							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 							'multiple' => false,
 							'clientOptions' => [

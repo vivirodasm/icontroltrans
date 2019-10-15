@@ -1,7 +1,30 @@
 $( document ).ready(function() 
 {
-	
-	
+	$("#w0").on("beforeSubmit", function()
+	{
+		contador =0;
+		$("[id^='conductor-']").each(function( index ) 
+		{
+			if ( $(this).val() != 0 )
+			{
+				contador = 1;
+			}
+			
+		});
+		
+		if (contador == 0)
+		{
+			Swal.fire(
+				{
+				  title: 'Seleccione un Conductor',
+				  type: 'info',
+				  focusConfirm: false,
+				  confirmButtonText:
+					'aceptar'
+				});
+			return false;
+		}
+	});	
 	
 });
 
@@ -187,6 +210,7 @@ $("#tbextractos-idvehiculo").change(function()
 		stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
 		if (data.length > 0)
 		{
+				datos = data;
 				html ="";
 				html ='<fieldset class="scheduler-border">';
 				html +='<legend class="scheduler-border">Conductores</legend>';
@@ -194,7 +218,7 @@ $("#tbextractos-idvehiculo").change(function()
 			{
 				vtoSegSocial=value.vtoSegSocial.substr(0,10);
 				vigLicencia=value.vigLicencia.substr(0,10);
-				datos = value;
+				
 				
 				
 				
@@ -303,8 +327,6 @@ function validarFechasConductor(obj)
 	mensaje = "";
 	id = $(obj).attr("id").split("-")[1];
 	
-	vtoSegSocial =  datos.vtoSegSocial.substr(0,10);
-	vigLicencia  =  datos.vigLicencia.substr(0,10);
 	
 
 	fechaFin = $("#tbextractos-fechafin").val();
@@ -314,6 +336,8 @@ function validarFechasConductor(obj)
 	  title: 'Fecha fin',
 	  text: "No puede estar vacia ",
 	  type: 'warning',
+	  allowOutsideClick: false,
+	  allowEscapeKey: false,
 	  confirmButtonColor: '#3085d6',
 	  confirmButtonText: 'Aceptar',
 		}).then((result) => {
@@ -326,29 +350,31 @@ function validarFechasConductor(obj)
 	else
 	{
 		
-		// if (fechaActual() > vtoSegSocial )
-		// {
-			// mensaje += "Seguro Vencido <br>";
-			// $("#conductor-"+id+"").val(0);
-		// }
+		if (fechaActual() > vtoSegSocial )
+		{
+			mensaje += "Seguro Vencido <br>";
+			$("#conductor-"+id+"").val(0);
+		}
 		
-		// if ( fechaActual() > vigLicencia )
-		// {
-			// mensaje += "Licencia Vencida<br>";
-			// $("#conductor-"+id+"").val(0);
-		// }
+		if ( fechaActual() > vigLicencia )
+		{
+			mensaje += "Licencia Vencida<br>";
+			$("#conductor-"+id+"").val(0);
+		}
 		
 		
-		// if ( fechaFin > vigLicencia )
-		// {
-			// mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
-			// $("#conductor-"+id+"").val(0);
-		// }
+		if ( fechaFin > vigLicencia )
+		{
+			mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
+			$("#conductor-"+id+"").val(0);
+		}
 		
-		// if(mensaje =="")
-		if(true)
+		if(mensaje =="")
+		// if(true)
 		{
 			
+			vtoSegSocial =  datos[id]['vtoSegSocial'].substr(0,10);
+			vigLicencia  =  datos[id]['vigLicencia'].substr(0,10);
 			if (fechaFin > vtoSegSocial )
 				mensaje += "La vigencia del seguro social sobrepasa la fecha fin <br>";
 			// mensaje ="";
@@ -365,7 +391,7 @@ function validarFechasConductor(obj)
 			mensaje += "la seguridad vence en "+diff+" días <br> ";
 			
 			
-			$("#nroLicencia-"+id).val(datos.licencia);
+			$("#nroLicencia-"+id).val(datos[id]['licencia']);
 			$("#vtoSegSocial-"+id).val(vtoSegSocial);
 			$("#vigLicencia-"+id).val(vigLicencia);
 			

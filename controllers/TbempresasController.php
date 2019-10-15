@@ -102,7 +102,7 @@ class TbempresasController extends Controller
 				session_destroy(); 	
 				session_start();	
 				
-				$session = Yii::$app->session;
+
 				
 				$_SESSION["nit"]=$resultado[0]['nit'];
 				
