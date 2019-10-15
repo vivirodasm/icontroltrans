@@ -34,6 +34,7 @@ use app\models\Tbdestinosfuec;
 use app\models\Tbhv;
 use app\models\Tbextractoscond;
 use app\models\Pdfextractos;
+use app\models\Tbusuarios;
 
 /**
  * TbextractosController implements the CRUD actions for Tbextractos model.
@@ -198,18 +199,21 @@ class TbextractosController extends Controller
 			$contrato = $pdf->generarPdf($datos);
 		
 			
-			$infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%', false])->one();
+			// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%', false])->one();
 			$usuario = Tbusuarios::find()->AndWhere([ "IdUsuario" => key($_SESSION['usuario']) ])->one();
 			
+			
+			// echo "<pre>"; print_r($usuario); echo "</pre>"; 
+			// die;
 		// recipient
 		$to = explode("#",$usuario->mail_Usuario)[0];
 
 		// sender
-		$from = $infoEmpresa->email;
+		$from = 'icontroltrans@correo.com';
 		$fromName = 'icontroltrans';
 
 		// email subject
-		$subject = ''; 
+		$subject = $contrato; 
 
 		// attachment file path
 		// $file = "codexworld.pdf";

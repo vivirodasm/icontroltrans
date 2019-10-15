@@ -283,14 +283,21 @@ class TbcontratosController extends Controller
 		$ciudadDestino = $ciudadDestino->Municipio . "-" . $ciudadDestino->Departamento;
 		
 		// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' , $_SESSION['nit'] ])->one();
-		$infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%', false])->one();
-		$ciudadEmpresa = Tbpoblaciones::find()->AndWhere(["idCenPob" => $infoEmpresa->Ciudad ])->one();
+		// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%'])->one();
+	
+		
+		// se fuerza la conexion para evitar que tome la conexion por defecto
+		$command = $connection->createCommand(" 
+			SELECT * FROM tbempresa where NitEmpresa like '%". $_SESSION['nit'] . "%'"
+			);
+		$infoEmpresa = $command->queryAll();
+		
+		$ciudadEmpresa = Tbpoblaciones::find()->AndWhere(["idCenPob" => $infoEmpresa[0]['Ciudad'] ])->one();
 		$ciudadEmpresa = $ciudadEmpresa->Municipio;
 	
 				
 				
-// echo "<pre>"; print_r($infoEmpresa); echo "</pre>"; 
-			// die;
+
 		//fecha formateada en español
 		setlocale(LC_TIME, 'es_ES.UTF-8');
 		$miFecha = strtotime($datosContrato->fechaInicio);
@@ -315,7 +322,7 @@ class TbcontratosController extends Controller
 			"valorContratoletras" 	=> $valorContratoletras,
 			"objetoContrato" 		=> $datosContrato->objetCont,
 			"infoVehiculo" 			=> $infoVehiculo,
-			"infoEmpresa"			=> $infoEmpresa,
+			"infoEmpresa"			=> $infoEmpresa[0],
 			"dirContacto"			=> $datosContrato->dirResp_Contrato,
 			"telContacto"			=> $datosContrato->telResp_Contrato,
 			"fechaContrato" 		=> $fechaContrato,
@@ -325,17 +332,19 @@ class TbcontratosController extends Controller
 		$pdf = new Pdf();
 		
 		$contrato = $pdf->generarPdf($datos);
-		
 			
 		// recipient
 		$to = explode("#",$usuario->mail_Usuario)[0];
-
+		
 		// sender
-		$from = $infoEmpresa->email;
+		$from = 'icontroltrans@correo.com';
+		
+		// echo "<pre>"; print_r($to); echo "</pre>"; 
+		// die;
 		$fromName = 'icontroltrans';
-
+		
 		// email subject
-		$subject = ''; 
+		$subject = 'Contrato'; 
 
 		// attachment file path
 		// $file = "codexworld.pdf";
@@ -380,7 +389,7 @@ class TbcontratosController extends Controller
 		$returnpath = "-f" . $from;
 
 		//send email
-		$mail = @mail($to, $subject, $message, $headers, $returnpath); 
+		$mail = mail($to, $subject, $message, $headers, $returnpath); 
 
 		//email sending status
 		// echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";

@@ -57,13 +57,22 @@ $("#tbextractos-idvehiculo").change(function()
 	$.get( 'index.php?r=tbextractos/doc-vehiculos&placa='+filtro,
 			function( data )
 			{
-				
 				$("#claseVehiculo").val(data.clase);
 				
 				if( data.emprAfil.emprAfil != nombreEmpresa)
 				{
 					$("#tbextractos-convenioemp").val(data.emprAfil.emprAfil);
-					$("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio.substr(0,10));
+					
+					
+					// alert( );
+					if (data.emprAfil.fechaVtoConvenio === null) 
+					{
+						$("#tbextractos-fechavtoconvenio").val("Sin datos");
+					}
+					else
+					{
+						 // $("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio.substr(0,10));
+					}
 				}
 				
 				
