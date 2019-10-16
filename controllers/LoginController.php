@@ -66,7 +66,7 @@ class LoginController extends Controller
 		// session_destroy(); 	
 		// session_start();
 		
-		$session = Yii::$app->session;
+		// $session = Yii::$app->session;
         // if (!Yii::$app->user->isGuest) {
             // return $this->goHome();
         // }

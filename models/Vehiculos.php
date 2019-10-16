@@ -157,7 +157,7 @@ class Vehiculos extends \yii\db\ActiveRecord
     {
         return [
             'placa' => 'Placa',
-            'NroInterno' => 'Nro Interno',
+            'NroInterno' => 'Lateral',
             'fechaAfil' => 'Afiliación',
             'fechaDesafil' => 'Fecha Desafil',
             'estado' => 'Estado',

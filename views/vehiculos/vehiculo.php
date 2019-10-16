@@ -8,10 +8,14 @@ use yii\bootstrap\ActiveForm;
 /* @var $searchModel app\models\VehiculosBuscar */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'InformaciÃ³n fechas vencimiento vehiculo';
+$this->title = 'Información fechas vencimiento vehículo';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-
+<style>
+th,td {
+  text-align: center;
+}
+</style>
 <div class="vehiculasBuscar-form">
 
     <?php $form = ActiveForm::begin([
@@ -56,6 +60,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
         'columns' => [
+			['contentOptions' => ['style'=>'text-color:red;']],
             ['class' => 'yii\grid\SerialColumn'],
 
             'placa',
@@ -66,7 +71,6 @@ $this->params['breadcrumbs'][] = $this->title;
             //'emprAfil',
             [
 			    'attribute'=>'fechaVtoConvenio',
-				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>'; Array ( [fecha] => Sin datos [mensaje] => )
 					

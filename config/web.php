@@ -55,6 +55,7 @@ $config = [
         */
     ],
     'params' => $params,
+	'language'=>'es',
 ];
 
 if (YII_ENV_DEV) {

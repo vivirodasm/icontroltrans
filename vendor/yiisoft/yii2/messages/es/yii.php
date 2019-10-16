@@ -22,6 +22,9 @@
  *
  * NOTE: this file must be saved in UTF-8 encoding.
  */
+ 
+//nombre de la persona logeada    
+$nombreUsuario = $_SESSION['usuario'][ key($_SESSION['usuario']) ];
 return [
     ' and ' => ' y ',
     'The combination {values} of {attributes} has already been taken.' => 'La combinación de {values} de {attributes} ya ha sido utilizada.',
@@ -43,7 +46,7 @@ return [
     'Page not found.' => 'Página no encontrada.',
     'Please fix the following errors:' => 'Por favor corrija los siguientes errores:',
     'Please upload a file.' => 'Por favor suba un archivo.',
-    'Powered by {yii}' => 'Desarrollado con {yii}',
+    'Powered by {yii}' => $nombreUsuario,
     'Showing <b>{begin, number}-{end, number}</b> of <b>{totalCount, number}</b> {totalCount, plural, one{item} other{items}}.' => 'Mostrando <b>{begin, number}-{end, number}</b> de <b>{totalCount, number}</b> {totalCount, plural, one{elemento} other{elementos}}.',
     'The file "{file}" is not an image.' => 'El archivo "{file}" no es una imagen.',
     'The file "{file}" is too big. Its size cannot exceed {formattedLimit}.' => 'El archivo "{file}" es demasiado grande. Su tamaño no puede exceder {formattedLimit}.',
