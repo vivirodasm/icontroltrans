@@ -38,13 +38,11 @@ $( document ).ready(function()
 				if( obligatorio)
 					messages.push('No puede estar vacio');
 			case 'terceros-autdata':
-					
-					// if ($("#terceros-autdata").val() != 1 ) 
-						// 
-					
-					            if($("#terceros-autdata").prop("checked") == false){
-									messages.push('No puede estar vacio');
-								}
+	
+				if($("#terceros-autdata").prop("checked") == false)
+				{
+					messages.push('No puede estar vacio');
+				}
 
 			break;
 			

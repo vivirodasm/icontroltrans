@@ -216,11 +216,6 @@ class TercerosController extends Controller
 			return json_encode("si");
 		}
 		
-		
-		// echo "<pre>"; print_r($tercero); echo "</pre>"; 
-		// $tercero = ArrayHelper::map( $tercero, 'idtercero', 'nombrecompleto' );	
-		
-		// return json_encode($tercero);
 	}
 
     /**
