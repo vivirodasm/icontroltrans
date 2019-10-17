@@ -145,7 +145,7 @@ use nex\chosen\Chosen;
 		</div>
 		
 		<div class="col-md-1">
-			<?= $form->field($model, 'autData')->checkbox() ?>
+			<?= $form->field($model, 'autData')->checkbox( ["value" => 0]) ?>
 		</div>
 	</div>
     

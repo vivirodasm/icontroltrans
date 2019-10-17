@@ -202,6 +202,26 @@ class TercerosController extends Controller
 		}
 	}
 	
+	public function actionTercero($idTercero)
+	{
+		
+		$tercero = Terceros::find()->andWhere("idtercero = $idTercero")->one();
+		
+		if (!isset($tercero))
+		{
+			return json_encode("no");
+		}
+		else
+		{
+			return json_encode("si");
+		}
+		
+		
+		// echo "<pre>"; print_r($tercero); echo "</pre>"; 
+		// $tercero = ArrayHelper::map( $tercero, 'idtercero', 'nombrecompleto' );	
+		
+		// return json_encode($tercero);
+	}
 
     /**
      * Deletes an existing Terceros model.

@@ -22,6 +22,9 @@ $( document ).ready(function()
 			/* campos a validar  id de los campos*/
 			case 'terceros-nombre1_tercero': 
 			case 'terceros-apellido1_tercero': 
+			case 'terceros-direccion_tercero': 
+			case 'terceros-tel_tercero': 
+			case 'terceros-movil_tercero': 
 				
 				 
 				var obligatorio = false;
@@ -34,7 +37,15 @@ $( document ).ready(function()
 				//if obligatorio = true; se pone el mensaje en el campo y se obliga a llenar 		
 				if( obligatorio)
 					messages.push('No puede estar vacio');
-			
+			case 'terceros-autdata':
+					
+					// if ($("#terceros-autdata").val() != 1 ) 
+						// 
+					
+					            if($("#terceros-autdata").prop("checked") == false){
+									messages.push('No puede estar vacio');
+								}
+
 			break;
 			
 			default: break;
@@ -89,28 +100,57 @@ $("#terceros-nombre1_tercero, #terceros-nombre2_tercero ,#terceros-apellido1_ter
 
 
 $("#terceros-naturalez_tercero").change(function() 
+{
+	if($(this).val()== "N")
 	{
-		if($(this).val()== "N")
-		{
-			$(".row:eq(2)").show();
-			$(".row:eq(3)").show();
-			$("#terceros-nombrecompleto").attr('readonly', true);
-			
-		}
-		else if($(this).val()== "J")
-		{
-			$(".row:eq(2)").hide()
-			$(".row:eq(3)").show();
-			$("#terceros-nombrecompleto").removeAttr('readonly');
-			
-		}
-		else
-		{
-			$(".row:eq(2)").hide();
-			$(".row:eq(3)").hide();
-			
-		}
-	});
+		$(".row:eq(2)").show();
+		$(".row:eq(3)").show();
+		$("#terceros-nombrecompleto").attr('readonly', true);
+		
+	}
+	else if($(this).val()== "J")
+	{
+		$(".row:eq(2)").hide()
+		$(".row:eq(3)").show();
+		$("#terceros-nombrecompleto").removeAttr('readonly');
+		
+	}
+	else
+	{
+		$(".row:eq(2)").hide();
+		$(".row:eq(3)").hide();
+		
+	}
+});
+
+$("#terceros-idtercero").blur(function() 
+{
+	
+	idTercero = $(this).val();
+	
+	if (idTercero !="")
+	{
+		$.get( "index.php?r=terceros/tercero&idTercero="+idTercero,
+				function( data )
+				{
+					alert(data);
+					if(data == "si")
+					{
+						
+						Swal.fire(
+						{
+						  title: 'Tercero ya existe',
+						  type: 'info',
+						  focusConfirm: false,
+						  confirmButtonText:
+							'aceptar'
+						});
+					}
+						
+				},"json"
+			);
+	}
+});
 
 
 
