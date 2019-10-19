@@ -97,7 +97,7 @@ abstract class Application extends Module
     /**
      * @var string the application name.  <?php echo Html::img('@web/images/hys.png') ?>
      */
-    public $name = '<div style="background-color: #ffffff; border-radius: 8px"><img src="images/i-control.png" width="80px" height="50px"></div>';
+    public $name = '<div style="background-color: #ffffff; border-radius: 8px;"><img src="images/i-control.png" width="110px" height="70px"></div>';
 	// public $name = Html::img('@web/images/hys.png');
     /**
      * @var string the charset currently used for the application.
