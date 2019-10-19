@@ -24,7 +24,7 @@
  */
  
 //nombre de la persona logeada    
-$nombreUsuario = $_SESSION['usuario'][ key($_SESSION['usuario']) ];
+$nombreUsuario =@$_SESSION['usuario'][ key($_SESSION['usuario']) ];
 return [
     ' and ' => ' y ',
     'The combination {values} of {attributes} has already been taken.' => 'La combinación de {values} de {attributes} ya ha sido utilizada.',
