@@ -18,9 +18,6 @@
 </style>
 
 <?php
-
-
-echo __DIR__ . "/../";
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use nex\chosen\Chosen;
