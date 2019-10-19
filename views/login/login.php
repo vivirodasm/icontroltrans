@@ -28,9 +28,9 @@ $this->params['breadcrumbs'][] = $this->title;
 		<div class="row">
 		  <div class="col-md-2"></div>
 		  <div class="col-md-8"> 
-				<?= $form->field($model, 'username')->textInput(['autofocus' => true])->label('Usuario') ?>
+				<?= $form->field($model, 'username')->textInput(['autofocus' => true, 'required' => true])->label('Usuario') ?>
 
-				<?= $form->field($model, 'password')->passwordInput()->label('Contraseña') ?>
+				<?= $form->field($model, 'password')->passwordInput(['required' => true])->label('Contraseña') ?>
 
 				<div class="form-group">
 					<div class="col-lg-offset-1 col-lg-11">
