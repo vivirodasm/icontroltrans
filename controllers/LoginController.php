@@ -28,6 +28,9 @@ use app\models\Login;
 use app\models\Tbusuarios;
 use yii\helpers\ArrayHelper;
 use app\models\Tbempresas;
+use yii\base\ErrorException;
+use yii\web\NotFoundHttpException;
+
 
 class LoginController extends Controller
 {
@@ -56,6 +59,29 @@ class LoginController extends Controller
         return $this->render('index');
     }
 
+	public function actions()
+	{
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			],
+		];
+	}
+	public function actionInfo()
+{
+    \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+    return [
+        'message' => 'hello world',
+        'code' => 100,
+    ];
+}
+	public function actionError()
+	{
+		$exception = Yii::$app->errorHandler->exception;
+		if ($exception !== null) {
+			return $this->render('error', ['exception' => $exception]);
+		}
+	}
     /**
      * Login action.
      *
@@ -95,8 +121,40 @@ class LoginController extends Controller
 				]);
 				
 			}
-			else{
+			else
+			{
 				$_SESSION["usuario"]=$usuarios;
+				
+			// echo $_SESSION['db'];
+
+// echo "<pre>"; print_r($_SESSION); echo "</pre>"; 
+
+
+					// die;
+					date_default_timezone_set('America/Bogota');
+					$fecha =  date("Y-m-d H:i:s"); ;
+				$connection = Yii::$app->get($_SESSION['db']);
+				$command = $connection->createCommand("
+					INSERT INTO
+						tblog
+							(
+								nombreTabla,
+								registroTabla,
+								notaTabla,
+								Aud_UsuarioEdit,
+								Aud_FechaEdit
+							)
+						VALUES
+						(
+							'Inicio',
+							'Ingreso al Sistema',
+							'". $_SERVER['HTTP_USER_AGENT'] . " / ". $_SERVER['REMOTE_ADDR']. "',
+							'". key($usuarios) ."',
+							'". $fecha ."'
+						)
+				");
+				 $command->execute();
+				
 			
 				return $this->render('../site/index', [
 					// 'model' => $model,

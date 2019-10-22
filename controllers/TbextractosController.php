@@ -197,7 +197,7 @@ class TbextractosController extends Controller
 			
 			$pdf = new Pdfextractos();
 			$contrato = $pdf->generarPdf($datos);
-		
+			echo "<script>window.open('$contrato') </script>";
 			
 			// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%', false])->one();
 			$usuario = Tbusuarios::find()->AndWhere([ "IdUsuario" => key($_SESSION['usuario']) ])->one();

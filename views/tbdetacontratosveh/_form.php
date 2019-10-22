@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use kartik\time\TimePicker;
+use nex\chosen\Chosen;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbdetacontratosveh */
 /* @var $form yii\widgets\ActiveForm */
@@ -22,8 +23,23 @@ use kartik\time\TimePicker;
 		</div>
 		
 		<div class="col-md-2">
-			<?= $form->field($model, "[$num]placa")->DropDownList($placa,['maxlength' => true, 'prompt'=>'Seleccione...']) ?>
+			
+			<?= $form->field($model, "[$num]placa")->widget(
+						Chosen::className(), [
+							'items' => $placa,
+							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'multiple' => false,
+							'clientOptions' => [
+								'search_contains' => true,
+								'single_backstroke_delete' => false,
+							],
+                            'placeholder' => 'Vehiculo',
+					])?>
 		</div>
+		
+			
+
+
 		
 		
 		<div class="col-md-2">

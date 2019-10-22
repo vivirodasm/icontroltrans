@@ -3,12 +3,13 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\bootstrap\ActiveForm;
+use app\models\Tbrpbimestral;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\VehiculosBuscar */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Información fechas vencimiento vehículo';
+$this->title = utf8_encode('ESTADO DEL VEHÍCULO');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <style>
@@ -60,7 +61,7 @@ th,td {
         'dataProvider' => $dataProvider,
         // 'filterModel' => $searchModel,
         'columns' => [
-			['contentOptions' => ['style'=>'text-color:red;']],
+			// ['contentOptions' => ['style'=>'text-color:red;']],
             ['class' => 'yii\grid\SerialColumn'],
 
             'placa',
@@ -74,15 +75,18 @@ th,td {
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>'; Array ( [fecha] => Sin datos [mensaje] => )
 					
-					$valor = $data->validarFechas($data->fechaVtoConvenio, 'Convenio');
-                    global $mensaje;
-					global $proximaFecha;
-					if ($valor['mensaje'] != ''){
-						$mensaje[] = $valor['mensaje']; 
-					}
-					$proximaFecha['fecha'][] = $valor['fecha']; 
-					$proximaFecha['documento'][] = 'Convenio'; 
-					return $valor['fecha']; 
+					// $valor = $data->validarFechas($data->fechaVtoConvenio, 'Convenio');
+					
+                    // global $mensaje;
+					// global $proximaFecha;
+					// if ($valor['mensaje'] != ''){
+						// $mensaje[] = $valor['mensaje']; 
+					// }
+					// $proximaFecha['fecha'][] = $valor['fecha']; 
+					// $proximaFecha['documento'][] = 'Convenio'; 
+					// return $valor['fecha']; 
+					$valor = substr($data->fechaVtoConvenio,0,10);
+					return $valor;
 					
 				}
 			],
@@ -94,15 +98,17 @@ th,td {
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					$valor = $data->validarFechas($data->fechaVtoContAfil, 'Contrato afiliación');
-					global $mensaje;
-					global $proximaFecha;
-					if ($valor['mensaje'] != ''){
-						$mensaje[] = $valor['mensaje']; 
-					}
-					$proximaFecha['fecha'][] = $valor['fecha']; 
-					$proximaFecha['documento'][] = 'Contrato afiliación'; 
-					return $valor['fecha'];
+					// $valor = $data->validarFechas($data->fechaVtoContAfil, 'Contrato afiliación');
+					// global $mensaje;
+					// global $proximaFecha;
+					// if ($valor['mensaje'] != ''){
+						// $mensaje[] = $valor['mensaje']; 
+					// }
+					// $proximaFecha['fecha'][] = $valor['fecha']; 
+					// $proximaFecha['documento'][] = 'Contrato afiliación'; 
+					// return $valor['fecha'];
+					$valor = substr($data->fechaVtoContAfil,0,10);
+					return $valor;
 				}
 			],
             //'clase',
@@ -130,6 +136,7 @@ th,td {
             // 'fechaVtoTO',
 			[
 			    'attribute'=>'fechaVtoTO',
+				'label'=> 'TARJETA OPER',
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					$valor = $data->validarFechas($data->fechaVtoTO, 'Tarjeta operación');
@@ -238,6 +245,17 @@ th,td {
 					$proximaFecha['fecha'][] = $valor['fecha']; 
 					$proximaFecha['documento'][] = 'RCE'; 
 					return $valor['fecha'];
+				}
+			],
+			[
+			    'attribute'=>'BIMESTRAL',
+				'label'=>'BIMESTRAL',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					
+					$placa = $data->placa;
+					$valor = $vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');	
+					return substr($valor,0,10);
 				}
 			],
             //'carct_TV',

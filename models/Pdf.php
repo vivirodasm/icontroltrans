@@ -275,7 +275,7 @@ mayor,  en  los  que designe  por  parte  del  operador  que  se  encuentre  en 
 		
 		$pdf->Write(5,utf8_decode("CLÁUSULA PENAL: Si una de las partes incumpliese alguna de las obligaciones que por este contrato contrae, pagará a otra a título de pena una suma equivalente al diez por ciento (10%) del valor total del contrato. PARAGRAFO: Las sumas pactadas serán exigibles por la vía ejecutiva el día siguiente a aquel en que debieron cumplirse las correspondientes prestaciones, sin necesidad de requerimiento ni constitución en mora, derechos estos a los cuales renuncian ambas partes en su recíproco beneficio.
 
-NATURALEZA JURÍDICA: Las partes dejan expresa constancia, que la naturaleza jurídica del presente contrato es de índole exclusivamente comercial y en consecuencia no genera ninguna clase de obligaciones de carácter laboral.  COMUNICACIONES O NOTIFICACIONES: Para efectos de comunicación, se tendrán en cuenta las siguientes direcciones: Para EL TRANSPORTADOR: " . $infoEmpresa->Nombre . ",". $infoEmpresa->Dirección ."  TEL: " . $infoEmpresa->Telefono . ",  Para EL CONTRATANTE: " . $dirContacto. " Tel:". $telContacto . "  Se suscribe en dos (02) ejemplares de un mismo tenor literal, en ". $ciudadEmpresa . " ,". $fechaContrato ." "),0,'J');
+NATURALEZA JURÍDICA: Las partes dejan expresa constancia, que la naturaleza jurídica del presente contrato es de índole exclusivamente comercial y en consecuencia no genera ninguna clase de obligaciones de carácter laboral.  COMUNICACIONES O NOTIFICACIONES: Para efectos de comunicación, se tendrán en cuenta las siguientes direcciones: Para EL TRANSPORTADOR: " . $infoEmpresa['Nombre'] . ",". $infoEmpresa['Dirección'] ."  TEL: " . $infoEmpresa['Telefono'] . ",  Para EL CONTRATANTE: " . $dirContacto. " Tel:". $telContacto . "  Se suscribe en dos (02) ejemplares de un mismo tenor literal, en ". $ciudadEmpresa . " ,". $fechaContrato ." "),0,'J');
 
 				
 		$pdf->Ln(38);
@@ -293,7 +293,7 @@ NATURALEZA JURÍDICA: Las partes dejan expresa constancia, que la naturaleza jur
 		$pdf->Cell(40,5,utf8_decode("EL CONTRATISTA"),0,2,'C');
 		
 		// 
-		$pdf->Output("contrato$numContrato.pdf",'I');
+		// $pdf->Output("contrato$numContrato.pdf",'I');
 		$pdf->Output("contrato$numContrato.pdf",'F');
 		return "contrato$numContrato.pdf";
 		

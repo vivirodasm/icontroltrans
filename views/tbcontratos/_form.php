@@ -9,6 +9,7 @@ use dosamigos\datepicker\DatePicker;
 /* @var $this yii\web\View */
 /* @var $model app\models\Tbcontratos */
 /* @var $form yii\widgets\ActiveForm */
+
 $this->registerJsFile(Yii::$app->request->baseUrl.'/js/contratos.js',['depends' => [\yii\web\JqueryAsset::className()]]);
 
 //no funciona en el archivo externos contratos.js
@@ -238,7 +239,7 @@ $this->registerJs( "
 			</div>
 				
 			<div class="row">
-			  <div class="col-md-12"><?= $form->field($model, 'objetCont')->textarea(['rows' => 3,"value"=> "Transporte de un grupo especifico de usuarios o personas"]) ?></div>
+			  <div class="col-md-12"><?= $form->field($model, 'objetCont')->textarea(['rows' => 3,"value"=> "TRANSPORTE DE UN GRUPO ESPECÍFICO DE USUARIOS O PERSONAS"]) ?></div>
 			</div>
 
 			<div class="row">

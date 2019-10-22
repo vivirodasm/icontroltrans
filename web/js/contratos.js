@@ -121,7 +121,7 @@ $('#tbcontratos-idtercero').change(function()
 					$( "input[name='Identificacion']" ).val(data.idtercero);
 					$( "input[name='digitoVerificacion']" ).val(data.dv_tercero);
 					$( "input[name='Contratante']" ).val(data.nombrecompleto);
-					$( "input[name='ciudad']" ).val();//pendiente
+					$( "input[name='ciudad']" ).val(data.idCenPob);
 					$( "input[name='telefono']" ).val(data.tel_tercero);
 					
 					// datos contacto

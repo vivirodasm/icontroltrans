@@ -115,13 +115,6 @@ class TbcontratosController extends Controller
        
         if ($model->load(Yii::$app->request->post())) 
 		{
-			// echo "<pre>"; print_r(Yii::$app->request->post()); echo "</pre>"; 
-			// echo "<pre>"; print_r(Yii::$app->request->post()['valorLetras']); echo "</pre>"; 
-			
-			
-			
-			// die;
-
 			//saber cual es numero de contrato que debe seguir
 			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1; 
 						
@@ -205,8 +198,15 @@ class TbcontratosController extends Controller
 			return $this->redirect(['view', 'id' => $model->placa]);
 		}
 
-		$placa = Vehiculos::find()->all();
-		$placa = ArrayHelper::map($placa,"placa","placa");
+		$datosVehiculos = Vehiculos::find()->all();
+		$datosVehiculos = ArrayHelper::map($datosVehiculos,"placa","NroInterno");
+		
+		$placa = [];
+	
+		foreach ($datosVehiculos as $key => $d)
+		{
+			$placa[ $key ] = $key ." / ". $d;
+		}
 		
 		return $this->renderPartial('../tbdetacontratosveh/create', [
 			'model' => $model,
@@ -221,6 +221,9 @@ class TbcontratosController extends Controller
 	{
 		$tercero = Terceros::find()->AndWhere("idtercero = $idtercero")->all();
 		$tercero = ArrayHelper::toArray($tercero, 'idtercero');
+		 
+		$ciudadTercero = Tbpoblaciones::find()->AndWhere(['idCenPob'  => $tercero[0]['idCenPob'] ])->one();
+		$tercero[0]['idCenPob'] = $ciudadTercero->CentroPoblado;
 		return json_encode($tercero[0]);
 	}
 
@@ -332,7 +335,9 @@ class TbcontratosController extends Controller
 		$pdf = new Pdf();
 		
 		$contrato = $pdf->generarPdf($datos);
-			
+		
+		//pdf en una nueva ventana
+		echo "<script>window.open('$contrato') </script>";
 		// recipient
 		$to = explode("#",$usuario->mail_Usuario)[0];
 		
@@ -367,7 +372,7 @@ class TbcontratosController extends Controller
 		//multipart boundary 
 		$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
 		"Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n"; 
-
+		
 		//preparing attachment
 		if(!empty($file) > 0){
 			if(is_file($file)){
@@ -395,7 +400,7 @@ class TbcontratosController extends Controller
 		// echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";
 		
 		
-		
+	
 		
 	}
 				

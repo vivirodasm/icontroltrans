@@ -137,7 +137,7 @@ use nex\chosen\Chosen;
 		<?= $form->field($model, 'mail_tercero')->input('email',['maxlength' => true]) ?>
 	  </div>
 	  <div class="col-md-2">
-			 <?= $form->field($model, 'tipo_tercero')->DropDownList($tipoTercero,['maxlength' => true,"prompt"=>"Seleccione..."]) ?>
+			 <?= $form->field($model, 'tipo_tercero')->DropDownList($tipoTercero,['maxlength' => true]) ?>
 		</div>
 
 		<div class="col-md-2">

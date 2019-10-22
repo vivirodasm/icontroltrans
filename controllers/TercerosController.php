@@ -146,8 +146,14 @@ class TercerosController extends Controller
 		
 		
 		
-		$Idtercero = Terceros::find()->all();		
-		$Idtercero = ArrayHelper::map( $Idtercero, 'idtercero', 'nombrecompleto' );
+		$datosTercero = Terceros::find()->all();		
+		$datosTercero = ArrayHelper::map( $datosTercero, 'idtercero', 'nombrecompleto' );
+		
+		$Idtercero = [];
+		foreach ($datosTercero as $key => $t)
+		{
+			$Idtercero[ $key ] = $t . " - ". $key;
+		}
 		
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // return $this->redirect(['view', 'id' => $model->idterceroSucursal]);
