@@ -46,7 +46,7 @@ class Tbtercerossucursal extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['idtercero', 'nombreSucursalTer', 'direccionSucursalTer', 'telSucursalTer', 'ciudadSucursalTer'], 'required'],
+            [['idtercero', 'nombreSucursalTer', 'direccionSucursalTer', 'ciudadSucursalTer'], 'required'],
             [['ciudadSucursalTer'], 'integer'],
             [['idtercero'], 'string', 'max' => 15],
             [['nombreSucursalTer', 'contactoSucursalTer'], 'string', 'max' => 80],

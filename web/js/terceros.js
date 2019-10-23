@@ -23,10 +23,8 @@ $( document ).ready(function()
 			case 'terceros-nombre1_tercero': 
 			case 'terceros-apellido1_tercero': 
 			case 'terceros-direccion_tercero': 
-			case 'terceros-tel_tercero': 
-			case 'terceros-movil_tercero': 
+			
 				
-				 
 				var obligatorio = false;
 				//se valida si #terceros-naturalez_tercero este en "PERSONA NATURAL" y que el campo no este vacio
 				if( $( "#terceros-naturalez_tercero").val() == 'N' && $("#"+attribute.id+"").val() =='')
@@ -37,13 +35,28 @@ $( document ).ready(function()
 				//if obligatorio = true; se pone el mensaje en el campo y se obliga a llenar 		
 				if( obligatorio)
 					messages.push('No puede estar vacio');
+				
+			break;	
 			case 'terceros-autdata':
 	
 				if($("#terceros-autdata").prop("checked") == false)
 				{
 					messages.push('No puede estar vacio');
 				}
-
+			break;
+			
+			case 'terceros-tel_tercero': 
+			case 'terceros-movil_tercero': 
+			
+				if($("#terceros-tel_tercero").val() !="" || $("#terceros-movil_tercero").val() !="" )
+				{
+					
+				}
+				else
+				{
+					messages.push('No puede estar vacio');
+				}
+			
 			break;
 			
 			default: break;

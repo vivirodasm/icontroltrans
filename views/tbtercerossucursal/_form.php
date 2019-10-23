@@ -58,7 +58,7 @@ use nex\chosen\Chosen;
 		  
 		  <div class="col-md-2"><?= $form->field($model, "ciudadSucursalTer")->widget(
 			Chosen::className(), [
-				'items' => [],
+				'items' => ["0"=>""],
 				'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
 				'multiple' => false,
 				'clientOptions' => [

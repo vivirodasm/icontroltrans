@@ -1,9 +1,33 @@
 $( document ).ready(function() 
 {
 	
- 
+ $( "#w2" ).on( 'beforeValidateAttribute', function( evt, attribute, messages ){
 		
-	// $("#terceros-idpaises").val(169);
+		// var _target = attribute.id.split( '-' );
+		// var opcion = _target[0];
+		// var index = _target[1];
+		
+		switch( attribute.id )
+		{
+			/* campos a validar  id de los campos*/
+			
+			case 'tbtercerossucursal-telsucursalter': 
+			case 'tbtercerossucursal-movilsucursalter': 
+			
+				if($("#tbtercerossucursal-telsucursalter").val() !="" || $("#tbtercerossucursal-movilsucursalter").val() !="" )
+				{
+					
+				}
+				else
+				{
+					messages.push('No puede estar vacio');
+				}
+			
+			break;
+			
+			default: break;
+		}
+	});
 	
 	
 });
