@@ -144,7 +144,7 @@ use nex\chosen\Chosen;
 			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true]) ?>
 		</div>
 		
-		<div class="col-md-1">
+		<div class="col-md-2">
 			<?= $form->field($model, 'autData')->checkbox( ["value" => 0]) ?>
 		</div>
 	</div>
