@@ -138,4 +138,17 @@ class SiteController extends Controller
     {
         return $this->render('about');
     }
+	
+	 /**
+     * Displays error information.
+     *
+     * @return string
+     */
+    public function actionError()
+{
+    $exception = Yii::$app->errorHandler->exception;
+    if ($exception !== null) {
+        return $this->render('site/error', ['exception' => $exception]);
+    }
+}
 }
