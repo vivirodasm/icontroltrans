@@ -251,7 +251,7 @@ class TbextractosController extends Controller
 				"Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" . 
 				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
 				
-				unlink($file);
+				
 			}
 		}
 		$message .= "--{$mime_boundary}--";
@@ -352,7 +352,8 @@ class TbextractosController extends Controller
 	public function actionInfoContrato($nroContrato)
 	{
 		
-		$contratos = Tbcontratos::find()->andWhere(" nroContrato =" .str_pad($nroContrato, 4, "0", STR_PAD_LEFT) )->all();
+		$anio = date("Y");
+		$contratos = Tbcontratos::find()->andWhere(" nroContrato =" .str_pad($nroContrato, 4, "0", STR_PAD_LEFT) ." and anioContrato = $anio")->all();
 		$contratos = ArrayHelper::toArray( $contratos );
 		
 		$contabilidadFuec = Tbempresa::find()->andWhere([ "Nombre" =>$_SESSION['nombre'] ])->all();

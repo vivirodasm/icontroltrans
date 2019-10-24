@@ -399,7 +399,8 @@ class TbcontratosController extends Controller
 		//email sending status
 		// echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";
 		
-		
+		echo  "<script>window.open('$contrato') </script>";
+		die("<script> location.assign('http://localhost/icontroltrans/web/index.php?r=tbcontratos%2Fcreate') </script>");
 	
 		
 	}

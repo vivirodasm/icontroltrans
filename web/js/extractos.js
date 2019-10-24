@@ -1,5 +1,8 @@
 $( document ).ready(function() 
 {
+	
+	
+	$("#tbextractos-descripdestino").parent().toggle();
 	$("#w0").on("beforeSubmit", function()
 	{
 		contador =0;
@@ -36,7 +39,7 @@ $("#tbextractos-nrocontrato").change(function()
 			function( data )
 			{
 				
-								
+				datosContrato = data;				
 				//responsable contrato 
 				$("#tbextractos-resp_contrato").val(data.resp_Contrato);
 				//cedula contacto 
@@ -48,7 +51,7 @@ $("#tbextractos-nrocontrato").change(function()
 				//fecha inicio contrato 
 				$("#tbextractos-fechainicio").val(data.fechaInicio.substr(0, 10));
 				//fecha fin contrato 
-				$("#tbextractos-fechafin").val(data.fechaFin.substr(0, 10));
+				datoFechaFin = data.fechaFin.substr(0, 10);
 				
 				
 				
@@ -76,67 +79,93 @@ $("#tbextractos-nrocontrato").change(function()
 //validaciones de las fechas de vencimientos de los documentos del vehiculo
 $("#tbextractos-idvehiculo").change(function() 
 {
-	filtro = $(this).val();
-	$.get( 'index.php?r=tbextractos/doc-vehiculos&placa='+filtro,
-			function( data )
-			{
-				$("#claseVehiculo").val(data.clase);
-				
-				if( data.emprAfil.emprAfil != nombreEmpresa)
-				{
-					$("#tbextractos-convenioemp").val(data.emprAfil.emprAfil);
-					
-					
-					// alert( );
-					if (data.emprAfil.fechaVtoConvenio === null) 
-					{
-						$("#tbextractos-fechavtoconvenio").val("Sin datos");
-					}
-					else
-					{
-						 // $("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio.substr(0,10));
-					}
-				}
-				
-				
-				vehvtoto = $("#tbextractos-vehvtoto");
-				vehvtoextintor = $("#tbextractos-vehvtoextintor");
-				vehvtocda = $("#tbextractos-vehvtocda");
-				vehvtosoat = $("#tbextractos-vehvtosoat");
-				vehvtorcc = $("#tbextractos-vehvtorcc");
-				vehvtorce = $("#tbextractos-vehvtorce");
-				vehvtobimestral = $("#tbextractos-vehvtobimestral");
-				
-				//validaciones de fecha 
-				arrayfechas =[];
-				arrayfechas[0] = vechasVencidas(data.fechaVtoTO.fecha,vehvtoto);
-				arrayfechas[1] = vechasVencidas(data.fechaVtoExtintor.fecha,vehvtoextintor);
-				arrayfechas[2] = vechasVencidas(data.fechaVtoCDA.fecha,vehvtocda);
-				arrayfechas[3] = vechasVencidas(data.fechaVtoSOAT.fecha,vehvtosoat);
-				arrayfechas[4] = vechasVencidas(data.fechaVtoRCC.fecha,vehvtorcc);
-				arrayfechas[5] = vechasVencidas(data.fechaVtoRCE.fecha,vehvtorce);
-				arrayfechas[6] = vechasVencidas(data.fechaVtoRPbimest.fecha,vehvtobimestral);
-				
-				Swal.fire(
-				{
-				  title: ''+ data.estadoDocumentos,
-				  type: 'info',
-				  focusConfirm: false,
-				  confirmButtonText:
-					'aceptar'
-				  
-				}).then((result) => 
-				{
-					
-				  if (data.estadoDocumentos.indexOf("vencido") > 1) 
-				  {
-					location.reload();
-				  }
-				});
-		
-			},'json'
-				);
+
+	//elemento que se llenan
+	vehvtoto = $("#tbextractos-vehvtoto");
+	vehvtoextintor = $("#tbextractos-vehvtoextintor");
+	vehvtocda = $("#tbextractos-vehvtocda");
+	vehvtosoat = $("#tbextractos-vehvtosoat");
+	vehvtorcc = $("#tbextractos-vehvtorcc");
+	vehvtorce = $("#tbextractos-vehvtorce");
+	vehvtobimestral = $("#tbextractos-vehvtobimestral");
 	
+	
+	filtro = $(this).val();
+		
+	if (filtro == "" )
+	{
+		vehvtoto.val("");
+		vehvtoto.attr("style","");
+		vehvtoextintor.val("");
+		vehvtoextintor.attr("style","");
+		vehvtocda.val("");
+		vehvtocda.attr("style","");
+		vehvtosoat.val("");
+		vehvtosoat.attr("style","");
+		vehvtorcc.val("");
+		vehvtorcc.attr("style","");
+		vehvtorce.val("");
+		vehvtorce.attr("style","");
+		vehvtobimestral.val("");
+		vehvtobimestral.attr("style","");
+	}
+	else
+	{
+	
+	$.get( 'index.php?r=tbextractos/doc-vehiculos&placa='+filtro,
+		function( data )
+		{
+			$("#claseVehiculo").val(data.clase);
+			
+			if( data.emprAfil.emprAfil != nombreEmpresa)
+			{
+				$("#tbextractos-convenioemp").val(data.emprAfil.emprAfil);
+				
+				
+				// alert( );
+				if (data.emprAfil.fechaVtoConvenio === null) 
+				{
+					$("#tbextractos-fechavtoconvenio").val("Sin datos");
+				}
+				else
+				{
+					 // $("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio.substr(0,10));
+				}
+			}
+			
+			
+			
+			
+			//validaciones de fecha 
+			arrayfechas =[];
+			arrayfechas[0] = vechasVencidas(data.fechaVtoTO.fecha,vehvtoto);
+			arrayfechas[1] = vechasVencidas(data.fechaVtoExtintor.fecha,vehvtoextintor);
+			arrayfechas[2] = vechasVencidas(data.fechaVtoCDA.fecha,vehvtocda);
+			arrayfechas[3] = vechasVencidas(data.fechaVtoSOAT.fecha,vehvtosoat);
+			arrayfechas[4] = vechasVencidas(data.fechaVtoRCC.fecha,vehvtorcc);
+			arrayfechas[5] = vechasVencidas(data.fechaVtoRCE.fecha,vehvtorce);
+			arrayfechas[6] = vechasVencidas(data.fechaVtoRPbimest.fecha,vehvtobimestral);
+			
+			Swal.fire(
+			{
+			  title: ''+ data.estadoDocumentos,
+			  type: 'info',
+			  focusConfirm: false,
+			  confirmButtonText:
+				'aceptar'
+			  
+			}).then((result) => 
+			{
+				
+			  if (data.estadoDocumentos.indexOf("vencido") > 1) 
+			  {
+				location.reload();
+			  }
+			});
+	
+		},'json'
+			);
+	}
 });
 
 //valida si la fecha esta vencida y aplica el atributo 
@@ -350,11 +379,11 @@ function validarFechasConductor(obj)
 	else
 	{
 		
-		if (fechaActual() > vtoSegSocial )
-		{
-			mensaje += "Seguro Vencido <br>";
-			$("#conductor-"+id+"").val(0);
-		}
+		// if (fechaActual() > vtoSegSocial )
+		// {
+			// mensaje += "Seguro Vencido <br>";
+			// $("#conductor-"+id+"").val(0);
+		// }
 		
 		if ( fechaActual() > vigLicencia )
 		{
@@ -557,7 +586,7 @@ $("#tbextractos-destinosvarios").change(function()
 	$("#w2_chosen").toggle();
 	$("#w2_chosen").siblings("label").toggle();
 	$(".field-tbextractos-ciudaddestino").toggle();
-	// $("#w2_chosen").parent().toggle();
+	$("#tbextractos-descripdestino").parent().toggle();
 	
 	//si no esta checked borrar los datos
 	if (!$(this).checked) 
@@ -583,4 +612,81 @@ $("#idVariosDestinos").change(function()
 });
 
 
+//validaciones fecha fin vs fecha vehiculos y fecha fin contrataro no puede ser mayor
+$('#tbextractos-fechafin').on('input change',function(e){
+    placa = $("#tbextractos-idvehiculo").val();
+    contrato = $("#tbextractos-nrocontrato").val();
+	
+	fechaExtracto  = $(this).val();
+	if(placa == null || contrato == null)
+	{
+		Swal.fire(
+		{
+		  title: 'Selecciones una "Placa - Lateral" y N° Contrato',
+		  type: 'info',
+		  focusConfirm: false,
+		  confirmButtonText:
+			'aceptar'
+		});
+		$(this).val("");
+	}
+	else
+	{
+		fechas = 
+		[
+			$("#tbextractos-vehvtoto").val(),
+			$("#tbextractos-vehvtoextintor").val(),
+			$("#tbextractos-vehvtocda").val(),
+			$("#tbextractos-vehvtosoat").val(),
+			$("#tbextractos-vehvtorcc").val(),
+			$("#tbextractos-vehvtorce").val(),
+			$("#tbextractos-vehvtobimestral").val(),
+			datoFechaFin,
+		];
+		
+		// alert(datoFechaFin);
+		// alert(datosContrato);
+		
+		
+	
+	// inicio = ;
+		
+		fechaini = new Date(fechaExtracto);
+		$.each( fechas, function( key, value ) 
+		{
+		
+			
+			fechafin = new Date(value);
+			diasdif= fechafin.getTime()-fechaini.getTime();
+			contdias = Math.round(diasdif/(1000*60*60*24));
+			
+			if (isNaN(contdias))
+			{
+				
+			}
+			else
+			{
+				if (contdias < 0 )
+				{
+					Swal.fire(
+					{
+					  title: 'Fecha incorrecta',
+					  text: 'Las fechas del vehiculo o fecha fin contrato no deben sobrepasar la fecha fin del extracto',
+					  type: 'info',
+					  focusConfirm: false,
+					  confirmButtonText:
+						'aceptar'
+					});
+					$(this).val("");
+				}
+			}
+				
+		});
+	}
+	
+	
+	
+	
+	
+});
 
