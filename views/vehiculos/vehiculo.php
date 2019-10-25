@@ -351,7 +351,7 @@ th {
 				{
 					if($dias[$i]==$menorValor){
 						// echo "<br>Minimo: Se encuentra en la posición ".$i;
-						echo '<span class="" style="color:  #a93226; font-size:large;">El proximo documento a vencer es: '.$proximaFecha['documento'][$i]. ' en la fecha '.$proximaFecha['fecha'][$i]. ' en '.$menorValor. ' dias</span>';
+						echo '<span class="" style="color:  #a93226; font-size:large;">El proximo documento a vencer es: '.$proximaFecha['documento'][$i]. ' en la fecha '.$proximaFecha['fecha'][$i]. ' en '.$menorValor. ' dias</span><br>';
 					}
 				}
 				 // echo "<pre>"; print_r($menorValor); echo "</pre>";
