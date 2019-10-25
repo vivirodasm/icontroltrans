@@ -252,7 +252,7 @@ $("#tbextractos-idvehiculo").change(function()
 				
 				
 				html +='<div class="row">';
-				html +='<div class="col-md-3"><label> Nombre conductor </label><select name="conductor[]" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
+				html +='<div class="col-md-3"><label> Nombre conductor </label><select style="width: 250px;" name="conductor[]" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
 				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
 				html +='</select></div>';
 				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia[]"  id="nroLicencia-' + key +'" readOnly ></div>';
@@ -272,10 +272,10 @@ $("#tbextractos-idvehiculo").change(function()
 				html ='<fieldset class="scheduler-border">';
 				html +='<legend class="scheduler-border">Conductores</legend>';
 				html +='<div class="row">';
-				html +='<div class="col-md-4"><select><option value="0"></option>';
+				html +='<div class="col-md-3"><label> Nombre conductor </label><select style="width: 250px;"><option value="0"></option>';
 				html +='<option value="">Sin datos</option>';
 				html +='</select></div>';
-				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "sin datos" readOnly ></div>';
+				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" readOnly ></div>';
 				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial" value = "" readOnly ></div>';
 				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia" value = "" readOnly  ></div>';
 				html +='</fieldset>';
