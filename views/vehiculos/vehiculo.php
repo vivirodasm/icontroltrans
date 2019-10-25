@@ -15,6 +15,11 @@ $this->params['breadcrumbs'][] = $this->title;
 <style>
 th,td {
   text-align: center;
+  
+}
+th {
+  text-align: center;
+  color:#337AB7;
 }
 </style>
 <div class="vehiculasBuscar-form">
@@ -85,7 +90,7 @@ th,td {
 					// $proximaFecha['fecha'][] = $valor['fecha']; 
 					// $proximaFecha['documento'][] = 'Convenio'; 
 					// return $valor['fecha']; 
-					$valor = substr($data->fechaVtoConvenio,0,10);
+					$valor = substr($data->fechaVtoConvenio,0,10)  ? substr($data->fechaVtoConvenio,0,10): "Sin datos" ;
 					return $valor;
 					
 				}
@@ -107,7 +112,7 @@ th,td {
 					// $proximaFecha['fecha'][] = $valor['fecha']; 
 					// $proximaFecha['documento'][] = 'Contrato afiliación'; 
 					// return $valor['fecha'];
-					$valor = substr($data->fechaVtoContAfil,0,10);
+					$valor = substr($data->fechaVtoContAfil,0,10)  ? substr($data->fechaVtoContAfil,0,10): "Sin datos" ;
 					return $valor;
 				}
 			],
