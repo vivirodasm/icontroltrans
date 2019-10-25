@@ -401,6 +401,7 @@ class Vehiculos extends \yii\db\ActiveRecord
      * @return la fecha con estilo si es menor a la actual
      */
 	public function validarFechas($fecha, $documento){
+		// $documento = utf8_encode($documento);
 		$valores = array('fecha' =>'', 'mensaje'=>'');
 		if ($fecha ){
 			$fecha=strtotime($fecha) + 24*3600 ;  //2020-10-08 00:00:00.000000 date('r', strtotime($fecha));
@@ -421,5 +422,13 @@ class Vehiculos extends \yii\db\ActiveRecord
 		
 		 // print_r($valores); 
         return $valores;
+    }
+	
+	function codificarEnUtf8($fila) {
+        $aux;
+        foreach ($fila as $value) {
+            $aux[] = utf8_encode($value);
+        }
+        return $aux;
     }
 }
