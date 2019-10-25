@@ -23,7 +23,7 @@ $( document ).ready(function()
 				  type: 'info',
 				  focusConfirm: false,
 				  confirmButtonText:
-					'aceptar'
+					'Aceptar'
 				});
 			return false;
 		}
@@ -152,7 +152,7 @@ $("#tbextractos-idvehiculo").change(function()
 			  type: 'info',
 			  focusConfirm: false,
 			  confirmButtonText:
-				'aceptar'
+				'Aceptar'
 			  
 			}).then((result) => 
 			{
@@ -202,7 +202,7 @@ $("#btnTercero,#btnConTercero ").click(function()
 			  type: 'info',
 			  focusConfirm: false,
 			  confirmButtonText:
-				'aceptar'
+				'Aceptar'
 			  
 			})
 	}
@@ -432,7 +432,7 @@ function validarFechasConductor(obj)
 		  type: 'info',
 		  focusConfirm: false,
 		  confirmButtonText:
-			'aceptar'
+			'Aceptar'
 		  
 		});
 	
@@ -626,7 +626,7 @@ $('#tbextractos-fechafin').on('input change',function(e){
 		  type: 'info',
 		  focusConfirm: false,
 		  confirmButtonText:
-			'aceptar'
+			'Aceptar'
 		});
 		$(this).val("");
 	}
@@ -675,7 +675,7 @@ $('#tbextractos-fechafin').on('input change',function(e){
 					  type: 'info',
 					  focusConfirm: false,
 					  confirmButtonText:
-						'aceptar'
+						'Aceptar'
 					});
 					$(this).val("");
 				}

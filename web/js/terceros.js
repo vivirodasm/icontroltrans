@@ -154,7 +154,7 @@ $("#terceros-idtercero").blur(function()
 						  type: 'info',
 						  focusConfirm: false,
 						  confirmButtonText:
-							'aceptar'
+							'Aceptar'
 						});
 					}
 						
