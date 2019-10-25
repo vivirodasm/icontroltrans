@@ -144,7 +144,7 @@ th {
 				'label'=> 'TARJETA OPER',
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
-					$valor = $data->validarFechas($data->fechaVtoTO, utf8_encode('Tarjeta operación'));
+					$valor = $data->validarFechas($data->fechaVtoTO, utf8_encode('Tarjeta operaciónssss'));
 					global $mensaje;
 					global $proximaFecha;
 					if ($valor['mensaje'] != ''){
