@@ -410,7 +410,7 @@ class Vehiculos extends \yii\db\ActiveRecord
 			if($fechaActual > $fecha){
 				$fecha=date('Y-m-d',($fecha));  
 				$valores['fecha']='<span class="" style="background-color:  #a93226;  color: white; border-radius: 5px;"> '.$fecha.'</span>';
-				$valores['mensaje']='<span class="" style="color:  #a93226; font-size:large;"> El vencimiento de: '.$documento.' es '.$fecha.'</span>';
+				$valores['mensaje']='<span class="" style="color:  #a93226; font-size:large;"> El vencimiento de: '.$documento.' fue '.$fecha.'</span>';
 			}
 			else{
 				$fecha=date('Y-m-d',($fecha));

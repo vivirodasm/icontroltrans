@@ -259,9 +259,17 @@ th {
 				'content'=>function($data){
 					
 					$placa = $data->placa;
-					echo $placa;
+					
 					$valor = $vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');	
-					return substr($valor,0,10);
+					$valor = $data->validarFechas(substr($valor,0,10), 'BIMESTRAL');
+					global $mensaje;
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'RCE'; 
+					return $valor['fecha'];
 				}
 			],
             //'carct_TV',
