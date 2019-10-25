@@ -78,37 +78,52 @@ $this->registerJs( "
 					
 					fuecAnt = $('#tbextractos-antfuec').val();
 					 $.get( 'index.php?r=tbextractos/fuec-anterior&fuecAnt='+fuecAnt,
-					function( data )
-					{
-						//contratante
-						select = $('#tbextractos-idtercero');	//id del select
-						select.html('');
-						select.html('<option value='+data['idtercero']+'>'+data['nombrecompleto']+'</option>');	
-						select.val(data['idtercero']);
-						select.trigger('chosen:updated');
-						$('#docTercero').val(data['idtercero']);	
-						
-						//responsable
-						$('#tbextractos-resp_contrato').val(data['resp_Contrato']);	
-						$('#tbextractos-cedresp_contrato').val(data['cedResp_Contrato']);	
-						$('#tbextractos-dirresp_contrato').val(data['dirResp_Contrato']);	
-						$('#tbextractos-telresp_contrato').val(data['telResp_Contrato']);
+						function( data )
+						{ 
+							if(data != ''){
+								//contratante
+								select = $('#tbextractos-idtercero');	//id del select
+								select.html('');
+								select.html('<option value='+data['idtercero']+'>'+data['nombrecompleto']+'</option>');	
+								select.val(data['idtercero']);
+								select.trigger('chosen:updated');
+								$('#docTercero').val(data['idtercero']);	
+								
+								//responsable
+								$('#tbextractos-resp_contrato').val(data['resp_Contrato']);	
+								$('#tbextractos-cedresp_contrato').val(data['cedResp_Contrato']);	
+								$('#tbextractos-dirresp_contrato').val(data['dirResp_Contrato']);	
+								$('#tbextractos-telresp_contrato').val(data['telResp_Contrato']);
 
-						//ciudad origen - ciudad destino
-						//ciudad origen contrato 
-						obj = $('#tbextractos-ciudadorigen');
-						poblaciones(data.idciudadOrigen,obj);
-						
-						//ciudad origen contrato 
-						obj = $('#tbextractos-ciudaddestino');
-						poblaciones(data.idciudadDestino,obj);
-						
-						//descripcion ruta
-						$('#tbextractos-descripruta').val(data['descripRuta']);
-						
-						
-					},'json'
-						);
+								//ciudad origen - ciudad destino
+								//ciudad origen contrato 
+								obj = $('#tbextractos-ciudadorigen');
+								poblaciones(data.idciudadOrigen,obj);
+								
+								//ciudad origen contrato 
+								obj = $('#tbextractos-ciudaddestino');
+								poblaciones(data.idciudadDestino,obj);
+								
+								//descripcion ruta
+								$('#tbextractos-descripruta').val(data['descripRuta']);
+							}
+							else{
+								Swal.fire(
+								{
+								  title: '',
+								  text:'No se encontro información con el FUEC ingresado',
+								  type: 'info',
+								  focusConfirm: false,
+								  confirmButtonText:
+									'Aceptar'
+								});
+							}
+								
+							
+							
+							
+						},'json'
+					);
 				}
 		});
 

@@ -681,18 +681,24 @@ class TbextractosController extends Controller
 		");
 		$result = $command->queryAll();
 		
-		//consulta ciudad origen  1765
-		$command = $connection->createCommand("SELECT `CentroPoblado` FROM `tbpoblaciones` WHERE `idCenPob`=".$result[0]['ciudadOrigen']);
-		$ciudadOrigen = $command->queryAll();
-		// $result[0]['ciudadOrigen']=$ciudadOrigen[0]['CentroPoblado'];
-		$result[0]['idciudadOrigen']=$result[0]['ciudadOrigen'];
+		if(!empty($result)){
+			//consulta ciudad origen  1765
+			$command = $connection->createCommand("SELECT `CentroPoblado` FROM `tbpoblaciones` WHERE `idCenPob`=".$result[0]['ciudadOrigen']);
+			$ciudadOrigen = $command->queryAll();
+			// $result[0]['ciudadOrigen']=$ciudadOrigen[0]['CentroPoblado'];
+			if(!empty($ciudadOrigen)){$result[0]['idciudadOrigen']=$result[0]['ciudadOrigen'];}
+			
+			//consulta ciudad destino  
+			$command = $connection->createCommand("SELECT `CentroPoblado` FROM `tbpoblaciones` WHERE `idCenPob`=".$result[0]['ciudadDestino']);
+			$ciudadDestino = $command->queryAll();
+			
+			// $result[0]['ciudadDestino']=$ciudadDestino[0]['CentroPoblado'];
+			if(!empty($ciudadDestino)){$result[0]['idciudadDestino']=$result[0]['ciudadDestino'];}
+		}
+		else{
+			$result[0]="";
+		}
 		
-		//consulta ciudad destino  
-		$command = $connection->createCommand("SELECT `CentroPoblado` FROM `tbpoblaciones` WHERE `idCenPob`=".$result[0]['ciudadDestino']);
-		$ciudadDestino = $command->queryAll();
-		
-		// $result[0]['ciudadDestino']=$ciudadDestino[0]['CentroPoblado'];
-		$result[0]['idciudadDestino']=$result[0]['ciudadDestino'];
 		return json_encode($result[0]); 
 
 		
