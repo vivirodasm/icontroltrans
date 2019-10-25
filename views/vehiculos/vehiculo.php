@@ -259,6 +259,7 @@ th {
 				'content'=>function($data){
 					
 					$placa = $data->placa;
+					echo $placa;
 					$valor = $vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');	
 					return substr($valor,0,10);
 				}
