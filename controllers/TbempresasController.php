@@ -203,7 +203,7 @@ class TbempresasController extends Controller
 		
 		$resultado = $conexion->createCommand($consulta)->queryAll();
 		
-		
+		print_r($resultado); die();
 		
 		// if (empty($resultado))
 		// {
@@ -235,7 +235,8 @@ class TbempresasController extends Controller
 	public function actionLogin()
 	{
 		$modelLogin = new Login();
-		return $this->renderPartial('../login/login', [
+		 return $this->renderPartial('../login/login', [
+		
              'model' => $modelLogin,
              'mensaje' => 0,
         ]);

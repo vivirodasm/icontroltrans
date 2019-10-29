@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Logueo';
+$this->title = 'Logueo ' .$_SESSION["nombre"];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">
@@ -27,7 +27,7 @@ $this->params['breadcrumbs'][] = $this->title;
 	
 		<div class="row">
 		  <div class="col-md-2"></div>
-		  <div class="col-md-8"> 
+		  <div class="col-md-10"> 
 				<?= $form->field($model, 'username')->textInput(['autofocus' => true, 'required' => true])->label('Usuario') ?>
 
 				<?= $form->field($model, 'password')->passwordInput(['required' => true])->label('Contraseña') ?>
