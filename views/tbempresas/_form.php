@@ -25,7 +25,7 @@ use yii\bootstrap\ActiveForm;
 	  <div class="col-md-2"></div>
 	  <div class="col-md-8"><?= $form->field($model, 'nit')->textInput() ?>
 		  <div class="form-group">
-			<?= Html::submitButton('Enviar', ['class' => 'btn btn-success']) ?>
+			<?= Html::submitButton('Conectar', ['class' => 'btn btn-success']) ?>
 		  </div></div>
 	  <div class="col-md-2"></div>
 	</div>
