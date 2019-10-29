@@ -80,7 +80,7 @@ th {
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>'; Array ( [fecha] => Sin datos [mensaje] => )
 					
-					// $valor = $data->validarFechas($data->fechaVtoConvenio, 'Convenio');
+					$valor = $data->validarFechas($data->fechaVtoConvenio, 'Convenio');
 					
                     // global $mensaje;
 					// global $proximaFecha;
@@ -89,9 +89,9 @@ th {
 					// }
 					// $proximaFecha['fecha'][] = $valor['fecha']; 
 					// $proximaFecha['documento'][] = 'Convenio'; 
-					// return $valor['fecha']; 
-					$valor = substr($data->fechaVtoConvenio,0,10)  ? substr($data->fechaVtoConvenio,0,10): "Sin datos" ;
-					return $valor;
+					return $valor['fecha']; 
+					// $valor = substr($data->fechaVtoConvenio,0,10)  ? substr($data->fechaVtoConvenio,0,10): "Sin datos" ;
+					// return $valor;
 					
 				}
 			],
@@ -103,7 +103,7 @@ th {
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					// return '<span class="glyphicon glyphicon-user">'.$data->fechaVtoConvenio.'</span>';
-					// $valor = $data->validarFechas($data->fechaVtoContAfil, 'Contrato afiliación');
+					$valor = $data->validarFechas($data->fechaVtoContAfil, 'Contrato afiliación');
 					// global $mensaje;
 					// global $proximaFecha;
 					// if ($valor['mensaje'] != ''){
@@ -111,9 +111,10 @@ th {
 					// }
 					// $proximaFecha['fecha'][] = $valor['fecha']; 
 					// $proximaFecha['documento'][] = 'Contrato afiliación'; 
-					// return $valor['fecha'];
-					$valor = substr($data->fechaVtoContAfil,0,10)  ? substr($data->fechaVtoContAfil,0,10): "Sin datos" ;
-					return $valor;
+					return $valor['fecha'];
+					
+					// $valor = substr($data->fechaVtoContAfil,0,10)  ? substr($data->fechaVtoContAfil,0,10): "Sin datos" ;
+					// return $valor;
 				}
 			],
             //'clase',
@@ -141,7 +142,7 @@ th {
             // 'fechaVtoTO',
 			[
 			    'attribute'=>'fechaVtoTO',
-				'label'=> 'TARJETA OPER',
+				'label'=> 'T OPERACIÓN',
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					$valor = $data->validarFechas($data->fechaVtoTO, utf8_encode('Tarjeta operación'));

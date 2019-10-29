@@ -143,7 +143,7 @@ class Terceros extends \yii\db\ActiveRecord
             'dir_contacto' => 'Dirección',
             'tel_contacto' => 'Teléfono',
             'mail_tercero' => 'E-Mail',
-            'autData' => 'Tercero autoriza la política de tratamiento de datos',
+            'autData' => 'El tercero autoriza la política de tratamiento de datos',
             'tipo_tercero' => 'Tipo',
             'obs_tercero' => 'Observaciones',
             'estado' => 'Estado',
