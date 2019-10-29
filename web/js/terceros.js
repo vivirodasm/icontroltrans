@@ -62,6 +62,11 @@ $( document ).ready(function()
 			default: break;
 		}
 	});
+	
+	
+	// $( "#w0" ).on( 'beforeSend', function( ){ //$("#mensaje").fadeIn(); 
+			// alert();
+	// });
 });
 
 
@@ -144,7 +149,7 @@ $("#terceros-idtercero").blur(function()
 		$.get( "index.php?r=terceros/tercero&idTercero="+idTercero,
 				function( data )
 				{
-					alert(data);
+					// alert(data);
 					if(data == "si")
 					{
 						

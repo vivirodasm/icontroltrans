@@ -93,6 +93,10 @@ class TercerosController extends Controller
     {
         $model = new Terceros();
 		
+		echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
+         <script src="https://malsup.github.io/jquery.blockUI.js"></script>';
+		
+		echo '<script>  $.blockUI({ message: \'<img src="../web/images/procesando1.GIF" height="60px" width="60px"/>\' });</script>';
         if ($model->load(Yii::$app->request->post()) && $model->save()) 
 		{
 			 // $model = new Callback();

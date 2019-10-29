@@ -14,12 +14,29 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/sucursales.js',['depends'
 
 if( $get = @$_GET['guardado'])
 {
+	echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
+         <script src="https://malsup.github.io/jquery.blockUI.js"></script>';
+		 
+		  // echo '<script> $.unblockUI(); </script>';
+		
+		
 	$this->registerJs( "
-	  swal.fire({
-			text: 'Registro guardado',
-			type: 'success',
-			confirmButtonText: 'Salir',
-		});
+	   
+	  // swal.fire({
+			// text: 'Registro guardado',
+			// type: 'success',
+			// confirmButtonText: 'Salir',
+		// });
+		
+		Swal.fire({title: 'Registro guardado', type: 'success', showCancelButton: false}).then(result => {
+  if (result.value) {
+    location.reload();
+    // result.value will contain `true` or the input value
+  } else {
+    // handle dismissals
+    // result.dismiss can be 'cancel', 'overlay', 'esc' or 'timer'
+  }
+})
 	
 		
 	");
