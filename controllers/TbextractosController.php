@@ -539,15 +539,14 @@ class TbextractosController extends Controller
 	public function actionConductores($placa)
 	{
 		
-
 		$connection = Yii::$app->get($_SESSION['db']);
 		$command = $connection->createCommand("
-			SELECT 
+		SELECT 
 			t.nombrecompleto,
 			h.idtercero,
 			h.licencia,
-			h.vigLicencia,
-			s.vtoSegSocial
+			MAX(h.vigLicencia) as vigLicencia,
+			MAX(s.vtoSegSocial) as vtoSegSocial
 		FROM 
 			tbdetaconductores AS c, 
 			tbhv AS h, 

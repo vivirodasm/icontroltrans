@@ -6,7 +6,21 @@ use nex\chosen\Chosen;
 /* @var $this yii\web\View */
 /* @var $model app\models\Terceros */
 /* @var $form yii\widgets\ActiveForm */
-?>
+
+$this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
+
+?>  
+
+<script>  
+
+// $("#aaa").val();
+
+	// 
+
+</script>
+
 
 <div class="terceros-form border border-primary rounded-lg">
 

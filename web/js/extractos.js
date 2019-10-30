@@ -243,26 +243,24 @@ $("#tbextractos-idvehiculo").change(function()
 				html ="";
 				html ='<fieldset class="scheduler-border">';
 				html +='<legend class="scheduler-border">Conductores</legend>';
+				html +='<div class="row" >';
+				html +='<div class="col-md-3"><label> Nombre conductor </label><select style="width: 250px;" name="conductor[]" id="conductor-1" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
+				
+			
 			$.each( data, function( key, value ) 
 			{
 				vtoSegSocial=value.vtoSegSocial.substr(0,10);
 				vigLicencia=value.vigLicencia.substr(0,10);
-				
-				
-				
-				
-				html +='<div class="row">';
-				html +='<div class="col-md-3"><label> Nombre conductor </label><select style="width: 250px;" name="conductor[]" id="conductor-' + key +'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
 				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
-				html +='</select></div>';
-				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia[]"  id="nroLicencia-' + key +'" readOnly ></div>';
-				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial[]" id ="vtoSegSocial-' + key +'" value = "" readOnly ></div>';
-				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia[]" id="vigLicencia-' + key +'" value = "" readOnly  ></div>';
-				html +='</div>';
-				
-				
 				
 			});	
+			
+				html +='</select></div>';
+				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia[]"  id="nroLicencia-1" readOnly ></div>';
+				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial[]" id ="vtoSegSocial-1" value = "" readOnly ></div>';
+				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia[]" id="vigLicencia-1" value = "" readOnly  ></div>';
+				html +='</div>';
+				
 
 				html +='</fieldset>';
 		}
@@ -355,9 +353,7 @@ function validarFechasConductor(obj)
 {
 	mensaje = "";
 	id = $(obj).attr("id").split("-")[1];
-	
-	
-
+	console.log(obj);
 	fechaFin = $("#tbextractos-fechafin").val();
 	if(fechaFin == "")
 	{
@@ -379,11 +375,15 @@ function validarFechasConductor(obj)
 	else
 	{
 		
-		// if (fechaActual() > vtoSegSocial )
-		// {
-			// mensaje += "Seguro Vencido <br>";
-			// $("#conductor-"+id+"").val(0);
-		// }
+		
+		if (fechaActual() > vtoSegSocial )
+		{
+			alert(fechaActual());
+			alert(vtoSegSocial);
+			
+			mensaje += "Seguro Vencido <br>";
+			$("#conductor-"+id+"").val(0);
+		}
 		
 		if ( fechaActual() > vigLicencia )
 		{
@@ -617,7 +617,9 @@ $('#tbextractos-fechafin').on('input change',function(e){
     placa = $("#tbextractos-idvehiculo").val();
     contrato = $("#tbextractos-nrocontrato").val();
 	
-	fechaExtracto  = $(this).val();
+	fechfin = $(this);
+	
+	fechaExtracto  = fechfin.val();
 	if(placa == null || contrato == null)
 	{
 		Swal.fire(
@@ -628,7 +630,7 @@ $('#tbextractos-fechafin').on('input change',function(e){
 		  confirmButtonText:
 			'Aceptar'
 		});
-		$(this).val("");
+		fechfin.val("");
 	}
 	else
 	{
@@ -644,12 +646,6 @@ $('#tbextractos-fechafin').on('input change',function(e){
 			datoFechaFin,
 		];
 		
-		// alert(datoFechaFin);
-		// alert(datosContrato);
-		
-		
-	
-	// inicio = ;
 		
 		fechaini = new Date(fechaExtracto);
 		$.each( fechas, function( key, value ) 
@@ -677,7 +673,7 @@ $('#tbextractos-fechafin').on('input change',function(e){
 					  confirmButtonText:
 						'Aceptar'
 					});
-					$(this).val("");
+					fechfin.val("");
 				}
 			}
 				

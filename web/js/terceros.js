@@ -1,5 +1,17 @@
 $( document ).ready(function() 
 {
+	$('#w0').on('beforeSubmit', function (e) 
+	{
+		$.blockUI({ message: '<img src="../web/images/procesando1.GIF" height="60px" width="60px"/>' });
+		return true;
+	});
+	// $( "#w0" ).submit(function( event ) {
+	 
+	// $.blockUI({ message: '<img src="../web/images/procesando1.GIF" height="60px" width="60px"/>' });
+	
+
+	// });
+	
 	
    $(".row:eq(2)").hide();
    $(".row:eq(3)").hide();
