@@ -1,4 +1,12 @@
 $(":text").keyup(function()
 {
-	$(this).val($(this).val().toUpperCase());
+	if($(this).attr("id")==  "login-username" )
+	{
+		
+	}
+	else
+	{
+		$(this).val($(this).val().toUpperCase());
+	}
+	
 });
