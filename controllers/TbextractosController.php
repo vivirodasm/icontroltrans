@@ -197,7 +197,7 @@ class TbextractosController extends Controller
 			
 			$pdf = new Pdfextractos();
 			$contrato = $pdf->generarPdf($datos);
-			echo "<script>window.open('$contrato') </script>";
+			
 			
 			// $infoEmpresa = Tbempresa::find()->andWhere(['like', 'NitEmpresa' ,'%'. $_SESSION['nit']. '%', false])->one();
 			$usuario = Tbusuarios::find()->AndWhere([ "IdUsuario" => key($_SESSION['usuario']) ])->one();
@@ -260,7 +260,8 @@ class TbextractosController extends Controller
 		//send email
 		$mail = @mail($to, $subject, $message, $headers, $returnpath); 
 
-			
+		echo "<script>window.open('$contrato') </script>";
+		die("<script> location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=tbextractos%2Fcreate') </script>");
 			
 			
             // return $this->redirect(['view', 'anioExtracto' => $model->anioExtracto, 'idExtracto' => $model->idExtracto, 'nroContrato' => $model->nroContrato, 'anioContrato' => $model->anioContrato]);

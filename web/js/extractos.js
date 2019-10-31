@@ -239,30 +239,43 @@ $("#tbextractos-idvehiculo").change(function()
 		stilo ="background-color:  #a93226;  color: white; border-radius: 5px;";
 		if (data.length > 0)
 		{
-				datos = data;
-				html ="";
-				html ='<fieldset class="scheduler-border">';
-				html +='<legend class="scheduler-border">Conductores</legend>';
-				html +='<div class="row" >';
-				html +='<div class="col-md-3"><label> Nombre conductor </label><select style="width: 250px;" name="conductor[]" id="conductor-1" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
-				
+			datos = data;
+			html ="";
+			html ='<fieldset class="scheduler-border">';
+			html +='<legend class="scheduler-border">Conductores</legend>';
 			
-			$.each( data, function( key, value ) 
+			
+			if (data.length > 6)
+				tamaño = 6;
+			else
+				tamaño = data.length;
+			
+			for (i = 0; i < tamaño; i++) 
 			{
-				vtoSegSocial=value.vtoSegSocial.substr(0,10);
-				vigLicencia=value.vigLicencia.substr(0,10);
-				html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
+			  
+				html +='<div class="row"  >';
+				html +='<div class="col-md-3"><label> Nombre conductor </label><select style="width: 250px;" name="conductor[]" id ="conductor-'+i+'" onchange="validarFechasConductor(this)" ><option value="0"> </option>';
 				
-			});	
-			
+				
+				$.each( data, function( key, value ) 
+				{
+					vtoSegSocial=value.vtoSegSocial.substr(0,10);
+					vigLicencia=value.vigLicencia.substr(0,10);
+					html += '<option value="'+ value.idtercero+ '">'+value.nombrecompleto+'</option>';
+					
+				});	
+				
 				html +='</select></div>';
-				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia[]"  id="nroLicencia-1" readOnly ></div>';
-				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial[]" id ="vtoSegSocial-1" value = "" readOnly ></div>';
-				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia[]" id="vigLicencia-1" value = "" readOnly  ></div>';
+				html +='<div class="col-md-2"><label> Nro licencia </label><input type="text"  value = "" name="nroLicencia[]" id="nroLicencia-'+i+'"   readOnly ></div>';
+				html +='<div class="col-md-2"><label> Vig Seg Social</label> <input type="text" name="vtoSegSocial[]" id="vtoSegSocial-'+i+'" readOnly ></div>';
+				html +='<div class="col-md-2"><label>Vig Licencia</label> <input type="text" name="vigLicencia[]" id="vigLicencia-'+i+'" readOnly  ></div>';
 				html +='</div>';
+				html +='<div id="infoCoductores"> </div>';
 				
-
-				html +='</fieldset>';
+			}
+			
+			html +='</fieldset>';
+		
 		}
 		else
 		{
@@ -353,95 +366,110 @@ function validarFechasConductor(obj)
 {
 	mensaje = "";
 	id = $(obj).attr("id").split("-")[1];
-	console.log(obj);
-	fechaFin = $("#tbextractos-fechafin").val();
-	if(fechaFin == "")
+	if (obj.value == 0 )
 	{
-			Swal.fire({
-	  title: 'Fecha fin',
-	  text: "No puede estar vacia ",
-	  type: 'warning',
-	  allowOutsideClick: false,
-	  allowEscapeKey: false,
-	  confirmButtonColor: '#3085d6',
-	  confirmButtonText: 'Aceptar',
-		}).then((result) => {
-		  if (result.value) 
-		  {
-			$("#conductor-"+id+"").val(0);
-		  }
-		})
+			$("#nroLicencia-"+id).val("");
+			$("#vtoSegSocial-"+id).val("");
+			$("#vigLicencia-"+id).val("");
 	}
 	else
 	{
 		
 		
-		if (fechaActual() > vtoSegSocial )
+		//se recorre el array para extraer los datos correspondientes
+		$.each( datos, function( key, value ) 
 		{
-			alert(fechaActual());
-			alert(vtoSegSocial);
+			if (value.idtercero == obj.value)
+			{
+				vtoSegSocial=value.vtoSegSocial.substr(0,10);
+				vigLicencia=value.vigLicencia.substr(0,10);
+			}
+		
 			
-			mensaje += "Seguro Vencido <br>";
-			$("#conductor-"+id+"").val(0);
+		});	
+					
+		fechaFin = $("#tbextractos-fechafin").val();
+		
+		if(fechaFin == "")
+		{
+				Swal.fire({
+		  title: 'Fecha fin',
+		  text: "No puede estar vacia",
+		  type: 'warning',
+		  allowOutsideClick: false,
+		  allowEscapeKey: false,
+		  confirmButtonColor: '#3085d6',
+		  confirmButtonText: 'Aceptar',
+			}).then((result) => {
+			  if (result.value) 
+			  {
+				$("#conductor-"+id+"").val(0);
+			  }
+			})
 		}
-		
-		if ( fechaActual() > vigLicencia )
+		else
 		{
-			mensaje += "Licencia Vencida<br>";
-			$("#conductor-"+id+"").val(0);
+			
+			
+			if (fechaActual() > vtoSegSocial )
+			{
+				mensaje += "Seguro Vencido <br>";
+				$("#conductor-"+id+"").val(0);
+			}
+			
+			if ( fechaActual() > vigLicencia )
+			{
+				mensaje += "Licencia Vencida<br>";
+				$("#conductor-"+id+"").val(0);
+			}
+			
+			
+			if ( fechaFin > vigLicencia )
+			{
+				mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
+				$("#conductor-"+id+"").val(0);
+			}
+			
+			if(mensaje =="")
+			// if(true)
+			{
+				
+				// vtoSegSocial =  datos[id]['vtoSegSocial'].substr(0,10);
+				// vigLicencia  =  datos[id]['vigLicencia'].substr(0,10);
+				if (fechaFin > vtoSegSocial )
+					mensaje += "La vigencia del seguro social sobrepasa la fecha fin <br>";
+				// mensaje ="";
+				//dias vencimiento seguro social
+				var fechaInicio = new Date( fechaActual() ).getTime();
+				var fechaFin    = new Date( vtoSegSocial ).getTime();
+				var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
+				mensaje += "La seguridad vence en "+diff+" días <br> ";
+				
+				//dias vencimiento licencia
+				var fechaInicio = new Date( fechaActual() ).getTime();
+				var fechaFin    = new Date( vigLicencia ).getTime();
+				var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
+				mensaje += "La licencia vence en "+diff+" días <br> ";
+				
+				
+				$("#nroLicencia-"+id).val(datos[id]['licencia']);
+				$("#vtoSegSocial-"+id).val(vtoSegSocial);
+				$("#vigLicencia-"+id).val(vigLicencia);
+				
+			}
+			
+			Swal.fire(
+			{
+			  title: ''+ mensaje,
+			  type: 'info',
+			  focusConfirm: false,
+			  confirmButtonText:
+				'Aceptar'
+			  
+			});
+		
 		}
-		
-		
-		if ( fechaFin > vigLicencia )
-		{
-			mensaje += "La vigencia de la licencia sobrepasa la fecha fin <br>"; 
-			$("#conductor-"+id+"").val(0);
-		}
-		
-		if(mensaje =="")
-		// if(true)
-		{
-			
-			vtoSegSocial =  datos[id]['vtoSegSocial'].substr(0,10);
-			vigLicencia  =  datos[id]['vigLicencia'].substr(0,10);
-			if (fechaFin > vtoSegSocial )
-				mensaje += "La vigencia del seguro social sobrepasa la fecha fin <br>";
-			// mensaje ="";
-			//dias vencimiento seguro social
-			var fechaInicio = new Date( fechaActual() ).getTime();
-			var fechaFin    = new Date( vtoSegSocial ).getTime();
-			var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
-			mensaje += "la seguridad vence en "+diff+" días <br> ";
-			
-			//dias vencimiento licencia
-			var fechaInicio = new Date( fechaActual() ).getTime();
-			var fechaFin    = new Date( vigLicencia ).getTime();
-			var diff = (fechaFin - fechaInicio)/(1000*60*60*24);
-			mensaje += "la seguridad vence en "+diff+" días <br> ";
-			
-			
-			$("#nroLicencia-"+id).val(datos[id]['licencia']);
-			$("#vtoSegSocial-"+id).val(vtoSegSocial);
-			$("#vigLicencia-"+id).val(vigLicencia);
-			
-		}
-		
-		Swal.fire(
-		{
-		  title: ''+ mensaje,
-		  type: 'info',
-		  focusConfirm: false,
-		  confirmButtonText:
-			'Aceptar'
-		  
-		});
-	
 	}
-	
-	
-
-
-	
 }
 
 //llenar las ciudadades de orien segun el departamento seleccionado
