@@ -91,7 +91,7 @@ class Tbextractos extends \yii\db\ActiveRecord
     {
         return [
             [['FUEC','idRuta', 'anioExtracto', 'idExtracto', 'idtercero', 'fechaExtracto', 'nroContrato', 'anioContrato', 'fechaInicio', 'fechaFin', 'ciudadOrigen', 'descripRuta', 'idvehiculo', 'vehVtoTO', 'vehVtoExtintor', 'vehVtoCDA', 'vehVtoSOAT', 'vehVtoRCC', 'vehVtoRCE', 'vehVtoBimestral', 'Aud_Usuario', 'Aud_Fecha','idtercero', 'ciudadOrigen','ciudadDestino'], 'required'],
-            [['anioExtracto', 'idExtracto', 'nroContrato', 'anioContrato', 'ciudadOrigen', 'ciudadDestino', 'destinosVarios', 'idDestino', 'idRuta', 'rboFUEC', 'validoPDF', 'membreteEmp', 'anuladoFUEC', 'facturado', 'GrupoFUEC', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
+            [['anioExtracto', 'idExtracto', 'anioContrato', 'ciudadOrigen', 'ciudadDestino', 'destinosVarios', 'idDestino', 'idRuta', 'rboFUEC', 'validoPDF', 'membreteEmp', 'anuladoFUEC', 'facturado', 'GrupoFUEC', 'Aud_Usuario', 'Aud_UsuarioEdit'], 'integer'],
             [['fechaExtracto', 'fechaVtoConvenio', 'fechaInicio', 'fechaFin', 'vehVtoTO', 'vehVtoExtintor', 'vehVtoCDA', 'vehVtoSOAT', 'vehVtoRCC', 'vehVtoRCE', 'vehVtoBimestral', 'Aud_Fecha', 'Aud_FechaEdit'], 'safe'],
             [['descripDestino', 'descripRuta'], 'string'],
             [['vlrServicio', 'vlrFUEC', 'vlrCONTBFUEC', 'vlrRecibido'], 'number'],
