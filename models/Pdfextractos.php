@@ -83,25 +83,25 @@ class Pdfextractos extends FPDF
 		$pdf->Cell(15,3,utf8_decode("ORIGEN"),"TL",0,"L");
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->Cell(80,3,utf8_decode("$departamentoOrigen"),0,0,"L");
+		$pdf->Cell(80,3,utf8_decode("$ciudadOrigen "),0,0,"L");
 		
 		
 		
 		$pdf->SetFont("Arial","B",6);
 		$pdf->Cell(15,3,utf8_decode("DESTINO"),0,0,"L");
 		$pdf->SetFont("Arial","",6);
-		$pdf->Cell(80,3,utf8_decode("$departamentoDestino"),"R",1,"L");
+		$pdf->Cell(80,3,utf8_decode("$ciudadDestino"),"R",1,"L");
 		
 
 		$pdf->Cell(15,5,utf8_decode(""),"L",0,"L");
-		$pdf->Cell(80,5,utf8_decode("$ciudadOrigen  "),0,0,"L");
+		$pdf->Cell(80,5,utf8_decode("$departamentoOrigen  "),0,0,"L");
 		$pdf->Cell(15,5,utf8_decode(""),0,0,"L");
-		$pdf->Cell(80,5,utf8_decode("$ciudadDestino "),"R",1,"L");
+		$pdf->Cell(80,5,utf8_decode("$departamentoDestino "),"R",1,"L");
 		
 		$pdf->Cell(190,5,utf8_decode(""),"LR",1,"L");
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->MultiCell(190,5,utf8_decode("RECORRIDO: ".str_pad(utf8_decode($recorrido),1000) ),1,"J", 0);
+		$pdf->MultiCell(190,5,utf8_decode("RECORRIDO: ".str_pad(utf8_decode($recorrido),759," ",STR_PAD_RIGHT) ),1,"J", 0);
 		
 		$pdf->SetFont("Arial","B",7);
 		$pdf->MultiCell(190,4,utf8_decode("TIPO DE CONTRATO : $tipoContrato
