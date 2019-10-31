@@ -2,6 +2,7 @@ $( document ).ready(function()
 {
 	$("label[for = 'tbcontratos-sucursalactiva']").parent().hide();
 
+ $( "#tbcontratos-cantveh" ).trigger( "change" );
 
 $(".btn.btn-success").click(function()
 {

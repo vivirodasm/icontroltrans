@@ -1,7 +1,7 @@
 <style type="text/css">
 #contenedor {
     display: table;
-    border: 2px solid #000;
+   
     width: 870px;
     text-align: center;
     margin: 0 auto;
@@ -11,7 +11,7 @@
 }
 #columna1, #columna2, #columna3, #columna4, #columna5, #columna6, #columna7 {
     display: table-cell;
-    border: 1px solid #000;
+   
     vertical-align: middle;
     padding: 10px;
 }

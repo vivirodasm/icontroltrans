@@ -83,7 +83,7 @@ $this->registerJs( "
 	<div class="row">
 	  <div class="col-md-2"><label>Identificación</label>
 	<?= Html::input('text', 'Identificacion', '',['class'=>'form-control','disabled'=>true,]) ?></div>
-	<div class="col-md-1"><label>Código</label>
+	<div class="col-md-1"><label>DV</label>
 	<?= Html::input('text', 'digitoVerificacion', '',['class'=>'form-control','disabled'=>true,]) ?></div>
 	  <div class="col-md-2"><label>Contratante</label>
 	<?= Html::input('text', 'Contratante', '',['class'=>'form-control','disabled'=>true,]) ?></div>
@@ -111,10 +111,12 @@ $this->registerJs( "
 	
 	
 	<div class="row">
-	  <div class="col-md-2"><?=$form->field($model, "tipoContrato")->widget(
+	  <div class="col-md-2"><?php
+					$model->tipoContrato= "OCASIONAL";
+					echo $form->field($model, "tipoContrato")->widget(
 						Chosen::className(), [
 							'items' => $tipoContrato,
-							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items tbcontratos_tipocontrato_chosen
 							'multiple' => false,
 							'clientOptions' => [
 								'search_contains' => false,
@@ -176,7 +178,7 @@ $this->registerJs( "
 						]);  
 					?></div>
 						<div class="col-md-2"><label>Días</label><?= Html::input('text','dias','', $options=["disabled"=>true,"id"=>"dias"]) ?></div>
-						<div class="col-md-2"><?= $form->field($model, 'cantVeh')->textInput(["type"=>"number","min"=>0,"max"=>10,"value"=>0]) ?></div>
+						<div class="col-md-2"><?= $form->field($model, 'cantVeh')->textInput(["type"=>"number","min"=>1,"max"=>10,"value"=>1]) ?></div>
 						<div class="col-md-2"><?= $form->field($model, 'nroPsj')->textInput(["type"=>"number"]) ?></div>
 						<div class="col-md-2"><?= $form->field($model, 'vlrContrato')->textInput(["type"=>"number"]) ?>	</div>
 						
