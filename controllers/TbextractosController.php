@@ -101,10 +101,12 @@ class TbextractosController extends Controller
         if ($model->load(Yii::$app->request->post()) ) 
 		{
 			
-			$añoActual = date("Y");
-			$nroContrato = str_pad(Yii::$app->request->post()['Tbextractos']['nroContrato'], 4, "0", STR_PAD_LEFT);
-			$idExtracto = Tbextractos::find()->select('max(idExtracto)')->andWhere(" anioContrato = $añoActual ")->scalar() +1; //
-			$idExtracto = str_pad($idExtracto , 4, "0", STR_PAD_LEFT);
+			$añoActual 		= date("Y");
+			$datosContrato 	= explode("-",Yii::$app->request->post()['Tbextractos']['nroContrato']);
+			$nroContrato 	= $datosContrato[0];
+			$anioContrato 	= $datosContrato[1];
+			$idExtracto 	= Tbextractos::find()->select('max(idExtracto)')->andWhere(" anioContrato = $anioContrato ")->scalar() +1; //
+			$idExtracto 	= str_pad($idExtracto , 4, "0", STR_PAD_LEFT);
 			
 			$model->anioExtracto = $añoActual;
 			$datosEmp= Tbempresa::find()->one();
@@ -112,10 +114,11 @@ class TbextractosController extends Controller
 			//Tbempresa codDirTerritorial y  nroResolucionEmp y  fechaHab y año actual(2019 solo 19) y #contrato y Tbextracto idExtracto
 			$FUEC = $datosEmp->codDirTerritorial . $datosEmp->nroResolucionEmp . substr($datosEmp->fechaHab,2,2) . $añoActual . $nroContrato. $idExtracto ;
 	
-			$model->FUEC = $FUEC ;		
-			$model->idExtracto = $idExtracto;
+			$model->FUEC 		= $FUEC;		
+			$model->idExtracto 	= $idExtracto;
 			$model->nroContrato = $nroContrato;
-			$model->anioContrato = substr($model->fechaInicio,0,4);
+			$model->anioContrato = $anioContrato ;
+			// $model->anioContrato = substr($model->fechaInicio,0,4);
 			
 			$model->Aud_Usuario = $_SESSION['usuario'];
 			$model->Aud_Fecha = date("Y-m-d");
@@ -125,25 +128,32 @@ class TbextractosController extends Controller
 			
 			
 			$post = Yii::$app->request->post();
+			// echo "<pre>"; print_r($post); echo "</pre>"; 
+			// die;
+
 			for ( $i = 0; $i <= count($post['conductor']) - 1; $i++ )
 			{
 				$conductor = $post['conductor'][$i];
-				$idhv = Tbhv::find()->AndWhere("idtercero = $conductor ")->one();
-				$idhv = $idhv->idhv;
-				$nombreConductor= Terceros::find()->AndWhere(["idtercero" => $conductor ])->one()->nombrecompleto;
-				$conductorExtracto =  new Tbextractoscond();
-				$conductorExtracto->FUEC = $FUEC;
-				$conductorExtracto->idhv = $idhv;
-				$conductorExtracto->licencia = $post['nroLicencia'][$i];
-				$conductorExtracto->vigLicencia = $post['vigLicencia'][$i]; 
-				$conductorExtracto->ultPagoSS = $post['vtoSegSocial'][$i];
+				if ($conductor != 0)
+				{
+					
+					$idhv = Tbhv::find()->AndWhere("idtercero = $conductor ")->one();
+					$idhv = $idhv->idhv;
+					$nombreConductor= Terceros::find()->AndWhere(["idtercero" => $conductor ])->one()->nombrecompleto;
+					$conductorExtracto =  new Tbextractoscond();
+					$conductorExtracto->FUEC = $FUEC;
+					$conductorExtracto->idhv = $idhv;
+					$conductorExtracto->licencia = $post['nroLicencia'][$i];
+					$conductorExtracto->vigLicencia = $post['vigLicencia'][$i]; 
+					$conductorExtracto->ultPagoSS = $post['vtoSegSocial'][$i];
+					$conductorExtracto->save();
+					$arraConductores[$i]["nombre"]= $nombreConductor;
+					$arraConductores[$i]["cc"]= $conductor;
+					$arraConductores[$i]['nroLicencia']=$post['nroLicencia'][$i];
+					$arraConductores[$i]['vigLicencia']=$post['vigLicencia'][$i]; 
+				}
 				
-				$arraConductores[$i]["nombre"]= $nombreConductor;
-				$arraConductores[$i]["cc"]= $conductor;
-				$arraConductores[$i]['nroLicencia']=$post['nroLicencia'][$i];
-				$arraConductores[$i]['vigLicencia']=$post['vigLicencia'][$i]; 
 				
-				// $conductorExtracto->save();
 			}
 
 			
@@ -152,7 +162,7 @@ class TbextractosController extends Controller
 			
 			$nombreContratante= Terceros::find()->AndWhere(["idtercero" => $post['Tbextractos']['idtercero'] ])->one()->nombrecompleto;
 			
-			$objetoContrato = Tbcontratos::find()->andWhere(["nroContrato" => $nroContrato ."-" .$añoActual])->one()->objetCont;
+			$objetoContrato = Tbcontratos::find()->andWhere(["nroContrato" => $nroContrato ."-" .$anioContrato])->one()->objetCont;
 			
 			 
 			$poblacionOrigen = Tbpoblaciones::find()->andWhere(["idCenPob" =>$post ['Tbextractos']['ciudadOrigen']  ])->one();
@@ -163,35 +173,35 @@ class TbextractosController extends Controller
 			
 			$datos = 
 			[
-				"FUEC"=>$FUEC,
-				"nombreEmpresa"=> $_SESSION['nombre'],
-				"nitEmpresa"=> $_SESSION['nit'],
-				"nroContrato" =>$nroContrato,
-				"rtn" =>$datosEmp->RNT ,
-				"nombreContratante" => $nombreContratante,
-				"nitContratante" => $post['Tbextractos']['idtercero'],
-				"objetoContrato" => $objetoContrato ,
-				"departamentoOrigen" => $poblacionOrigen->Departamento,
-				"ciudadOrigen" => $poblacionOrigen->CentroPoblado,
-				"departamentoDestino" => $poblacionDestino->Departamento,
-				"ciudadDestino" => $poblacionDestino->CentroPoblado,
-				"recorrido" => $post['Tbextractos']['descripRuta'],
-				"tipoContrato" => $post['Tbextractos']['tipoContrato'],
-				"convenioEmp" => $post['Tbextractos']['convenioEmp'],
-				"fechaInicio" => $post['Tbextractos']['fechaInicio'],
-				"fechaFin"	 => $post['Tbextractos']['fechaFin'],
-				"placa"	 =>	$post['Tbextractos']['idvehiculo'],
-				"interno" => $datosVehiculos->NroInterno,
-				"marca" =>$datosVehiculos->marca,
-				"clase" =>$datosVehiculos->clase,
-				"modelo" => $datosVehiculos->	modelo,
-				"nroTarjeta" =>$datosVehiculos->nroTarjOper,
-				"conductores" => $arraConductores,
+				"FUEC"					=>$FUEC,
+				"nombreEmpresa"			=> $_SESSION['nombre'],
+				"nitEmpresa"			=> $_SESSION['nit'],
+				"nroContrato" 			=>str_pad($nroContrato , 4, "0", STR_PAD_LEFT),
+				"rtn"					=>$datosEmp->RNT ,
+				"nombreContratante" 	=> $nombreContratante,
+				"nitContratante" 		=> $post['Tbextractos']['idtercero'],
+				"objetoContrato" 		=> $objetoContrato ,
+				"departamentoOrigen"	=> $poblacionOrigen->Departamento,
+				"ciudadOrigen" 			=> $poblacionOrigen->CentroPoblado,
+				"departamentoDestino"	=> $poblacionDestino->Departamento,
+				"ciudadDestino" 		=> $poblacionDestino->CentroPoblado,
+				"recorrido" 			=> $post['Tbextractos']['descripRuta'],
+				"tipoContrato" 			=> $post['Tbextractos']['tipoContrato'],
+				"convenioEmp" 			=> $post['Tbextractos']['convenioEmp'],
+				"fechaInicio" 			=> $post['Tbextractos']['fechaInicio'],
+				"fechaFin"	 			=> $post['Tbextractos']['fechaFin'],
+				"placa"	 				=>	$post['Tbextractos']['idvehiculo'],
+				"interno" 				=> $datosVehiculos->NroInterno,
+				"marca" 				=>$datosVehiculos->marca,
+				"clase" 				=>$datosVehiculos->clase,
+				"modelo" 				=> $datosVehiculos->	modelo,
+				"nroTarjeta" 			=>$datosVehiculos->nroTarjOper,
+				"conductores" 			=> $arraConductores,
 				"responsableContrato" 	=> $post['Tbextractos']['resp_Contrato'] ,
-				"cedula"  => $post['Tbextractos']['cedResp_Contrato'] ,
-				"direccion" 	=> $post['Tbextractos']['dirResp_Contrato'] ,
-				"telefono" 	=> $post['Tbextractos']['telResp_Contrato'],
-				"direccionEmpresa" => $datosEmp->Dirección ."\r\nTelefonos: ". $datosEmp->Telefono . " Móvil: ".$datosEmp->movil . "\r\n". $poblacionEmpresa->Departamento ." - ". $poblacionEmpresa->CentroPoblado . "           " . $datosEmp->email
+				"cedula"  				=> $post['Tbextractos']['cedResp_Contrato'] ,
+				"direccion" 			=> $post['Tbextractos']['dirResp_Contrato'] ,
+				"telefono" 				=> $post['Tbextractos']['telResp_Contrato'],
+				"direccionEmpresa" 		=> $datosEmp->Dirección ."\r\nTelefonos: ". $datosEmp->Telefono . " Móvil: ".$datosEmp->movil . "\r\n". $poblacionEmpresa->Departamento ." - ". $poblacionEmpresa->CentroPoblado . "           " . $datosEmp->email
 			];
 			
 			
@@ -205,64 +215,63 @@ class TbextractosController extends Controller
 			
 			// echo "<pre>"; print_r($usuario); echo "</pre>"; 
 			// die;
-		// recipient
-		$to = explode("#",$usuario->mail_Usuario)[0];
+			// recipient
+			$to = explode("#",$usuario->mail_Usuario)[0];
 
-		// sender
-		$from = 'icontroltrans@correo.com';
-		$fromName = 'icontroltrans';
+			// sender
+			$from = 'icontroltrans@correo.com';
+			$fromName = 'icontroltrans';
 
-		// email subject
-		$subject = $contrato; 
+			// email subject
+			$subject = $contrato; 
 
-		// attachment file path
-		// $file = "codexworld.pdf";
-		$file = $contrato;
+			// attachment file path
+			// $file = "codexworld.pdf";
+			$file = $contrato;
 
-		//email body content
-		// $htmlContent = '<h1>PHP Email with Attachment by CodexWorld</h1> <p>This email has sent from PHP script with attachment.</p>';
-		$htmlContent = '';
+			//email body content
+			// $htmlContent = '<h1>PHP Email with Attachment by CodexWorld</h1> <p>This email has sent from PHP script with attachment.</p>';
+			$htmlContent = '';
 
-		//header for sender info
-		$headers = "From: $fromName"." <".$from.">";
+			//header for sender info
+			$headers = "From: $fromName"." <".$from.">";
 
-		//boundary 
-		$semi_rand = md5(time()); 
-		$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
+			//boundary 
+			$semi_rand = md5(time()); 
+			$mime_boundary = "==Multipart_Boundary_x{$semi_rand}x"; 
 
-		//headers for attachment 
-		$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
+			//headers for attachment 
+			$headers .= "\nMIME-Version: 1.0\n" . "Content-Type: multipart/mixed;\n" . " boundary=\"{$mime_boundary}\""; 
 
-		//multipart boundary 
-		$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
-		"Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n"; 
+			//multipart boundary 
+			$message = "--{$mime_boundary}\n" . "Content-Type: text/html; charset=\"UTF-8\"\n" .
+			"Content-Transfer-Encoding: 7bit\n\n" . $htmlContent . "\n\n"; 
 
-		//preparing attachment
-		if(!empty($file) > 0){
-			if(is_file($file)){
-				$message .= "--{$mime_boundary}\n";
-				$fp =    fopen($file,"rb");
-				$data =  fread($fp,filesize($file));
+			//preparing attachment
+			if(!empty($file) > 0){
+				if(is_file($file)){
+					$message .= "--{$mime_boundary}\n";
+					$fp =    fopen($file,"rb");
+					$data =  fread($fp,filesize($file));
 
-				@fclose($fp);
-				$data = chunk_split(base64_encode($data));
-				$message .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" . 
-				"Content-Description: ".basename($file)."\n" .
-				"Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" . 
-				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
-				
-				
+					@fclose($fp);
+					$data = chunk_split(base64_encode($data));
+					$message .= "Content-Type: application/octet-stream; name=\"".basename($file)."\"\n" . 
+					"Content-Description: ".basename($file)."\n" .
+					"Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" . 
+					"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
+					
+					
+				}
 			}
-		}
-		$message .= "--{$mime_boundary}--";
-		$returnpath = "-f" . $from;
+			$message .= "--{$mime_boundary}--";
+			$returnpath = "-f" . $from;
 
-		//send email
-		$mail = @mail($to, $subject, $message, $headers, $returnpath); 
+			//send email
+			$mail = @mail($to, $subject, $message, $headers, $returnpath); 
 
-		echo "<script>window.open('$contrato') </script>";
-		die("<script> location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=tbextractos%2Fcreate') </script>");
-			
+			echo "<script>window.open('$contrato') </script>";
+			die("<script> location.assign('http://localhost/icontroltrans/web/index.php?r=tbextractos%2Fcreate') </script>");
 			
             // return $this->redirect(['view', 'anioExtracto' => $model->anioExtracto, 'idExtracto' => $model->idExtracto, 'nroContrato' => $model->nroContrato, 'anioContrato' => $model->anioContrato]);
         }	
@@ -302,11 +311,11 @@ class TbextractosController extends Controller
 	}
 	
 	
-	public function actionContratos($nroContrato)
+	public function actionContratos($idtercero)
 	{
 		
-		$contratos = Tbcontratos::find()->andWhere("estado ='ACTIVO' and idtercero = '$nroContrato' "  )->all();
-		$contratos = ArrayHelper::map( $contratos, 'idContrato','nroContrato' );
+		$contratos = Tbcontratos::find()->andWhere("estado ='ACTIVO' and idtercero = '$idtercero' "  )->all();
+		$contratos = ArrayHelper::map( $contratos, 'nroContrato','nroContrato' );
 		
 		return json_encode( $contratos );
 		
@@ -352,9 +361,9 @@ class TbextractosController extends Controller
 	
 	public function actionInfoContrato($nroContrato)
 	{
-		
+		$datosContrato = explode("-",$nroContrato);
 		$anio = date("Y");
-		$contratos = Tbcontratos::find()->andWhere(" nroContrato =" .str_pad($nroContrato, 4, "0", STR_PAD_LEFT) ." and anioContrato = $anio")->all();
+		$contratos = Tbcontratos::find()->andWhere(" nroContrato =" . $datosContrato[0] ." and anioContrato =" . $datosContrato[1] ."  ")->all();
 		$contratos = ArrayHelper::toArray( $contratos );
 		
 		$contabilidadFuec = Tbempresa::find()->andWhere([ "Nombre" =>$_SESSION['nombre'] ])->all();
