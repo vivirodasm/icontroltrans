@@ -323,7 +323,7 @@ $(" #tbextractos-idtercero ").change(function()
 	$(" #docTercero").val($(this).val());
 	filtro = $(this).val();
 	info ='';
-	$.get( 'index.php?r=tbextractos/contratos&nroContrato='+filtro,
+	$.get( 'index.php?r=tbextractos/contratos&idtercero='+filtro,
 					function( data )
 					{
 						$.each(data, function( index, datos) 
