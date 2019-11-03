@@ -43,41 +43,41 @@ class Pdfextractos extends FPDF
 		$pdf->SetFont("Arial","B",15);
 		$pdf->Cell(190,5,utf8_decode("FUEC No. $FUEC"),"LR", 1,"C");
 		
-		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(20,5,utf8_decode("RAZÓN SOCIAL"),"LT",0,"L");
-		$pdf->SetFont("Arial","",7);
-		$pdf->Cell(145,5,utf8_decode("$nombreEmpresa "),"T",0,"L");
+		$pdf->SetFont("Arial","B",8);
+		$pdf->Cell(22,5,utf8_decode("RAZÓN SOCIAL"),"LT",0,"L");
+		$pdf->SetFont("Arial","",8);
+		$pdf->Cell(141,5,utf8_decode("$nombreEmpresa "),"T",0,"L");
 		
-		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(9,5,utf8_decode("CC/NIT"),"T",0,"L");
-		$pdf->SetFont("Arial","",7);
-		$pdf->Cell(16,5,utf8_decode("$nitEmpresa "),"TR",1,"L");
+		$pdf->SetFont("Arial","B",8);
+		$pdf->Cell(10,5,utf8_decode("CC/NIT"),"T",0,"L");
+		$pdf->SetFont("Arial","",8);
+		$pdf->Cell(17,5,utf8_decode("$nitEmpresa "),"TR",1,"L");
 		
-		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(20,5,utf8_decode("CONTRATO No."),"LT",0,"L");
+		$pdf->SetFont("Arial","B",8);
+		$pdf->Cell(22,5,utf8_decode("CONTRATO No."),"LT",0,"L");
 		
-		$pdf->SetFont("Arial","",7);
-		$pdf->Cell(145,5,utf8_decode("$nroContrato"),"T",0,"L");
+		$pdf->SetFont("Arial","",8);
+		$pdf->Cell(141,5,utf8_decode("$nroContrato"),"T",0,"L");
 		
-		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(9,5,utf8_decode("R.T.N."),"T",0,"L");
-		$pdf->SetFont("Arial","",7);
-		$pdf->Cell(16,5,utf8_decode("$rtn"),"TR",1,"L");
+		$pdf->SetFont("Arial","B",8);
+		$pdf->Cell(10,5,utf8_decode("R.T.N."),"T",0,"L");
+		$pdf->SetFont("Arial","",8);
+		$pdf->Cell(17,5,utf8_decode("$rtn"),"TR",1,"L");
 		
-		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(20,10,utf8_decode("CONTRATANTE"),"TL",0,"C");
+		$pdf->SetFont("Arial","B",8);
+		$pdf->Cell(23,10,utf8_decode(" CONTRATANTE"),"TL",0,"C");
 		
-		$pdf->SetFont("Arial","",7);
-		$pdf->Cell(145,10,utf8_decode("$nombreContratante "),"T",0,"L");
+		$pdf->SetFont("Arial","",8);
+		$pdf->Cell(140,10,utf8_decode("$nombreContratante "),"T",0,"L");
 		
-		$pdf->SetFont("Arial","B",7);
-		$pdf->Cell(9,10,utf8_decode("CC/NIT "),"T",0,"L");
-		$pdf->SetFont("Arial","",7);
-		$pdf->Cell(16,10,utf8_decode("$nitContratante"),"TR",1,"L");
+		$pdf->SetFont("Arial","B",8);
+		$pdf->Cell(10,10,utf8_decode("CC/NIT "),"T",0,"L");
+		$pdf->SetFont("Arial","",8);
+		$pdf->Cell(17,10,utf8_decode("$nitContratante"),"TR",1,"L");
 		
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->MultiCell(190,5,utf8_decode("OBJETO DEL CONTRATO:". str_pad(utf8_decode($objetoContrato),1000) ),1,"J", 0);
+		$pdf->MultiCell(190,5,utf8_decode("OBJETO DEL CONTRATO:". str_pad($objetoContrato,1000) ),1,"J", 0);
 
 		$pdf->SetFont("Arial","B",6);
 		$pdf->Cell(15,3,utf8_decode("ORIGEN"),"TL",0,"L");
@@ -196,22 +196,23 @@ CONVENIO EMPRESARIAL: $convenioEmp"),1,"J", 0);
 		$pdf->Cell(40,5,utf8_decode("TELEFONO"),1,1,"C");
 		
 		
-		$pdf->SetFont("Arial","",6);
+		$pdf->SetFont("Arial","",8);
 		$pdf->Cell(55,5,utf8_decode("$responsableContrato"),1,0,"C");
 		$pdf->Cell(40,5,utf8_decode("$cedula"),1,0,"C");
 		$pdf->Cell(55,5,utf8_decode("$direccion"),1,0,"C");
 		$pdf->Cell(40,5,utf8_decode("$telefono"),1,1,"C");
 		
-		$pdf->SetFont("Arial","",7);
-		$pdf->MultiCell(120,3,utf8_decode("$direccionEmpresa"),"LR","J", 0);
+		$pdf->SetFont("Arial","",9);
+		$pdf->MultiCell(120,3,utf8_decode("
+$direccionEmpresa "),"LR","J", 0);
 		
 		$pdf->SetFont("Arial","",20);
 		$pdf->Cell(120,25,utf8_decode($FUEC),"LBR",1,"L");
  
-		$pdf->SetXY($pdf->GetX() + 120,$pdf->GetY() - 34 );
+		$pdf->SetXY($pdf->GetX() + 120,$pdf->GetY() - 37 );
  
 		$pdf->SetFont("Arial","",5);
-		$pdf->MultiCell(70,4.25,utf8_decode("
+		$pdf->MultiCell(70,4.628,utf8_decode("
 		
 		
 		
@@ -225,16 +226,18 @@ CONVENIO EMPRESARIAL: $convenioEmp"),1,"J", 0);
 		
 		
 		
-		
+		//imagen vigilado super transporte
 		$pdf->Image("plantillas/extracto/supertransporte2.jpg",$pdf->GetX() + 29,$pdf->GetY() - 33,10,30);
-		$pdf->Image("plantillas/extracto/2.png",$pdf->GetX() + 43,$pdf->GetY() - 30,50,24);
+		
+		//firma		
+		$pdf->Image("images/extractos/$nitEmpresa/firma.png",$pdf->GetX() + 43,$pdf->GetY() - 30,50,24);
 
 		
 		// $pdf->Output("Contrato","D");
 
 		// $pdf->Output("ExtractoContrato$nroContrato.pdf",'I');
-		$pdf->Output("ExtractoContrato$nroContrato.pdf",'F');
-		return "ExtractoContrato$nroContrato.pdf";
+		$pdf->Output("$FUEC.pdf",'F');
+		return "$FUEC.pdf";
 		
 		
 	}  //function header

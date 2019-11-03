@@ -24,7 +24,7 @@ class Pdf extends FPDF
 		$pdf = new FPDF();
 		
 		$pdf->AddPage('P','Letter');
-		$pdf->Image('plantillas/contrato/1.png',0,0,210,300);
+		$pdf->Image("images/contratos/$nitContratista/marca_agua.png",0,0,210,300);
 		$pdf->SetFont('Arial','B',9.5);
 		
 		
@@ -280,7 +280,7 @@ NATURALEZA JURÍDICA: Las partes dejan expresa constancia, que la naturaleza jur
 				
 		$pdf->Ln(38);
 		//firmas
-		$pdf->Image('plantillas/contrato/2.png',140,$pdf->GetY() - 15 ,50,24);
+		$pdf->Image("images/contratos/$nitContratista/firma.png",140,$pdf->GetY() - 15 ,50,24);
 		
 		$pdf->SetFont('Arial','B',9.5);
 		$pdf->Cell(40,5,utf8_decode("_____________________"),0);
@@ -293,7 +293,7 @@ NATURALEZA JURÍDICA: Las partes dejan expresa constancia, que la naturaleza jur
 		$pdf->Cell(40,5,utf8_decode("EL CONTRATISTA"),0,2,'C');
 		
 		// 
-		// $pdf->Output("contrato$numContrato.pdf",'I');
+		$pdf->Output("contrato$numContrato.pdf",'I');
 		$pdf->Output("contrato$numContrato.pdf",'F');
 		return "contrato$numContrato.pdf";
 		
