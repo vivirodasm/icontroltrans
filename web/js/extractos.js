@@ -599,7 +599,24 @@ $("#tbextractos-fechainicio, #tbextractos-fechafin").change(function()
 	}
 	else
 	{
-		$("#diasExtractos").val(contdias);
+		if (contdias  < 0)
+		{
+			$("#tbextractos-fechafin").val("");
+			Swal.fire(
+			{
+			  title: 'La Fecha Fin mayor o igual Fecha Inicio',
+			  type: 'info',
+			  focusConfirm: false,
+			  confirmButtonText:
+				'Aceptar'
+			});
+			
+		}
+		else
+		{	
+			$("#diasExtractos").val(contdias);
+		}
+	
 	}
 	
 	
