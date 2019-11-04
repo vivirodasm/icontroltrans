@@ -146,6 +146,8 @@ $("#tbextractos-idvehiculo").change(function()
 			arrayfechas[5] = vechasVencidas(data.fechaVtoRCE.fecha,vehvtorce);
 			arrayfechas[6] = vechasVencidas(data.fechaVtoRPbimest.fecha,vehvtobimestral);
 			
+			$("#tbextractos-fechavtoconvenio").val(data.emprAfil.fechaVtoConvenio.substr(0,10));
+			
 			Swal.fire(
 			{
 			  title: ''+ data.estadoDocumentos,
@@ -679,16 +681,29 @@ $('#tbextractos-fechafin').on('input change',function(e){
 	}
 	else
 	{
-		fechas = 
-		[
+		var fechas = [
 			$("#tbextractos-vehvtoto").val(),
 			$("#tbextractos-vehvtoextintor").val(),
 			$("#tbextractos-vehvtocda").val(),
 			$("#tbextractos-vehvtosoat").val(),
 			$("#tbextractos-vehvtorcc").val(),
 			$("#tbextractos-vehvtorce").val(),
-			$("#tbextractos-vehvtobimestral").val(),
+			$("#tbextractos-vehvtobimestral").val() ,
 			datoFechaFin,
+			$("#tbextractos-fechavtoconvenio").val(),
+		];
+		
+		
+		nombres = [
+		"OPERACIÓN",
+		"EXTINTOR",
+		"CDA",
+		"SOAT",
+		"RCC",
+		"RCE",
+		"BIMESTRAL",
+		"FIN CONTRATO",
+		"CONVENIO",
 		];
 		
 		
@@ -696,7 +711,6 @@ $('#tbextractos-fechafin').on('input change',function(e){
 		$.each( fechas, function( key, value ) 
 		{
 		
-			
 			fechafin = new Date(value);
 			diasdif= fechafin.getTime()-fechaini.getTime();
 			contdias = Math.round(diasdif/(1000*60*60*24));
@@ -712,13 +726,14 @@ $('#tbextractos-fechafin').on('input change',function(e){
 					Swal.fire(
 					{
 					  title: 'Fecha incorrecta',
-					  text: 'Las fechas del vehiculo o fecha fin contrato no deben sobrepasar la fecha fin del extracto',
+					  text: 'La fecha ' + nombres[key] + ' no debe sobrepasar la fecha fin del extracto',
 					  type: 'info',
 					  focusConfirm: false,
 					  confirmButtonText:
 						'Aceptar'
 					});
 					fechfin.val("");
+					return false;
 				}
 			}
 				
