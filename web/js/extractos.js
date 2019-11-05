@@ -66,7 +66,7 @@ $("#tbextractos-nrocontrato").change(function()
 				$("#tbextractos-fechainicio").trigger("change");
 				//tipoContrato
 				$("#tbextractos-tipocontrato").val(data.tipoContrato);
-				
+				$("#tbextractos-tipocontrato").trigger("chosen:updated");
 				//valor contrato 
 				$("#tbextractos-vlrservicio").val(data.vlrContrato);
 				$("#tbextractos-vlrfuec").val(data.vlrContrato * data.contabilidadFuec);

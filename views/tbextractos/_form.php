@@ -274,7 +274,22 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
     ]); ?>
 	  </div>
 	  <div class="col-md-1"><label> Días</label> <br /><?= Html::input('text','','', $options=['id'=> 'diasExtractos', "disabled"=>"", "style" => "width: 40%;" ]) ?> </div>
-	  <div class="col-md-2"><?= $form->field($model, 'tipoContrato')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
+	  <div class="col-md-2">
+	  
+	  <?= $form->field($model, "tipoContrato")->widget(
+						Chosen::className(), [
+							'items' => $tipoContrato,
+							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'multiple' => false,
+							'clientOptions' => [
+								'search_contains' => true,
+								'single_backstroke_delete' => false,
+							],
+                            'placeholder' => 'Seleccione un tipo',
+							
+					])?>
+	  
+	  </div>
 	  <div class="col-md-2"><?= $form->field($model, 'destinosVarios')->checkbox() ?></div>
 	</div>
    

@@ -56,6 +56,15 @@ class TbextractosController extends Controller
         ];
     }
 
+
+	public $tipoContrato = 
+	[
+		"EMPRESARIAL" => "EMPRESARIAL -> CONTRATO PARA TRANSPORTE EMPRESARIAL",
+		"ESCOLAR" => "ESCOLAR -> CONTRATO PARA TRANSPORTE DE ESTUDIENTES",
+		"OCASIONAL" => "OCASIONAL -> CONTRATO PARA TRANSPORTE DE UN GRUPO ESPECIFICO DE USUARIOS",
+		"SALUD" => "SALUD CONTRATO -> PARA TRANSPORTE DE USUARIOS DEL SERVICIO DE SALUD ",
+		"TURISTICO" => "TURISTICO -> CONTRATO PARA TRANSPORTE DE TURISTAS",
+	];
     /**
      * Lists all Tbextractos models.
      * @return mixed
@@ -280,12 +289,15 @@ class TbextractosController extends Controller
 		$vehiculos = $this->vehiculos();
 		$departamentos = $this->departamentos();
 		$variosDestinos =  $this->variosDestinos();
+		
+		
         return $this->render('create', [
             'model' => $model,
 			'rutas' => $rutas,
 			'departamentos' => $departamentos, 
 			'vehiculos' => $vehiculos,
 			'variosDestinos' => $variosDestinos,
+			'tipoContrato' => $this->tipoContrato,
         ]);
     }
 	
