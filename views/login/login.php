@@ -7,7 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 
-$this->title = 'Logueo ' .$_SESSION["nombre"];
+$this->title = 'Empresa: ' .$_SESSION["nombre"];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="site-login">

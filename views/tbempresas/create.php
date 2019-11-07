@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <div class="tbempresas-form" id="tbempresas-form" style="display:'' ">
 	
-	<h2><?= Html::encode('Por favor ingrese el Nit') ?></h2>
+	<h2><?= Html::encode('Por favor ingrese el Nit de la Empresa') ?></h2>
 
     <?php $form = ActiveForm::begin([
         'id' => 'login-form',
