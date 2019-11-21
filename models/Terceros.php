@@ -121,8 +121,8 @@ class Terceros extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'idtercero' => 'Nit',
-            'dv_tercero' => 'Dv',
+            'idtercero' => 'CC/NIT',
+            'dv_tercero' => 'DV',
             'IdEmpresa' => 'Empresa',
             'idIdentidad' => 'Tipo de Identificación',
             'idSociedad' => 'Tipo de Sociedad',
@@ -139,7 +139,7 @@ class Terceros extends \yii\db\ActiveRecord
             'idCenPob' => 'Ciudad',
             'idpaises' => 'País',
             'contacto_tercero' => 'Contacto',
-            'ced_Contacto' => 'Cedula',
+            'ced_Contacto' => 'Cédula',
             'dir_contacto' => 'Dirección',
             'tel_contacto' => 'Teléfono',
             'mail_tercero' => 'E-Mail',

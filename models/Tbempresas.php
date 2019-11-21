@@ -48,7 +48,7 @@ class Tbempresas extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'nit' => 'Nit',
+            'nit' => 'NIT',
             'nombre' => 'Nombre',
             'dsn' => 'Dsn',
             'usuario' => 'Usuario',

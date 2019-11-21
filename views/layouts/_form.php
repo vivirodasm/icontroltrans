@@ -77,13 +77,11 @@ $this->registerJs( "
 	  <div class="col-md-2"><label>Nro Contrato</label>
 	<?= Html::input('text', 'numContrato', '',['class'=>'form-control','disabled'=>true,]) ?></div>
 	  <div class="col-md-1"><label>Año</label><?= Html::input('text', 'anioActual', '',['class'=>'form-control','disabled'=>true,]) ?></div>
-	  <div class="col-md-2">
-	  <!--<label>Contrato - Año</label>--> <?php // Html::input('text', 'concatenado', '',['class'=>'form-control','disabled'=>true,]) ?>
-	  </div>
+	  <div class="col-md-2"><label>Contrato - Año</label><?= Html::input('text', 'concatenado', '',['class'=>'form-control','disabled'=>true,]) ?></div>
 	</div>
 	
 	<div class="row">
-	  <div class="col-md-2"><label>NIT/CC</label>
+	  <div class="col-md-2"><label>Identificación</label>
 	<?= Html::input('text', 'Identificacion', '',['class'=>'form-control','disabled'=>true,]) ?></div>
 	<div class="col-md-1"><label>DV</label>
 	<?= Html::input('text', 'digitoVerificacion', '',['class'=>'form-control','disabled'=>true,]) ?></div>
@@ -96,14 +94,24 @@ $this->registerJs( "
 	
 	<div class="row">
 	  
-	  
+	  <div class="col-md-2"><?= $form->field($model, "sucursalActiva")->widget(
+						Chosen::className(), [
+							'items' => [],
+							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
+							'multiple' => false,
+							'clientOptions' => [
+								'search_contains' => true,
+								'single_backstroke_delete' => false,
+							],
+                            'placeholder' => 'Seleccione una sucursal',
+							
+					])?></div>
 	  <div class="col-md-2"></div>
 	</div>
 	
 	
 	<div class="row">
-	
-	  <div class="col-md-3"><?php
+	  <div class="col-md-2"><?php
 					$model->tipoContrato= "OCASIONAL";
 					echo $form->field($model, "tipoContrato")->widget(
 						Chosen::className(), [
@@ -133,19 +141,7 @@ $this->registerJs( "
 							],
                             'placeholder' => 'Seleccione el estado',
 					])?></div>
-	  <div class="col-md-3"><?= $form->field($model, 'aliasContrato')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, "sucursalActiva")->widget(
-						Chosen::className(), [
-							'items' => [],
-							'disableSearch' => 5, // Search input will be disabled while there are fewer than 5 items
-							'multiple' => false,
-							'clientOptions' => [
-								'search_contains' => true,
-								'single_backstroke_delete' => false,
-							],
-                            'placeholder' => 'Seleccione una sucursal',
-							
-					])?></div>
+	  <div class="col-md-2"><?= $form->field($model, 'aliasContrato')->textInput(['maxlength' => true]) ?></div>
 	</div>
     
 	
@@ -181,7 +177,7 @@ $this->registerJs( "
 							],
 						]);  
 					?></div>
-						<div class="col-md-2"><label>Días</label><?= Html::input('text','dias','', $options=["disabled"=>true,"id"=>"dias","class"=>"form-control"]) ?></div>
+						<div class="col-md-2"><label>Días</label><?= Html::input('text','dias','', $options=["disabled"=>true,"id"=>"dias"]) ?></div>
 						<div class="col-md-2"><?= $form->field($model, 'cantVeh')->textInput(["type"=>"number","min"=>1,"max"=>10,"value"=>1]) ?></div>
 						<div class="col-md-2"><?= $form->field($model, 'nroPsj')->textInput(["type"=>"number"]) ?></div>
 						<div class="col-md-2"><?= $form->field($model, 'vlrContrato')->textInput(["type"=>"number"]) ?>	</div>
@@ -241,7 +237,7 @@ $this->registerJs( "
 					],
 					'placeholder' => 'Seleccione la ciudad destino',
 			])?></div>
-			  <div class="col-md-4"><label>Valor en letras</label><?= Html::input('text', 'valorLetras', '',['class'=>'form-control','readonly'=>true,]) ?></div>
+			  <div class="col-md-3"><label>Valor en letras</label><?= Html::input('text', 'valorLetras', '',['class'=>'form-control','readonly'=>true,]) ?></div>
 			</div>
 				
 			<div class="row">
@@ -253,9 +249,9 @@ $this->registerJs( "
 			</div>	
 			
 			<div class="row">
-			  <div class="col-md-4"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true ]) ?></div>
+			  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true ]) ?></div>
 			  <div class="col-md-2"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
-			  <div class="col-md-4"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true ]) ?></div>
+			  <div class="col-md-2"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true ]) ?></div>
 			  <div class="col-md-2"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true ,"type"=>"number"]) ?></div>
 			</div>
 		

@@ -158,7 +158,7 @@ class Vehiculos extends \yii\db\ActiveRecord
         return [
             'placa' => 'PLACA',
             'NroInterno' => 'LATERAL',
-            'fechaAfil' => 'AFILIACÓN',
+            'fechaAfil' => 'AFILIACIÓN',
             'fechaDesafil' => 'Fecha Desafil',
             'estado' => 'Estado',
             'emprAfil' => 'Empr Afil',
@@ -188,7 +188,7 @@ class Vehiculos extends \yii\db\ActiveRecord
             'chasis' => 'Chasis',
             'nroTarjOper' => 'Nro Tarj Oper',
             'fechaExpTO' => 'Fecha Exp To',
-            'fechaVtoTO' => 'T OPERACIÓN',
+            'fechaVtoTO' => 'OPERACIÓN',
             'nombreCDA' => 'Nombre Cda',
             'nroCertCDA' => 'Nro Cert Cda',
             'fechaVtoExtintor' => 'EXTINTOR',

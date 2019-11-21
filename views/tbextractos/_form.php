@@ -152,24 +152,9 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	
 	<div class="row">
 	  <div class="col-md-2"> <?= $form->field($model, 'fechaExtracto')->textInput(["value"=>date("Y-m-d"),"readOnly"=>true]) ?></div>
-	  <div class="col-md-3"><label>Empresa</label><br>
-	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"" ]) ?></div>
-	 <div class="col-md-2"> </div>
-	</div>
-	
-	
-	<div class="row">
-	  
+	  <div class="col-md-4"><label>Empresa</label><br>
+	<?= Html::input('text','',$_SESSION['nombre'], $options=['id'=> 'nomEmpresa', "disabled"=>"", 'class' => 'form-control']) ?></div>
 	  <div class="col-md-3"><?= $form->field($model, 'antFUEC')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-2"><label>Clase vehículo</label>
-		<?= Html::input('text','','', $options=['id'=> 'claseVehiculo', "disabled"=>"" ]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'fechaVtoConvenio')->textInput(["readOnly"=>true]) ?></div>
-	  <div class="col-md-2"></div>
-	</div>
-	
-    
-	<div class="row">
 	  <div class="col-md-2"><?= $form->field($model, "idvehiculo")->widget(
 						Chosen::className(), [
 							'items' => $vehiculos,
@@ -182,7 +167,15 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
                             'placeholder' => 'Seleccione un vehiculo',
 							'noResultsText' => "No se encontraron resultados",
 					])?></div>
-	  <div class="col-md-10">
+	</div>
+	
+	
+	<div class="row">
+	  
+	 
+	  <div class="col-md-2"><label>Clase vehículo</label>
+		<?= Html::input('text','','', $options=['id'=> 'claseVehiculo', "disabled"=>"" , 'class' => 'form-control']) ?></div>
+		<div class="col-md-10">
 	  
 		<div id="contenedor">
 			<div id="contenidos">
@@ -197,6 +190,15 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 		</div>
 	  
 	  </div>
+	  
+	</div>
+	
+    
+	<div class="row">
+	  
+	  <div class="col-md-4"><?= $form->field($model, 'convenioEmp')->textInput(['maxlength' => true,"readOnly"=>true]) ?></div>
+	  <div class="col-md-2"><?= $form->field($model, 'fechaVtoConvenio')->textInput(["readOnly"=>true]) ?></div>
+	  <div class="col-md-2"></div>
 	 
 	</div>
 	
@@ -216,15 +218,15 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 					
 					
 	
-	  <div class="col-md-4">
+	  <div class="col-md-3">
 		<label>
-			  <br />
-			  
+			  <br />  
 		</label>
-		
 		<br />
-		<?= Html::input('text','','', $options=['id'=> 'docTercero', "disabled"=>"" ]) ?></div>
-	  <div class="col-md-2">	<?= $form->field($model, "nroContrato")->widget(
+		<?= Html::input('text','','', $options=['id'=> 'docTercero', "disabled"=>"",'class' => 'form-control']) ?>
+		</div>
+		
+	  <div class="col-md-3">	<?= $form->field($model, "nroContrato")->widget(
 						Chosen::className(), [
 							'items' => [0 => ''],
 							'disableSearch' => 0, 
@@ -236,15 +238,16 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
                             'placeholder' => 'Seleccione un contrato',
 							'noResultsText' => "Sin resultados",
 					])?></div>
+		<div class="col-md-2"><br />  <?= Html::button('<img src="images/tarea.png" width="20px" height="20px">', ['class' => '','id'=>"btnTercero",'title' => 'Datos igual al contratante']) ?>
+	  <?= Html::button('<img src="images/carnet-de-identidad.png" width="20px" height="20px">', ['class' => '','id'=>"btnConTercero",'title' => 'Datos igual al contacto contratante']) ?></div>
 	</div>
 	
 	<div class="row">
-	  <div class="col-md-3"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?></div>
+	  <div class="col-md-4"><?= $form->field($model, 'resp_Contrato')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'cedResp_Contrato')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-2"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?></div>
+	  <div class="col-md-4"><?= $form->field($model, 'dirResp_Contrato')->textInput(['maxlength' => true]) ?></div>
 	  <div class="col-md-2"><?= $form->field($model, 'telResp_Contrato')->textInput(['maxlength' => true]) ?></div>
-	  <div class="col-md-3"><?= Html::button('<img src="images/tarea.png" width="20px" height="20px">', ['class' => '','id'=>"btnTercero",'title' => 'Datos igual al contratante']) ?>
-	  <?= Html::button('<img src="images/carnet-de-identidad.png" width="20px" height="20px">', ['class' => '','id'=>"btnConTercero",'title' => 'Datos igual al contacto contratante']) ?></div>
+	  
 	</div>
 						
 
@@ -273,7 +276,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
         ],
     ]); ?>
 	  </div>
-	  <div class="col-md-1"><label> Días</label> <br /><?= Html::input('text','','', $options=['id'=> 'diasExtractos', "disabled"=>"", "style" => "width: 40%;" ]) ?> </div>
+	  <div class="col-md-1"><label> Días</label> <br /><?= Html::input('text','','', $options=['id'=> 'diasExtractos', "disabled"=>"", "style" => "width: 50%;" ,'class' => 'form-control']) ?> </div>
 	  <div class="col-md-2">
 	  
 	  <?= $form->field($model, "tipoContrato")->widget(
@@ -290,7 +293,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 					])?>
 	  
 	  </div>
-	  <div class="col-md-2"><?= $form->field($model, 'destinosVarios')->checkbox() ?></div>
+	  <div class="col-md-2"><br><?= $form->field($model, 'destinosVarios')->checkbox() ?></div>
 	</div>
    
 	
@@ -308,9 +311,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 			'placeholder' => 'Seleccione un Departamento',
 		]);?></div>
 	  <div class="col-md-2"> 
-	  
-	  
-	  
+	 
 	  <?= $form->field($model, "ciudadOrigen")->widget(
 						Chosen::className(), [
 							'items' => [0 => ''],
@@ -326,7 +327,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
 	  </div>
 	  <div class="col-md-2">
 	  <!-- select de varios destinos -->
-	  <div id ="variosDestinos" style="display:none"><label> Varios destinos </label> <?= Html::dropDownList('variosDestinos', null, $variosDestinos,['prompt'=> 'Seleccione..',"id"=> "idVariosDestinos"]) ?> </div>
+	  <div id ="variosDestinos" style="display:none"><label> Varios destinos </label> <?= Html::dropDownList('variosDestinos', null, $variosDestinos,['prompt'=> 'Seleccione..',"id"=> "idVariosDestinos" , 'class' => 'form-control']) ?> </div>
 	  
 	  <label> Departamento Destino</label>
 			<?= Chosen::widget([
@@ -354,7 +355,7 @@ var nombreEmpresa = "<?php echo $nombreEmpresa;?>";
                             'placeholder' => 'Seleccione una ciudad',
 					])?>
 		</div>
-		<div class="col-md-2"> <?= $form->field($model, "idRuta")->widget(
+		<div class="col-md-4"> <?= $form->field($model, "idRuta")->widget(
 						Chosen::className(), [
 							'items' => $rutas,
 							'disableSearch' => 0, // Search input will be disabled while there are fewer than 5 items
