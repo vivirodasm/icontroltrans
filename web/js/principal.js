@@ -1,4 +1,4 @@
-$(":text").keyup(function()
+$(":text, textarea").keyup(function()
 {
 	if($(this).attr("id")==  "login-username" )
 	{

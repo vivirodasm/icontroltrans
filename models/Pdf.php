@@ -293,7 +293,7 @@ NATURALEZA JURÍDICA: Las partes dejan expresa constancia, que la naturaleza jur
 		$pdf->Cell(40,5,utf8_decode("EL CONTRATISTA"),0,2,'C');
 		
 		// 
-		$pdf->Output("contrato$numContrato.pdf",'I');
+		// $pdf->Output("contrato$numContrato.pdf",'I');
 		$pdf->Output("contrato$numContrato.pdf",'F');
 		return "contrato$numContrato.pdf";
 		

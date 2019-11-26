@@ -142,7 +142,7 @@ th {
             // 'fechaVtoTO',
 			[
 			    'attribute'=>'fechaVtoTO',
-				'label'=> 'T OPERACIÓN',
+				'label'=> utf8_encode('OPERACIÓN'),
 				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
 				'content'=>function($data){
 					$valor = $data->validarFechas($data->fechaVtoTO, utf8_encode('Tarjeta operación'));
@@ -172,6 +172,26 @@ th {
 					}
 					$proximaFecha['fecha'][] = $valor['fecha']; 
 					$proximaFecha['documento'][] = 'Extintor'; 
+					return $valor['fecha'];
+				}
+			],
+			[
+			    'attribute'=>'BIMESTRAL',
+				'label'=>'BIMESTRAL',
+				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
+				'content'=>function($data){
+					
+					$placa = $data->placa;
+					
+					$valor = $vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');	
+					$valor = $data->validarFechas(substr($valor,0,10), 'BIMESTRAL');
+					global $mensaje;
+					global $proximaFecha;
+					if ($valor['mensaje'] != ''){
+						$mensaje[] = $valor['mensaje']; 
+					}
+					$proximaFecha['fecha'][] = $valor['fecha']; 
+					$proximaFecha['documento'][] = 'RCE'; 
 					return $valor['fecha'];
 				}
 			],
@@ -253,26 +273,7 @@ th {
 					return $valor['fecha'];
 				}
 			],
-			[
-			    'attribute'=>'BIMESTRAL',
-				'label'=>'BIMESTRAL',
-				// 'contentOptions' =>['class' => 'bg-danger text-dark','style'=>'display:block;'],
-				'content'=>function($data){
-					
-					$placa = $data->placa;
-					
-					$valor = $vtoBimestral = Tbrpbimestral::find()->AndWhere("placa = '$placa'")->max('fechaVtoRPbimest');	
-					$valor = $data->validarFechas(substr($valor,0,10), 'BIMESTRAL');
-					global $mensaje;
-					global $proximaFecha;
-					if ($valor['mensaje'] != ''){
-						$mensaje[] = $valor['mensaje']; 
-					}
-					$proximaFecha['fecha'][] = $valor['fecha']; 
-					$proximaFecha['documento'][] = 'RCE'; 
-					return $valor['fecha'];
-				}
-			],
+			
             //'carct_TV',
             //'carct_sonido',
             //'carct_banio',

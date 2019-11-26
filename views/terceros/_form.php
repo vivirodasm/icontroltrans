@@ -35,7 +35,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 		 <?= $form->field($model, 'dv_tercero')->textInput(['maxlength' => true,'type' => 'number']) ?>
 		</div>
 		
-		<div class="col-md-3">
+		<div class="col-md-5">
 			<?= $form->field($model, 'IdEmpresa')->DropDownList($empresa) ?>
 		</div>
 		
@@ -74,13 +74,17 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 	</div>
 	
 	<div class="row">
-	  <div class="col-md-3">
+	  <div class="col-md-4">
 		<?= $form->field($model, 'nombrecompleto')->textInput(['maxlength' => true]) ?>
 	  </div>
-	  <div class="col-md-3">
+	  <div class="col-md-4">
 		<?= $form->field($model, 'nombreComercial')->textInput(['maxlength' => true]) ?>
 	  </div>
-	  <div class="col-md-2">
+	  
+	</div>
+	
+	<div class="row">
+	  <div class="col-md-4">
 		<?= $form->field($model, 'direccion_tercero')->textInput(['maxlength' => true]) ?>
 	  </div>
 	  <div class="col-md-2">
@@ -105,7 +109,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 					])?>
 	  </div>
 	  
-	    <div class="col-md-2"><label> Departamento</label>
+	    <div class="col-md-3"><label> Departamento</label>
 	  <?= Chosen::widget([
 			'name' => 'departamentos',
 			'items' => $departamentos,
@@ -118,7 +122,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 			'placeholder' => 'Seleccione un Departamento',
 		]);?>
 				</div>
-	  <div class="col-md-2">
+	  <div class="col-md-3">
 	  <?= $form->field($model, "idCenPob")->widget(
 					Chosen::className(), [
 						'items' => [],
@@ -128,26 +132,31 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 							'search_contains' => true,
 							'single_backstroke_delete' => false,
 						],
-						'placeholder' => 'Seleccione una ciudad',
+						'placeholder' => 'Seleccione una Ciudad',
 				])?>
 	  </div>
-	  <div class="col-md-3">
+	</div>
+    
+	<div class="row">
+	 <div class="col-md-4">
 		<?= $form->field($model, 'contacto_tercero')->textInput(['maxlength' => true]) ?>
 	 </div>
 	 <div class="col-md-2">
 		<?= $form->field($model, 'ced_Contacto')->textInput(['maxlength' => true,'type' => 'number']) ?>
 	 </div>
 	</div>
-    
-	  
+
 	<div class="row">
-	  <div class="col-md-2">
+	  <div class="col-md-6">
 		<?= $form->field($model, 'dir_contacto')->textInput(['maxlength' => true]) ?>
 	  </div>
 	  <div class="col-md-2">
 		<?= $form->field($model, 'tel_contacto')->textInput(['maxlength' => true,'type' => 'number']) ?>
 	  </div>
-	  <div class="col-md-2">
+	</div>
+	
+	<div class="row">
+	  <div class="col-md-4">
 		<?= $form->field($model, 'mail_tercero')->input('email',['maxlength' => true]) ?>
 	  </div>
 	  <div class="col-md-2">
@@ -157,15 +166,18 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 		<div class="col-md-2">
 			<?= $form->field($model, 'estado')->DropDownList($estado,['maxlength' => true]) ?>
 		</div>
-		
-		<div class="col-md-2">
-			<?= $form->field($model, 'autData')->checkbox( ["value" => 0]) ?>
+	</div>
+	
+    <div class="row">
+	  <div class="col-md-8"><?= $form->field($model, 'obs_tercero')->textarea(['rows' => '3']) ?></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8">
+				<?= $form->field($model, 'autData')->checkbox( ["value" => 0]) ?>
 		</div>
 	</div>
     
-
-    <?= $form->field($model, 'obs_tercero')->textarea(['rows' => '3']) ?>
-
     
 
     <?= $form->field($model, 'rutaRut')->hiddenInput(['maxlength' => true])->label(false) ?>
@@ -180,9 +192,14 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/jquery.blockUI.js',['depe
 
     <?= $form->field($model, 'Aud_FechaEdit')->hiddenInput()->label(false) ?>
 
-    <div class="form-group">
+    <div class="row">
+	  <div class="col-md-3"></div>
+	  <div class="col-md-4"><div class="form-group">
         <?= Html::submitButton('Guardar', ['class' => 'btn btn-success']) ?>
-    </div>
+    </div></div>
+	  <div class="col-md-2"></div>
+	</div>
+	
 
     <?php ActiveForm::end(); ?>
 

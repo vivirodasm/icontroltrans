@@ -336,8 +336,10 @@ class TbcontratosController extends Controller
 		
 		$contrato = $pdf->generarPdf($datos);
 		
+		
 		//pdf en una nueva ventana
-		echo "<script>window.open('$contrato') </script>";
+		
+		// header("Location: $contrato");
 		// recipient
 		$to = explode("#",$usuario->mail_Usuario)[0];
 		
@@ -386,8 +388,7 @@ class TbcontratosController extends Controller
 				"Content-Description: ".basename($file)."\n" .
 				"Content-Disposition: attachment;\n" . " filename=\"".basename($file)."\"; size=".filesize($file).";\n" . 
 				"Content-Transfer-Encoding: base64\n\n" . $data . "\n\n";
-				
-				unlink($file);
+
 			}
 		}
 		$message .= "--{$mime_boundary}--";
@@ -398,10 +399,11 @@ class TbcontratosController extends Controller
 
 		//email sending status
 		// echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";
+		  
+		//abrir en nueva venta
+		echo "<script>window.open('$contrato') </script>";
+		die("<script> location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=tbcontratos%2Fcreate') </script>");
 		
-		echo  "<script>window.open('$contrato') </script>";
-		die("<script> location.assign('http://localhost/icontroltrans/web/index.php?r=tbcontratos%2Fcreate') </script>");
-	
 		
 	}
 				

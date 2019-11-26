@@ -75,7 +75,7 @@ AppAsset::register($this);
 
 <footer class="footer">
     <div class="container">
-        <p class="pull-left">&copy; H & Software - Soluciones Tecnológicas <?= date('Y') ?></p>
+        <p class="pull-left">Software  i-CONTROL TRANS - &copy; <a href="http://hyssolucionestecnologicas.com/">H&S Soluciones Tecnológicas <?= date('Y') ?></a></p>
 
         <p class="pull-right"><?= Yii::powered() ?></p>
     </div>

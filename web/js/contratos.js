@@ -2,24 +2,24 @@ $( document ).ready(function()
 {
 	$("label[for = 'tbcontratos-sucursalactiva']").parent().hide();
 
- $( "#tbcontratos-cantveh" ).trigger( "change" );
+	$( "#tbcontratos-cantveh" ).trigger( "change" );
 
-$(".btn.btn-success").click(function()
-{
-	
-	cantVehiculos = $("#tbcontratos-cantveh").val();
-	
-	if (cantVehiculos > 0 )
+	$(".btn.btn-success").click(function()
 	{
 		
-		var i;
-		for (i = cantVehiculos*1+1; i<=10; i++)
+		cantVehiculos = $("#tbcontratos-cantveh").val();
+		
+		if (cantVehiculos > 0 )
 		{
-			$("#contratosVeh_"+i).remove();
+			
+			var i;
+			for (i = cantVehiculos*1+1; i<=10; i++)
+			{
+				$("#contratosVeh_"+i).remove();
+			}
 		}
-	}
-	
-	});
+		
+		});
 
 });
 
@@ -207,7 +207,7 @@ $("#tbcontratos-fechainicio, #tbcontratos-fechafin").change(function()
 	var fechaini = new Date(inicio);
 	var fechafin = new Date(fin);
 	var diasdif= fechafin.getTime()-fechaini.getTime();
-	var contdias = Math.round(diasdif/(1000*60*60*24));
+	var contdias = Math.round(diasdif/(1000*60*60*24)) + 1;
 	
 	if (isNaN(contdias))
 	{

@@ -101,7 +101,15 @@ class Pdfextractos extends FPDF
 		$pdf->Cell(190,5,utf8_decode(""),"LR",1,"L");
 		
 		$pdf->SetFont("Arial","",6);
-		$pdf->MultiCell(190,5,utf8_decode("RECORRIDO: ".str_pad(utf8_decode($recorrido),759," ",STR_PAD_RIGHT) ),1,"J", 0);
+		if (strlen($recorrido) < 180)
+		{
+			$pdf->MultiCell(190,5,utf8_decode("RECORRIDO: ".str_pad($recorrido,759," ",STR_PAD_RIGHT) ),1,"J", 0);
+		}
+		else
+		{
+			$pdf->MultiCell(190,5,utf8_decode("RECORRIDO: $recorrido "),1,"J", 0);
+		}
+		
 		
 		$pdf->SetFont("Arial","B",7);
 		$pdf->MultiCell(190,4,utf8_decode("TIPO DE CONTRATO : $tipoContrato

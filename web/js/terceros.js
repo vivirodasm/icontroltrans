@@ -2,15 +2,15 @@ $( document ).ready(function()
 {
 	$('#w0').on('beforeSubmit', function (e) 
 	{
-		$.blockUI({ message: '<img src="../web/images/procesando1.GIF" height="60px" width="60px"/>' });
+		$.blockUI({ message: '<img src="../web/images/procesando1.gif" height="60px" width="60px"/>' });
 		return true;
 	});
-	// $( "#w0" ).submit(function( event ) {
-	 
-	// $.blockUI({ message: '<img src="../web/images/procesando1.GIF" height="60px" width="60px"/>' });
 	
-
-	// });
+	$('#w2').on('beforeSubmit', function (e) 
+	{
+		$.blockUI({ message: '<img src="../web/images/procesando1.gif" height="60px" width="60px"/>' });
+		return true;
+	});
 	
 	
    $(".row:eq(2)").hide();
@@ -120,7 +120,17 @@ $("#terceros-nombre1_tercero, #terceros-nombre2_tercero ,#terceros-apellido1_ter
 	apellido1 = $("#terceros-apellido1_tercero").val();
 	apellido2 = $("#terceros-apellido2_tercero").val();
 	
-	$("#terceros-nombrecompleto").val(nombre1 +" "+nombre2+" "+apellido1 +" "+apellido2);
+	if (nombre2 == "")
+	{
+		nombre = nombre1 +" " +apellido1 +" "+apellido2;
+	}
+	else
+	{
+		nombre = nombre1 +" "+nombre2+" "+apellido1 +" "+apellido2;
+	}
+	
+	
+	$("#terceros-nombrecompleto").val(nombre.trim());
 });
 
 

@@ -128,16 +128,20 @@ class TbextractosController extends Controller
 			$model->nroContrato = $nroContrato;
 			$model->anioContrato = $anioContrato ;
 			// $model->anioContrato = substr($model->fechaInicio,0,4);
+				
 			
-			$model->Aud_Usuario = $_SESSION['usuario'];
+			$model->vlrFUEC 		= number_format(Yii::$app->request->post()['Tbextractos']['vlrServicio'] * $datosEmp->porcentajeFUEC /100 , 2); 
+			$model->vlrCONTBFUEC 	= number_format(Yii::$app->request->post()['Tbextractos']['vlrServicio'] * $datosEmp->contabilidadFUEC /100 , 2); 
+			
+			
+			
+			$model->Aud_Usuario =key( $_SESSION['usuario'] );
 			$model->Aud_Fecha = date("Y-m-d");
 			
-		
-			// $model->save(false);
-			
+			$model->save();
 			
 			$post = Yii::$app->request->post();
-			// echo "<pre>"; print_r($post); echo "</pre>"; 
+			
 			// die;
 
 			for ( $i = 0; $i <= count($post['conductor']) - 1; $i++ )
@@ -280,7 +284,7 @@ class TbextractosController extends Controller
 			$mail = @mail($to, $subject, $message, $headers, $returnpath); 
 
 			echo "<script>window.open('$contrato') </script>";
-			die("<script> location.assign('http://localhost/icontroltrans/web/index.php?r=tbextractos%2Fcreate') </script>");
+			die("<script> location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=tbextractos%2Fcreate') </script>");	
 			
             // return $this->redirect(['view', 'anioExtracto' => $model->anioExtracto, 'idExtracto' => $model->idExtracto, 'nroContrato' => $model->nroContrato, 'anioContrato' => $model->anioContrato]);
         }	
@@ -289,8 +293,6 @@ class TbextractosController extends Controller
 		$vehiculos = $this->vehiculos();
 		$departamentos = $this->departamentos();
 		$variosDestinos =  $this->variosDestinos();
-		
-		
         return $this->render('create', [
             'model' => $model,
 			'rutas' => $rutas,
@@ -327,9 +329,14 @@ class TbextractosController extends Controller
 	{
 		
 		$contratos = Tbcontratos::find()->andWhere("estado ='ACTIVO' and idtercero = '$idtercero' "  )->all();
-		$contratos = ArrayHelper::map( $contratos, 'nroContrato','nroContrato' );
+		$contratos = ArrayHelper::map( $contratos, 'nroContrato','aliasContrato' );
 		
-		return json_encode( $contratos );
+		$datosContrato=[];
+		foreach ($contratos as $key =>  $aliasContrato)
+		{
+			$datosContrato[ $key ] = $key . " " .  $aliasContrato;
+		}
+		return json_encode( $datosContrato );
 		
 	}
 	

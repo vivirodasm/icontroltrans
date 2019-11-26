@@ -2,11 +2,10 @@
 
 namespace app\controllers;
 
-// sesion
 
 if(@isset($_SESSION['db']))
 { 
-	// echo $_SESSION['nombre'];
+	
 } 
 //si no tiene sesion se redirecciona al login
 else
@@ -97,7 +96,7 @@ class TercerosController extends Controller
 		{
 			
 			 // $model = new Callback();
-			echo "<script>  window.location.assign('http://localhost/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
+			echo "<script>  window.location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
             // return $this->redirect(['index', 'id' => $model->idtercero]);
             // return $this->redirect(['view', 'id' => $model->idtercero]);
         }
@@ -158,7 +157,7 @@ class TercerosController extends Controller
 		
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
             // return $this->redirect(['view', 'id' => $model->idterceroSucursal]);
-			echo "<script>  window.location.assign('http://localhost/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
+			echo "<script>  window.location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=terceros/index&guardado=1')</script>";
         }
 		
 		$departamento = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();

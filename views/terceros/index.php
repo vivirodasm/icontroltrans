@@ -14,8 +14,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/js/sucursales.js',['depends'
 
 if( $get = @$_GET['guardado'])
 {
-	echo '<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>   
-         <script src="https://malsup.github.io/jquery.blockUI.js"></script>';
+	echo '<script src="https://malsup.github.io/jquery.blockUI.js"></script>';
 		 
 		  // echo '<script> $.unblockUI(); </script>';
 		

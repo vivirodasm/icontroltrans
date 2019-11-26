@@ -3,7 +3,7 @@
 use yii\helpers\Html;
 /* @var $this yii\web\View */
 
-$this->title = 'Icontroltrans';
+$this->title = 'i-CONTROL TRANS';
 
 if (isset($_SESSION["usuario"])) {
 	$this->registerJs( "

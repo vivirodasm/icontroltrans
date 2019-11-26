@@ -4,9 +4,9 @@ return [
 	
 	
    	'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=localhost;dbname=empresas',
-    'username' => 'root',
-    'password' => '',
+    'dsn' => 'mysql:host=localhost;dbname=hyssol_empresas',
+    'username' => 'hyssol_root',
+    'password' => 'icontroltrans',
     'charset' => 'utf8',
 		
 

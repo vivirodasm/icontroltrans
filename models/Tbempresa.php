@@ -80,7 +80,7 @@ class Tbempresa extends \yii\db\ActiveRecord
 	public static function getDb() 
 	{
 		
-		return Yii::$app->get($_SESSION['db']);
+			return Yii::$app->get($_SESSION['db']);
 		
 	}
 

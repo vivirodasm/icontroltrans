@@ -23,8 +23,12 @@
  * NOTE: this file must be saved in UTF-8 encoding.
  */
  
-//nombre de la persona logeada    
-$nombreUsuario =@$_SESSION['usuario'][ key($_SESSION['usuario']) ];
+//nombre de la persona logeada y empresa actual
+if(isset($_SESSION["usuario"]))
+	$nombreUsuario = @$_SESSION['usuario'][ key($_SESSION['usuario']) ] . " - " .@$_SESSION["nombre"] ;
+else
+	$nombreUsuario = " ";
+
 return [
     ' and ' => ' y ',
     'The combination {values} of {attributes} has already been taken.' => 'La combinación de {values} de {attributes} ya ha sido utilizada.',
