@@ -111,19 +111,18 @@ class TbcontratosController extends Controller
 		$departamento = Tbpoblaciones::find()->select("Departamento")->groupBy("Departamento")->all();
 		$departamento = ArrayHelper::map($departamento,"Departamento","Departamento");
 	
-		$añoActual = date("Y");
+		
        
         if ($model->load(Yii::$app->request->post())) 
 		{
+			$añoActual = date("Y");
 			//saber cual es numero de contrato que debe seguir
-			$idContrato = Tbdetacontratosveh::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1; 
-						
+			$idContrato = Tbcontratos::find()->select('max(idContrato)')->andWhere("	anioContrato = $añoActual ")->scalar() +1; 
 			$model->idContrato 		= $idContrato ;
 			$model->anioContrato	= $añoActual  ;
 			$model->nroContrato 	= $idContrato . "-" . $añoActual ;
 			$model->sucursalActiva 	= 0 ;
-			
-			//se guarda desspues de completar los campos requeridos
+			//se guarda despues de completar los campos requeridos
 			$model->save();
 			
 			//se guardan los vehiculos en la tabla intermedia
@@ -294,7 +293,6 @@ class TbcontratosController extends Controller
 			SELECT * FROM tbempresa where NitEmpresa like '%". $_SESSION['nit'] . "%'"
 			);
 		$infoEmpresa = $command->queryAll();
-		
 		$ciudadEmpresa = Tbpoblaciones::find()->AndWhere(["idCenPob" => $infoEmpresa[0]['Ciudad'] ])->one();
 		$ciudadEmpresa = $ciudadEmpresa->Municipio;
 	
@@ -395,14 +393,15 @@ class TbcontratosController extends Controller
 		$returnpath = "-f" . $from;
 
 		//send email
-		$mail = mail($to, $subject, $message, $headers, $returnpath); 
+		// $mail = mail($to, $subject, $message, $headers, $returnpath); 
 
 		//email sending status
 		// echo $mail?"<h1>Mail sent.</h1>":"<h1>Mail sending failed.</h1>";
 		  
 		//abrir en nueva venta
 		echo "<script>window.open('$contrato') </script>";
-		die("<script> location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=tbcontratos%2Fcreate') </script>");
+		die("<script> location.assign('http://localhost/icontroltrans/web/index.php?r=tbcontratos%2Fcreate') </script>");
+		// die("<script> location.assign('http://www.hyssolucionestecnologicas.com/icontroltrans/web/index.php?r=tbcontratos%2Fcreate') </script>");
 		
 		
 	}
